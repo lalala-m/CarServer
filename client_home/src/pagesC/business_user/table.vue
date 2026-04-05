@@ -1,0 +1,276 @@
+<template>
+  <view class="page_diy_table page_business_user_table" :style="{ paddingTop: vuex_custom_bar_height + 'px' }">
+    <tn-nav-bar backUrl="/pages/user/index">商家用户列表</tn-nav-bar>
+    <view class="page-list" id="page_diy_table">
+      <!-- 筛选模块(开始) -->
+      <view class="search-wrap">
+        <!-- 搜索栏 -->
+        <uni-forms :modelValue="query" labelWidth="70px">
+            <uni-forms-item label="商家姓名" name="business_name">
+                <uni-easyinput type="text" v-model="query.business_name" placeholder="商家姓名" />
+              </uni-forms-item>
+                <uni-forms-item label="手机号码" name="mobile_phone_number">
+                <uni-easyinput type="text" v-model="query.mobile_phone_number" placeholder="手机号码" />
+              </uni-forms-item>
+            </uni-forms>
+        <!-- /搜索栏 -->
+        <view class="search-btn-wrap">
+          <view class="me-btn btn-reset" @click="reset()"> 重置 </view>
+          <view class="me-btn btn-search" @click="search_()"> 查询 </view>
+        </view>
+		<view class="toolbar">
+				  <view width="100%" class="me-btn btn-add" @click="$navTo('/pagesC/business_user/view?')" v-if="$check_action('/business_user/table', 'add') || $check_action('/business_user/view', 'add')">添加</view>
+		        		</view>
+      </view>
+      <!-- 列表 -->
+      <view class="list-wrap-row">
+        <view v-for="(o, i) in list" :key="i" class="list-item">
+          <view class="item-row " v-if="1 && $check_field('get','business_name')">
+            <view class="label" v-if="true">
+              <span>商家姓名</span>
+            </view>
+              <view class="value">
+                              <span>{{ o['business_name'] }}</span>
+                          </view>
+            </view>
+          <view class="item-row " v-if="1 && $check_field('get','business_gender')">
+            <view class="label" v-if="true">
+              <span>商家性别</span>
+            </view>
+              <view class="value">
+                              <span>{{ o['business_gender'] }}</span>
+                          </view>
+            </view>
+          <view class="item-row " v-if="1 && $check_field('get','mobile_phone_number')">
+            <view class="label" v-if="true">
+              <span>手机号码</span>
+            </view>
+              <view class="value">
+                              <span>{{ o['mobile_phone_number'] }}</span>
+                          </view>
+            </view>
+          <view class="item-row " v-if="0 && $check_field('get','store_location')">
+            <view class="label" v-if="true">
+              <span>门店位置</span>
+            </view>
+              <view class="value">
+                              <span>{{ o['store_location'] }}</span>
+                          </view>
+            </view>
+          <view class="content">
+          </view>
+          <view class="operate-bar">
+            <view width="100%" class="me-btn btn-delete" @click="delInfo(i)"
+                  v-if="$check_action('/business_user/table', 'del') || $check_action('/business_user/view', 'del')">
+              删除
+            </view>
+            <view width="100%" class="me-btn btn-info" @click="$navTo('/pagesC/business_user/view?' + field + '=' + o[field])"
+                  v-if="$check_action('/business_user/table', 'set') || $check_action('/business_user/view', 'set') || $check_action('/business_user/view', 'get')">
+              详情
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- /列表 -->
+      <!-- 分页器 -->
+      <uni-pagination
+        class="pager"
+        show-icon="true"
+        :total="count"
+        :pageSize="query.size"
+        :current="query.page"
+        @change="page_change"
+      ></uni-pagination>
+      <!-- /分页器 -->
+    </view>
+                                                                                                                                  </view>
+</template>
+<script>
+import mixin from '@/libs/mixins/page.js';
+import dateRangePicker from '@/components/date-range-picker/date-range-picker.vue';
+import DateSelector from '@/components/dengrq-datetime-picker/dateSelector/index.vue';
+
+																							
+export default {
+  mixins: [mixin],
+  components: {
+    dateRangePicker,
+    DateSelector,
+  },
+  data() {
+    return {
+      // 获取数据地址
+      url_get_list: '~/api/business_user/get_list?like=1',
+      url_del: '~/api/business_user/del',
+
+      // 字段ID
+      field: 'business_user_id',
+      // 查询
+      query: {
+        size: 7,
+        page: 1,
+              business_name: "",
+                      mobile_phone_number: "",
+                login_time: '',
+        create_time: '',
+      },
+				      // 数据
+      list: [],
+                                            };
+  },
+  methods: {
+                				    search_() {
+      this.query.page = 1;
+      this.get_list();
+    },
+    /**
+     * 重置
+     */
+    reset: function reset() {
+                      uni.clear(this.query);
+      uni.push(this.query, this.config);
+      this.get_list();
+    },
+    delInfo(v) {
+      let _this = this;
+      uni.showModal({
+        title: '删除',
+        content: '此操作将永久删除该文件, 是否继续?',
+        success: function (res) {
+          if (res.confirm) {
+            let list = [v];
+            _this.delInfoSub(list);
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
+        },
+      });
+    },
+    async delInfoSub(list) {
+      let _this = this;
+      await this.delAll(list, async (list) => {
+        var bl = true;
+        for (var i = 0; i < list.length; i++) {
+          var user_id = _this.list[list[i]].user_id;
+          var res = await this.$get('~/api/user/del', { user_id });
+          if (res.result) {
+            console.log('删除成功' + i);
+          } else {
+            console.log('删除失败' + i);
+            bl = false;
+            break;
+          }
+        }
+        if (bl) {
+          _this.$toast('删除成功!', 'success');
+          this.get_list();
+        }
+      });
+    },
+    get_list_after(param){
+      let _this = this;
+      for (let i = 0;i<this.list.length;i++){
+        let user_id = _this.list[i].user_id
+        _this.$get("~/api/user/get_obj", {
+          user_id
+        }, (json) => {
+          if (json.result.obj){
+            _this.$delete(_this.list[i],'username');
+            _this.$set(_this.list[i],'username',json.result.obj.username);
+            _this.$delete(_this.list[i],'nickname');
+            _this.$set(_this.list[i],'nickname',json.result.obj.nickname);
+          }
+        });
+      }
+    },
+                                  },
+  created() {
+                  },
+};
+</script>
+
+<style lang="scss" scoped>
+  @import 'styles/pagesC/index.scss';
+  .num_range {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+  }
+  .date_select {
+    position: relative;
+    text-align: center;
+    padding: 8px 0;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    color: #6a6a6a;
+  }
+
+  .date_select_clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* 弹窗样式 */
+  .popup-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .date-selector-popup {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    border-radius: 16px 16px 0 0;
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .date-selector-popup.popup-show {
+    transform: translateY(0);
+  }
+
+  .popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-shrink: 0;
+  }
+
+  .popup-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .popup-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+  }
+
+  .popup-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+</style>

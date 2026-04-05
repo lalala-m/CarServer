@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.demo.dao.UserChatFriendMapper">
+
+    <select id="selectUserChatFriendByUserId" parameterType="Integer" resultType="com.project.demo.entity.UserChatFriend">
+        SELECT
+            t1.user_chat_friend_id,
+            t1.user_id,
+            t1.friend_user_id,
+            t1.friend_user_name,
+            t1.create_time,
+            t1.update_time,
+            t2.username,
+            t2.nickname,
+            t2.avatar
+        FROM
+            user_chat_friend t1
+                LEFT JOIN `user` t2 ON t1.friend_user_id = t2.user_id
+        WHERE
+            t1.user_id = #{userId}
+    </select>
+
+    <insert id="insertUserChatFriend" parameterType="com.project.demo.entity.UserChatFriend" useGeneratedKeys="true" keyProperty="userId">
+        insert into user_chat_friend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_chat_friend_id != null ">user_chat_friend_id,</if>
+            <if test="user_id != null ">user_id,</if>
+            <if test="friend_user_id != null ">friend_user_id,</if>
+            <if test="friend_user_name != null  and friend_user_name != ''">friend_user_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="user_chat_friend_id != null ">#{user_chat_friend_id},</if>
+            <if test="user_id != null ">#{user_id},</if>
+            <if test="friend_user_id != null ">#{friend_user_id},</if>
+            <if test="friend_user_name != null  and friend_user_name != ''">#{friend_user_name},</if>
+         </trim>
+    </insert>
+
+    <delete id="deleteUserChatFriend" parameterType="Integer">
+        delete from user_chat_friend where friend_user_id = #{userFriendId} and user_id = #{userId}
+    </delete>
+
+    <select id="selectAddFriendList" parameterType="Integer" resultType="com.project.demo.entity.User">
+        SELECT
+            *
+        FROM
+            `user`
+        WHERE
+                user_id NOT IN (
+                SELECT
+                    user_chat_friend_id
+                FROM
+                    user_chat_friend
+                WHERE
+                    user_id = #{userId})
+    </select>
+
+    <select id="selectUserChatFriend" parameterType="com.project.demo.entity.UserChatFriend" resultType="int">
+        select count(1) from  user_chat_friend where user_id = #{user_id} and friend_user_id = #{friend_user_id}
+    </select>
+
+    <insert id="insertUserChatRead" parameterType="com.project.demo.entity.UserChatRead">
+        INSERT INTO
+            user_chat_read(user_chat_read_id,user_id,send_user_id,group_id,`type`,message)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.user_chat_read_id},#{item.user_id},#{item.send_user_id},#{item.group_id},#{item.type},#{item.message})
+        </foreach>
+    </insert>
+
+    <delete id="deleteUserRead" parameterType="String">
+        delete from user_chat_read where user_chat_read_id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+            )
+    </delete>
+
+    <select id="selectReadList" parameterType="Integer" resultType="com.project.demo.entity.UserChatRead">
+        select
+            user_chat_read_id,
+            user_id,
+            send_user_id,
+            group_id,
+            `type`,
+            create_time,
+            message
+        from user_chat_read
+        where
+            user_id = #{userId}
+        and send_user_id = #{sendUserId}
+        and `type` = 1
+        order by create_time asc
+    </select>
+
+</mapper>

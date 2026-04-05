@@ -1,0 +1,26 @@
+# 微信小程序配置（包含敏感信息）
+project.config.json
+project.private.config.json
+
+# IDE 配置
+.idea/
+
+# node_modules
+client_home/node_modules/
+project/src/main/resources/static/admin/node_modules/
+
+# 编译输出（可按需排除）
+client_home/dist/
+
+# Maven 构建目录
+project/target/
+
+# 日志文件
+*.log
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE 构建目录
+*.iml

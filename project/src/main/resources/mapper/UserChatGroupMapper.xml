@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.demo.dao.UserChatGroupMapper">
+
+    <select id="selectUserChatGroupByUserId" parameterType="Integer" resultType="com.project.demo.entity.UserChatGroup">
+        SELECT
+            user_chat_group_id,
+            group_id,
+            group_name,
+            user_id,
+            create_time,
+            update_time
+        FROM
+            user_chat_group
+        WHERE
+            user_id = #{userId}
+    </select>
+
+    <insert id="insertUserChatGroup" parameterType="com.project.demo.entity.UserChatGroup" useGeneratedKeys="true" keyProperty="userId">
+        insert into user_chat_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_chat_group_id != null ">user_chat_group_id,</if>
+            <if test="group_id != null ">group_id,</if>
+            <if test="user_id != null ">user_id,</if>
+            <if test="group_name != null  and group_name != ''">group_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="user_chat_group_id != null ">#{user_chat_group_id},</if>
+            <if test="group_id != null ">#{group_id},</if>
+            <if test="user_id != null ">#{user_id},</if>
+            <if test="group_name != null  and group_name != ''">#{group_name},</if>
+         </trim>
+    </insert>
+
+    <delete id="deleteUserChatGroup" parameterType="Integer">
+        delete from user_chat_group where group_id = #{groupId} and user_id = #{userId}
+    </delete>
+
+    <select id="selectUserByGroupId" parameterType="Integer" resultType="Integer">
+        SELECT
+            user_id
+        FROM
+            user_chat_group
+        WHERE
+            group_id = #{groupId}
+            and user_id &lt;&gt; #{userId}
+    </select>
+
+    <select id="selectUserGroupCount" parameterType="com.project.demo.entity.UserChatGroup" resultType="int">
+        SELECT
+            count(1)
+        FROM
+            user_chat_group
+        WHERE
+            group_id = #{group_id}
+          and user_id = #{user_id}
+    </select>
+
+    <select id="selectReadList" parameterType="Integer" resultType="com.project.demo.entity.UserChatRead">
+        select
+            user_chat_read_id,
+            user_id,
+            send_user_id,
+            group_id,
+            `type`,
+            create_time,
+            message
+        from user_chat_read
+        where
+            user_id = #{userId}
+            and group_id = #{groupId}
+            and `type` = 2
+        order by create_time asc
+    </select>
+
+    <select id="selectUserChatGroupUser" parameterType="Integer" resultType="com.project.demo.entity.User">
+        SELECT
+            user_id as userId,
+            state,
+            user_group,
+            login_time,
+            phone,
+            phone_state,
+            username,
+            nickname,
+            password,
+            email,
+            email_state,
+            avatar,
+            open_id,
+            create_time
+        FROM
+            `user`
+        WHERE
+                user_id IN (
+                SELECT
+                    user_id
+                FROM
+                    user_chat_group
+                WHERE
+                    group_id = #{groupId})
+    </select>
+
+</mapper>

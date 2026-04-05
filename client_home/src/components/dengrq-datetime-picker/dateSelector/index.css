@@ -1,0 +1,126 @@
+.date-selector {
+  width: 100%;
+  font-size: 12px;
+  color: #333;
+}
+
+.select-date-wrapper {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-date {
+  padding: 10px;
+  flex: 1;
+  border-radius: 2px;
+  border: 1px solid rgba(6, 7, 46, 0.05);
+  font-size: 12px;
+}
+
+.select-date.active {
+  border-color: #6a7bff;
+}
+
+.select-date-placeholder {
+  color: rgba(6, 7, 46, 0.3);
+}
+
+/* 弹窗遮罩层 */
+.popup-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* 弹窗容器 */
+.popup-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  border-radius: 16px 16px 0 0;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.popup-container.popup-show {
+  transform: translateY(0);
+}
+
+/* 弹窗头部 */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.popup-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.popup-close {
+  width: 24px;
+  height: 24px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+}
+
+/* 弹窗内容区域 */
+.popup-content {
+  padding: 20px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+/* 弹窗底部 */
+.popup-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-group {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.btn-confirm {
+  flex: 1;
+  height: 44px;
+  line-height: 44px;
+  background: rgba(33, 58, 255, 0.85);
+  border-radius: 8px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  border: none;
+}
+
+.btn-cancel {
+  flex: 1;
+  height: 44px;
+  line-height: 42px;
+  text-align: center;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  color: #666;
+}
