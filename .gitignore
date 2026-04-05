@@ -11,9 +11,11 @@ project/src/main/resources/static/admin/node_modules/
 
 # 编译输出（可按需排除）
 client_home/dist/
+client_home/unpackage/
 
 # Maven 构建目录
 project/target/
+project/maven/
 
 # 日志文件
 *.log
@@ -24,3 +26,20 @@ Thumbs.db
 
 # IDE 构建目录
 *.iml
+
+# =======================
+# 敏感配置文件（不推送）
+# =======================
+# Spring Boot 配置（包含数据库密码、邮箱密码等）
+project/src/main/resources/application*.yml
+project/src/main/resources/application*.properties
+
+# 环境变量文件（包含敏感配置）
+client_home/.env.development
+client_home/.env.production
+client_home/.env.staging
+client_home/.env.local
+client_home/.env
+
+# 编译后的 class 文件
+project/src/main/resources/static/admin/dist/
