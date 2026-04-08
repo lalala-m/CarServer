@@ -51,7 +51,7 @@ public class BrandClassNameificationController extends BaseController<BrandClass
                 if (brand_class_nameification.getBrand_name()== null || brand_class_nameification.getBrand_name().trim().isEmpty()){
             throw new IllegalArgumentException("品牌名称不能为空");
         }
-                                                                                                                                    brand_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                                brand_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(brand_class_nameification);
         System.out.println("品牌分类新增成功");
         return success(1);
@@ -69,7 +69,7 @@ public class BrandClassNameificationController extends BaseController<BrandClass
         });
         BrandClassNameification brand_class_nameification = new BrandClassNameification();
             brand_class_nameification.setBrand_name(paramMap.get("brand_name")==null?null:String.valueOf(paramMap.get("brand_name")));
-                                    this.setEntity(queryMap,configMap,brand_class_nameification);
+                                            this.setEntity(queryMap,configMap,brand_class_nameification);
         System.out.println("品牌分类修改成功");
         return success(1);
     }

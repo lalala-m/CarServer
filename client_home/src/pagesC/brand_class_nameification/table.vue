@@ -56,14 +56,14 @@
       ></uni-pagination>
       <!-- /分页器 -->
     </view>
-                                                  </view>
+                                                      </view>
 </template>
 <script>
 import mixin from '@/libs/mixins/page.js';
 import dateRangePicker from '@/components/date-range-picker/date-range-picker.vue';
 import DateSelector from '@/components/dengrq-datetime-picker/dateSelector/index.vue';
 
-																							
+																												
 export default {
   mixins: [mixin],
   components: {
@@ -114,7 +114,7 @@ export default {
               _this.$toast('"' + type.brand_name + '"下有关联的内容，无法删除！');
               return;
             }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        uni.showModal({
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                uni.showModal({
         title: '删除',
         content: '此操作将永久删除该文件, 是否继续?',
         success: function (res) {
@@ -129,7 +129,7 @@ export default {
     },
 	get_list_after(param){
 	      let _this = this;
-		},
+	  	},
           },
   created() {
       },

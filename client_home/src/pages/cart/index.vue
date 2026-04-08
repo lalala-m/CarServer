@@ -68,7 +68,10 @@ export default {
         page: 1,
         size: 4,
       };
-                                                                                                  HomeApi.getHomeGoodsListApi(params).then((res) => {
+                                                                                                                  if (this.userInfo.user_group != '管理员' && this.activeGoods == '全部') {
+        params.user_id = this.userInfo.user_id;
+      }
+              HomeApi.getHomeGoodsListApi(params).then((res) => {
         if (res.result && res.result.list) {
           this.list_goods = res.result.list;
         }

@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">时段分类列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.time_period" placeholder="搜索时间时段" @search="search_" @cancel="search_cancel('time_period')" @input="(val) => inputValue(val, 'time_period')" />
 	      	    	  	  	    	      	    	  	  			          <MeDropdown
 	            :menuList.sync="menuList"
@@ -18,7 +18,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -35,8 +35,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -85,7 +84,14 @@ export default {
       ],
 						 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																	return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -94,6 +100,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/period_class_nameification/details?period_class_nameification_id=' + o['period_class_nameification_id'])

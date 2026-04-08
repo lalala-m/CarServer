@@ -5,7 +5,7 @@
 
 
 
-																			<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+																			<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','quality_of_service')">
 					<el-form-item label="服务质量">
 									<el-select v-model="query.quality_of_service">
 				                            <el-option v-for="o in list_quality_of_service" :key="o" :label="o"
@@ -14,7 +14,7 @@
 										</el-select>
 								</el-form-item>
 				</el-col>
-									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','working_attitude')">
 					<el-form-item label="工作态度">
 									<el-select v-model="query.working_attitude">
 				                            <el-option v-for="o in list_working_attitude" :key="o" :label="o"
@@ -23,7 +23,7 @@
 										</el-select>
 								</el-form-item>
 				</el-col>
-									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','performance_level')">
 					<el-form-item label="绩效等级">
 									<el-select v-model="query.performance_level">
 				                            <el-option v-for="o in list_performance_level" :key="o" :label="o"
@@ -186,7 +186,7 @@
 
 				// 字段ID
 				field: "employee_performance_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -278,7 +278,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

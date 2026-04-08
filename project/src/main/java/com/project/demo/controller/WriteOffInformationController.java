@@ -68,11 +68,11 @@ public class WriteOffInformationController extends BaseController<WriteOffInform
         }
                             write_off_information.setWrite_off_doc(paramMap.get("write_off_doc")==null?null:String.valueOf(paramMap.get("write_off_doc")));
                             write_off_information.setWrite_off_remarks(paramMap.get("write_off_remarks")==null?null:String.valueOf(paramMap.get("write_off_remarks")));
-                                    write_off_information.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
+                                        write_off_information.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
         write_off_information.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         write_off_information.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         write_off_information.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                                                                                                                write_off_information.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                        write_off_information.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(write_off_information);
         System.out.println("核销信息新增成功");
         return success(1);
@@ -110,10 +110,10 @@ public class WriteOffInformationController extends BaseController<WriteOffInform
         }
                     write_off_information.setWrite_off_doc(paramMap.get("write_off_doc")==null?null:String.valueOf(paramMap.get("write_off_doc")));
                     write_off_information.setWrite_off_remarks(paramMap.get("write_off_remarks")==null?null:String.valueOf(paramMap.get("write_off_remarks")));
-                            write_off_information.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
+                                write_off_information.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         write_off_information.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         write_off_information.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                    this.setEntity(queryMap,configMap,write_off_information);
+                        this.setEntity(queryMap,configMap,write_off_information);
         System.out.println("核销信息修改成功");
         return success(1);
     }

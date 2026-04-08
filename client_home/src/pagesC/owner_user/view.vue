@@ -213,6 +213,7 @@ export default {
 							                              query: {
         "owner_user_id": 0,
       },
+      oldForm: {},
       form: {
           "owners_name":  '', // 车主姓名
             "owners_gender":  '', // 车主性别
@@ -222,6 +223,7 @@ export default {
             "accumulate_points":  0 , // 积攒积分
           "user_id": 0,
         "owner_user_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "owners_name_isDisabled": false,
@@ -283,8 +285,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.owner_user_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.owner_user_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -353,6 +355,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -411,7 +414,9 @@ export default {
           if (this['driving_license'] !== null) this.form['driving_license'] = this['driving_license']
           if (this['member_level'] !== null) this.form['member_level'] = this['member_level']
           if (this['accumulate_points'] !== null) this.form['accumulate_points'] = this['accumulate_points']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.owner_user_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -539,7 +544,7 @@ export default {
         children: [] 
       }));
       if(!this.form["owner_user_id"]) {
-                  this.form_sub["owners_gender"] = this.list_owners_gender[0].value;
+                  this.form_sub["owners_gender"] = this.list_owners_gender[0].owners_gender;
               }
             },
                     
@@ -554,7 +559,7 @@ export default {
         children: [] 
       }));
       if(!this.form["owner_user_id"]) {
-                  this.form_sub["member_level"] = this.list_member_level[0].value;
+                  this.form_sub["member_level"] = this.list_member_level[0].member_level;
               }
             },
                     
@@ -703,7 +708,12 @@ export default {
                                                                                   if (json.result.obj.member_level) {
         this.filter_text.member_level = json.result.obj.member_level;
       }
-                                    },
+                                
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
     /**
      * 修改头像
      * @param {Object} param文件参数

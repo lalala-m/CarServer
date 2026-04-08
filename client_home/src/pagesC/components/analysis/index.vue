@@ -27,6 +27,7 @@
 
 <script>
 import MarkdownIt from 'markdown-it';
+import { $aiPost } from "@/api/aiApi.js";
 export default {
   props: {
     content: {
@@ -64,8 +65,7 @@ export default {
         title: '分析中',
       });
       try {
-        let res = await this.$qwenPost({
-          model: 'qwen-turbo',
+        let res = await $aiPost({
           messages: [
             {
               role: 'user',

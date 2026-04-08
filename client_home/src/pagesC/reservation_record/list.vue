@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">预约记录列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	  	    	  	    	      	          <Search v-model="query.service_name" placeholder="搜索服务名称" @search="search_" @cancel="search_cancel('service_name')" @input="(val) => inputValue(val, 'service_name')" />
 	      	    	  	    	  	    	  	    	      	          <Search v-model="query.owners_name" placeholder="搜索车主姓名" @search="search_" @cancel="search_cancel('owners_name')" @input="(val) => inputValue(val, 'owners_name')" />
 	      	    	  	    	      	          <Search v-model="query.contact_number" placeholder="搜索联系号码" @search="search_" @cancel="search_cancel('contact_number')" @input="(val) => inputValue(val, 'contact_number')" />
@@ -30,7 +30,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -186,8 +186,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -215,7 +214,7 @@
       @confirm="delivery_time_date_range_picker_confirm"
     />
 										    		<!--分类选择器-->
-		<uni-popup ref="filterPopup" type="bottom" background-color="#fff">
+		<uni-popup ref="filterPopup" type="bottom" background-color="#fff" @change="onPopupChange">
 			<view class="filter-popup">
 				<view class="popup-header">
 					<text class="popup-title">{{ popupTitle }}</text>
@@ -305,7 +304,14 @@ export default {
       delivery_time_date_text: '请选择交车时间',
 										 									 									 									 									 									 									 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																																																																																																																																																																										return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -314,6 +320,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/reservation_record/details?reservation_record_id=' + o['reservation_record_id'])
@@ -490,6 +498,7 @@ export default {
     },
     // 显示筛选弹窗
     showFilter(type) {
+	  this.showTabbar = false;
       this.currentFilterType = type;
       switch (type) {
 	        	        	        	        	        	        	        	        	        	        	        	        	                case 'license_plate_number':
@@ -499,6 +508,11 @@ export default {
         	        	        	        	        	        	      }
       this.$refs.filterPopup.open();
     },
+	onPopupChange(e) {
+		if (!e.show) {
+			this.showTabbar = true;
+		}
+	},
 	initCascader(list) {
 		this.cascaderList = list;
 		const maxDepth = Math.max(1, this.getMaxDepth(list));

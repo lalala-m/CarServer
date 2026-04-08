@@ -140,7 +140,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/maintenance_order/view','set') || $check_action('/maintenance_order/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -171,6 +171,7 @@
 
 				query: {
 					"maintenance_order_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -219,7 +220,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																																																																									};
+																																																																																															
+				};
 				return form;
 			},
 													},
@@ -389,7 +391,7 @@
 						}
 										}
 													$.push(this.form ,form);
-																				
+																									
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -463,7 +465,7 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.maintenance_order_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																																						  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  														let message_inform = {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																																							  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  							  		  																											  		  							  		  							  		  							  		  														let message_inform = {
 								title: '保养订单',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条保养订单数据',

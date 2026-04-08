@@ -83,10 +83,13 @@ public class IssuingCardVoucher implements Serializable {
 	@TableField(value = "write_off_information_limit_times")
 	private String write_off_information_limit_times;
 	
-					
+							
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

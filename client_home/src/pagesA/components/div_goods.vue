@@ -52,7 +52,7 @@
       </view>
 
       <view class="description">
-                                            	            <view class="sales">
+                                                      	            <view class="sales">
          <text>已卖{{ obj[vm.sales] }}</text>
         </view>
         <view class="sales" v-if="obj[vm.inventory] >= 0">
@@ -118,7 +118,7 @@
 </template>
 
 <script>
-                                                    export default {
+                                                              export default {
   props: {
     obj: {
       type: Object,
@@ -161,7 +161,7 @@
       default: false,
     },
   },
-                                                      data() {
+                                                                data() {
     return {
       currentNum: 0,
       /* 改了这里 */
@@ -195,7 +195,7 @@
     }
   },
   methods: {
-                                                        /* 改了这里 */
+                                                                  /* 改了这里 */
     changeswiper(e) {
       this.currentNum = e.detail.current;
     },

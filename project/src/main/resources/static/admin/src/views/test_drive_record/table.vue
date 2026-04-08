@@ -5,22 +5,22 @@
 
 
 
-							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','test_drive_code')">
 					<el-form-item label="试驾编码">
 									<el-input v-model="query.test_drive_code"></el-input>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','car_name')">
 					<el-form-item label="汽车名称">
 									<el-input v-model="query.car_name"></el-input>
 								</el-form-item>
 				</el-col>
-									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','car_models')">
 					<el-form-item label="汽车车型">
 									<el-input v-model="query.car_models"></el-input>
 								</el-form-item>
 				</el-col>
-															<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+															<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','test_drive_time')">
 					<el-form-item label="试驾时间">
 									<el-date-picker v-model="query.test_drive_time" type="datetimerange" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间"></el-date-picker>
 								</el-form-item>
@@ -177,7 +177,7 @@
 
 				// 字段ID
 				field: "test_drive_record_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -328,7 +328,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

@@ -194,6 +194,7 @@ export default {
 						                          query: {
         "financial_user_id": 0,
       },
+      oldForm: {},
       form: {
           "employee_work_number":  '', // 员工工号
             "employee_name":  '', // 员工姓名
@@ -202,6 +203,7 @@ export default {
             "two_dimensional_code":  '', // 二维码
           "user_id": 0,
         "financial_user_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "employee_work_number_isDisabled": false,
@@ -260,8 +262,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.financial_user_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.financial_user_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -330,6 +332,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -386,7 +389,9 @@ export default {
           if (this['financial_gender'] !== null) this.form['financial_gender'] = this['financial_gender']
           if (this['contact_number'] !== null) this.form['contact_number'] = this['contact_number']
           if (this['two_dimensional_code'] !== null) this.form['two_dimensional_code'] = this['two_dimensional_code']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.financial_user_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -514,7 +519,7 @@ export default {
         children: [] 
       }));
       if(!this.form["financial_user_id"]) {
-                  this.form_sub["financial_gender"] = this.list_financial_gender[0].value;
+                  this.form_sub["financial_gender"] = this.list_financial_gender[0].financial_gender;
               }
             },
                     
@@ -657,7 +662,12 @@ export default {
                                                                           if (json.result.obj.financial_gender) {
         this.filter_text.financial_gender = json.result.obj.financial_gender;
       }
-                                                            },
+                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
     /**
      * 修改头像
      * @param {Object} param文件参数

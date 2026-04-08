@@ -203,8 +203,8 @@
 }
 
 .sign_in .form .geetest_box canvas {
-	height: 40px !important;
-	width: 120px;
+	/* height: 40px !important;
+	width: 120px; */
 }
 
 .sign_in .form .btns {
@@ -1172,4 +1172,14 @@ article {
 }
 .agreement-box{
 	padding-left:10px;
+}
+.el-autocomplete{
+	width: 100% !important;
+}
+
+.seat_container {
+	width: 99% !important;
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 10px;
 }

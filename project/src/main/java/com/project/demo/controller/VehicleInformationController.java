@@ -54,7 +54,7 @@ public class VehicleInformationController extends BaseController<VehicleInformat
                             vehicle_information.setVehicle_remarks(paramMap.get("vehicle_remarks")==null?null:String.valueOf(paramMap.get("vehicle_remarks")));
                         vehicle_information.setExamine_state(paramMap.get("examine_state")==null?null:String.valueOf(paramMap.get("examine_state")));
         vehicle_information.setExamine_reply(paramMap.get("examine_reply")==null?null:String.valueOf(paramMap.get("examine_reply")));
-                                                                                                                        vehicle_information.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                    vehicle_information.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(vehicle_information);
         System.out.println("车辆信息新增成功");
         return success(1);
@@ -78,7 +78,7 @@ public class VehicleInformationController extends BaseController<VehicleInformat
                     vehicle_information.setVehicle_remarks(paramMap.get("vehicle_remarks")==null?null:String.valueOf(paramMap.get("vehicle_remarks")));
                 vehicle_information.setExamine_state(paramMap.get("examine_state")==null?null:String.valueOf(paramMap.get("examine_state")));
         vehicle_information.setExamine_reply(paramMap.get("examine_reply")==null?null:String.valueOf(paramMap.get("examine_reply")));
-                            this.setEntity(queryMap,configMap,vehicle_information);
+                                    this.setEntity(queryMap,configMap,vehicle_information);
         System.out.println("车辆信息修改成功");
         return success(1);
     }

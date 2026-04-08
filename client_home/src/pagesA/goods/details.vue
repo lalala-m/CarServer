@@ -24,7 +24,7 @@
           <rich-text class="rich_text" :nodes="$setRichTextImage(obj.content)"></rich-text>
         </view>
         <view>
-                                                      <div_online_mall v-if="obj.type == '网上商城'" :obj_goods="obj"></div_online_mall>
+                                                                <div_online_mall v-if="obj.type == '网上商城'" :obj_goods="obj"></div_online_mall>
             </view>
       </view>
       <!-- 商品属性模块(结束) -->
@@ -140,7 +140,7 @@
 </template>
 
 <script>
-                                            import div_online_mall from "@/pagesA/components/div_online_mall.vue";
+                                                      import div_online_mall from "@/pagesA/components/div_online_mall.vue";
     import div_goods from '@/pagesA/components/div_goods.vue';
 import list_comment from '@/components/diy/list_comment.vue';
 import bar_title from '@/components/diy/bar_title.vue';
@@ -150,7 +150,7 @@ import mixin from '@/libs/mixins/page.js';
 export default {
   mixins: [mixin],
   components: {
-                                                div_online_mall,
+                                                          div_online_mall,
         div_goods,
     list_comment,
     bar_title,
@@ -375,7 +375,7 @@ export default {
 		                    "postal_code": res.result.obj.postcode,
 		                    user_id,
 		                    description,
-		                    merchant_id: _this.obj.user_id
+		                    merchant_id: _this.obj.user_id,
 		                };
 		                _this.$post("~/api/order/add?", body, (res) => {
 		                    console.log(res);
@@ -676,6 +676,7 @@ export default {
         source_id: options.goods_id,
         orderby: 'create_time desc',
         reply_to_id: '0',
+        like: 0,
       };
       this.$get('~/api/comment/get_list', query, (json) => {
         if (json.result) {
@@ -705,6 +706,7 @@ export default {
               source_id: obj.goods_id,
               orderby: 'create_time desc',
               reply_to_id: obj.comment_id,
+              like: 0,
             },
             (res) => {
               if (res.result) {
@@ -716,7 +718,7 @@ export default {
         resolve(list);
       }).catch((e) => {});
     },
-                                            	        openShare() {
+                                                      	        openShare() {
       this.$refs.share.open();
     },
     share_select() {
@@ -739,7 +741,7 @@ export default {
   },
   onShow() {
     setTimeout(() => {
-                                                        }, 500);
+                                                                  }, 500);
   },
 };
 </script>

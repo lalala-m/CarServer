@@ -18,7 +18,12 @@
 		<view class="desc">{{ o[vm.description] }}</view>
       </view>
       <view class="bottom">
-	        <view class="price_ago"> ￥{{ o[vm.price_ago] | keepTwoNum }} </view>
+		<view class="price">
+		  <text class="price_now"><text>￥</text>{{ o[vm.price] | keepTwoNum }}</text>
+		  <text class="integral" v-if="o[vm.integral] != null && o[vm.integral] != 0">/{{ o[vm.integral] }}</text>
+		  <text class="integral_text" v-if="o[vm.integral] != null && o[vm.integral] != 0">积分</text>
+		</view>
+        <view class="price_ago"> ￥{{ o[vm.price_ago] | keepTwoNum }} </view>
       </view>
 	  <view class="info">
 	  	<view class="sales">销量<text>{{ o[vm.sales] }}</text></view>

@@ -73,7 +73,7 @@
                   <!-- <view class="dynamic-statistics-item">收藏数: 345</view> -->
                 </view>
               </view>
-																							            </template>
+																												            </template>
           </view>
           <view v-if="current == 1" class="tab-content">
             <view v-for="item in myFollow" :key="item.follow_id" class="attention">
@@ -251,11 +251,11 @@ export default {
         await this.checkPraise(new_forumItem);
         return new_forumItem;
       }));
-																							      
+																												      
 
       this.dynamicList = [
         ...forumList,
-																							      ];
+																												      ];
     },
     async attention(obj) {
       let param = {
@@ -413,7 +413,7 @@ export default {
           console.error(res.error);
         }
       }
-																							    },
+																												    },
     async checkCollect(obj) {
       if (obj.type === 'forum') {
          let res = await this.$get('~/api/collect/count', {
@@ -424,7 +424,7 @@ export default {
           });
           this.$set(obj, 'collected', res.result !== 0);
       }
-																							    },
+																												    },
     async add_collect(obj) {
       if (obj.type === 'forum') {
         let res = await this.$get('~/api/collect/count', {
@@ -456,7 +456,7 @@ export default {
           this.$toast('取消收藏');
         }
       }
-																							    },
+																												    },
     async checkPraise(obj) {
       if (obj.type === 'forum') {
          let res = await this.$get('~/api/praise/count', {
@@ -467,7 +467,7 @@ export default {
           });
           this.$set(obj, 'praised', res.result !== 0);
       }
-																							    },
+																												    },
   },
   onLoad(options) {
     if (options.follower_id) {

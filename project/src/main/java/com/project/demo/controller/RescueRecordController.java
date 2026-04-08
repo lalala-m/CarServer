@@ -65,7 +65,7 @@ public class RescueRecordController extends BaseController<RescueRecord, RescueR
                         rescue_record.setLocation_address(paramMap.get("location_address")==null?null:String.valueOf(paramMap.get("location_address")));
         rescue_record.setLocation_lng(paramMap.get("location_lng")==null?null:String.valueOf(paramMap.get("location_lng")));
         rescue_record.setLocation_lat(paramMap.get("location_lat")==null?null:String.valueOf(paramMap.get("location_lat")));
-                                                                                                                        rescue_record.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                    rescue_record.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(rescue_record);
         System.out.println("救援记录新增成功");
         return success(1);
@@ -100,7 +100,7 @@ public class RescueRecordController extends BaseController<RescueRecord, RescueR
                 rescue_record.setLocation_address(paramMap.get("location_address")==null?null:String.valueOf(paramMap.get("location_address")));
         rescue_record.setLocation_lng(paramMap.get("location_lng")==null?null:String.valueOf(paramMap.get("location_lng")));
         rescue_record.setLocation_lat(paramMap.get("location_lat")==null?null:String.valueOf(paramMap.get("location_lat")));
-                            this.setEntity(queryMap,configMap,rescue_record);
+                                    this.setEntity(queryMap,configMap,rescue_record);
         System.out.println("救援记录修改成功");
         return success(1);
     }

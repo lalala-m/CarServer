@@ -315,14 +315,14 @@
             </view>
           </view>
         </uni-popup>
-                                                                                                                                                            </view>
+                                                                                                                                                                </view>
 </template>
 <script>
 import mixin from '@/libs/mixins/page.js';
 import dateRangePicker from '@/components/date-range-picker/date-range-picker.vue';
 import DateSelector from '@/components/dengrq-datetime-picker/dateSelector/index.vue';
 
-																							
+																												
 export default {
   mixins: [mixin],
   components: {
@@ -498,7 +498,7 @@ export default {
       let _this = this;
       let type = this.list[v];
 			let res
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              uni.showModal({
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      uni.showModal({
         title: '删除',
         content: '此操作将永久删除该文件, 是否继续?',
         success: function (res) {
@@ -513,7 +513,7 @@ export default {
     },
 	get_list_after(param){
 	      let _this = this;
-		},
+	  	},
                                           /**
      * 获取车主用户用户列表
      */
@@ -552,7 +552,7 @@ export default {
                 sqlwhere += ")";
                 param["sqlwhere"] = sqlwhere;
               }
-                                                                                                                                                                                                                                                                                                                                                        var json = await this.$get("~/api/vehicle_information/get_list", param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  var json = await this.$get("~/api/vehicle_information/get_list", param);
         if(json.result && json.result.list){
           if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
             json.result.list = json.result.list.filter(item => item.type == 1);
@@ -957,7 +957,6 @@ export default {
 	color: #fff;
 	border: none;
 	border-radius: 8px;
-	padding: 12px;
 	font-size: 16px;
 }
 .pay-model {

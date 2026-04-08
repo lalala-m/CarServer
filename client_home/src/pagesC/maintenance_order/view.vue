@@ -193,6 +193,7 @@ export default {
 										                                          query: {
         "maintenance_order_id": 0,
       },
+      oldForm: {},
       form: {
           "project_bundle":  '', // 项目套餐
             "project_price":  '', // 项目价格
@@ -206,6 +207,7 @@ export default {
           "examine_state": "未审核",
         "examine_reply": "",
         "maintenance_order_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "project_bundle_isDisabled": false,
@@ -280,8 +282,19 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.maintenance_order_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        																					                                        		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+                  // 审核状态发生变更时，发送通知消息
+        if (this.form.examine_state && this.oldForm.examine_state !== this.form.examine_state) {
+          let message_inform = {
+            title: '审核结果',
+            type: '通知',
+            content: "你在保养订单下提交的内容，审核结果为：" + this.form.examine_state,
+            state: 1,
+            user_id: this.form.create_by
+          }
+          this.$post("~/api/message_inform/add", message_inform)
+        }
+          						if(!this.form.maintenance_order_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        																	                                                  		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -349,6 +362,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -413,7 +427,9 @@ export default {
           if (this['number_of_purchases'] !== null) this.form['number_of_purchases'] = this['number_of_purchases']
           if (this['purchase_notes'] !== null) this.form['purchase_notes'] = this['purchase_notes']
           if (this['order_status'] !== null) this.form['order_status'] = this['order_status']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.maintenance_order_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -637,7 +653,7 @@ export default {
         children: [] 
       }));
       if(!this.form["maintenance_order_id"]) {
-                  this.form["number_of_purchases"] = this.list_number_of_purchases[0].value;
+                  this.form["number_of_purchases"] = this.list_number_of_purchases[0].number_of_purchases;
               }
             },
                     
@@ -651,7 +667,7 @@ export default {
         children: [] 
       }));
       if(!this.form["maintenance_order_id"]) {
-                  this.form["order_status"] = this.list_order_status[0].value;
+                  this.form["order_status"] = this.list_order_status[0].order_status;
               }
             },
                     
@@ -787,7 +803,12 @@ export default {
                                                           if (json.result.obj.order_status) {
         this.filter_text.order_status = json.result.obj.order_status;
       }
-            },
+        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

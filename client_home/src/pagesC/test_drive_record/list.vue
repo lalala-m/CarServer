@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">试驾记录列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.test_drive_code" placeholder="搜索试驾编码" @search="search_" @cancel="search_cancel('test_drive_code')" @input="(val) => inputValue(val, 'test_drive_code')" />
 	      	    	  	    	  	    	      	          <Search v-model="query.car_name" placeholder="搜索汽车名称" @search="search_" @cancel="search_cancel('car_name')" @input="(val) => inputValue(val, 'car_name')" />
 	      	    	  	    	      	          <Search v-model="query.car_models" placeholder="搜索汽车车型" @search="search_" @cancel="search_cancel('car_models')" @input="(val) => inputValue(val, 'car_models')" />
@@ -24,7 +24,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -99,8 +99,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -175,7 +174,14 @@ export default {
       test_drive_time_date_text: '请选择试驾时间',
 										 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																																																																																return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -184,6 +190,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/test_drive_record/details?test_drive_record_id=' + o['test_drive_record_id'])

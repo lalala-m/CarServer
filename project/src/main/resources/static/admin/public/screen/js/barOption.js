@@ -20,6 +20,11 @@ function getBarOption(data, labels, seriesNames) {
                 ],
                 itemStyle: {
                     color: barColors.gradient[i % barColors.gradient.length]
+                },
+                label: {
+                    formatter: function (params) {
+                        return formatBarValue(params.value);
+                    }
                 }
             },
             markLine: {
@@ -69,14 +74,15 @@ function getBarOption(data, labels, seriesNames) {
             },
             textStyle: {
                 color: barColors.tooltip.color,
-                fontSize: 16
+            },
+            valueFormatter: function (value) {
+                return formatBarValue(value);
             }
         },
         legend: {
             data: seriesNames,
             textStyle: {
                 color: barColors.text,
-                fontSize: 16
             }
         },
         grid: {
@@ -99,7 +105,6 @@ function getBarOption(data, labels, seriesNames) {
                 axisLabel: {
                     color: barColors.axis.label,
                     rotate: 45,
-                    fontSize: 16,
                     formatter: function(value) {
                         if (value.length > 5) {
                             return value.substring(0, 2) + '...';
@@ -124,7 +129,9 @@ function getBarOption(data, labels, seriesNames) {
                 },
                 axisLabel: {
                     color: barColors.axis.label,
-                    fontSize: 16
+                    formatter: function (value) {
+                        return formatBarValue(value);
+                    }
                 },
                 splitLine: {
                     lineStyle: {
@@ -152,6 +159,12 @@ function getBarOption(data, labels, seriesNames) {
         ],
         series: series
     };
+}
+function formatBarValue(value) {
+    if (value == null || value === '') return value;
+    var num = Number(value);
+    if (isNaN(num)) return value;
+    return num.toFixed(1);
 }
 function initBarChartWithAutoScroll(domElement, data, labels, seriesNames) {
     const chart = echarts.init(domElement);

@@ -314,13 +314,77 @@ export default {
         const [err, res] = await uni.scanCode({
           onlyFromCamera: true,
         });
-        if (res && res.errMsg === 'scanCode:ok') {
-          uni.navigateTo({
-            url: res.result,
-          });
-        } else {
+        if (err) {
           uni.showToast({ title: '扫描失败', icon: 'none' });
+          return;
         }
+        if (res && res.errMsg === 'scanCode:ok') {
+          const scanResult = res.result ? String(res.result).trim() : '';
+          const showScanResultModal = () => {
+            uni.showModal({
+              title: '扫码结果',
+              content: scanResult || '空',
+              confirmText: '复制',
+              cancelText: '关闭',
+              success: (modalRes) => {
+                if (modalRes.confirm && scanResult) {
+                  uni.setClipboardData({
+                    data: scanResult,
+                  });
+                }
+              },
+            });
+          };
+
+          const isHttpUrl = /^https?:\/\//i.test(scanResult);
+          let targetUrl = scanResult;
+          if (
+            targetUrl &&
+            !targetUrl.startsWith('/') &&
+            (targetUrl.startsWith('pages') ||
+              targetUrl.startsWith('pagesA') ||
+              targetUrl.startsWith('pagesB') ||
+              targetUrl.startsWith('pagesC'))
+          ) {
+            targetUrl = '/' + targetUrl;
+          }
+
+          if (!targetUrl || isHttpUrl) {
+            showScanResultModal();
+            return;
+          }
+
+          try {
+            await new Promise((resolve, reject) => {
+              uni.navigateTo({
+                url: targetUrl,
+                success: resolve,
+                fail: reject,
+              });
+            });
+          } catch (navErr) {
+            showScanResultModal();
+          }
+          return;
+        }
+        if (res && res.errMsg) {
+          uni.showModal({
+            title: '扫码结果',
+            content: String(res.result || ''),
+            confirmText: '复制',
+            cancelText: '关闭',
+            success: (modalRes) => {
+              const content = String(res.result || '');
+              if (modalRes.confirm && content) {
+                uni.setClipboardData({
+                  data: content,
+                });
+              }
+            },
+          });
+          return;
+        }
+        uni.showToast({ title: '扫描失败', icon: 'none' });
       } catch (e) {
         uni.showToast({ title: '扫描失败，请稍后重试', icon: 'none' });
       } finally {

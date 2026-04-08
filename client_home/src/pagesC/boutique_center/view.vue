@@ -142,6 +142,7 @@ export default {
         query: {
         "boutique_center_id": 0,
       },
+      oldForm: {},
       form: {
           "service_code":  '', // 服务编码
             "service_name":  '', // 服务名称
@@ -151,6 +152,7 @@ export default {
             "service_introduction":  '', // 服务简介
             "service_specificss":  '', // 服务详情
           "boutique_center_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "service_code_isDisabled": false,
@@ -210,8 +212,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.boutique_center_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.boutique_center_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -276,6 +278,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -336,7 +339,9 @@ export default {
           if (this['service_cover'] !== null) this.form['service_cover'] = this['service_cover']
           if (this['service_introduction'] !== null) this.form['service_introduction'] = this['service_introduction']
           if (this['service_specificss'] !== null) this.form['service_specificss'] = this['service_specificss']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.boutique_center_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -462,7 +467,7 @@ export default {
      */
     async get_list_service_type() {
               let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                            var json = await this.$get("~/api/service_class_nameification/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/service_class_nameification/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -624,7 +629,12 @@ export default {
                                                                           if (json.result.obj.service_type) {
         this.filter_text.service_type = json.result.obj.service_type;
       }
-                                                                                                            },
+                                                                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

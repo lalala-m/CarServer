@@ -125,7 +125,7 @@
 				<el-button @click="cancel()">取消</el-button>
 			</el-col>
 
-																									<!-- 网上商城 -->
+																														<!-- 网上商城 -->
 			<diy_online_mall v-if="form.source_table === 'online_mall'" :query="{online_mall_id:form.source_id}" :form_goods="form" :func_check="checkForm" :func_submit="submit" ></diy_online_mall>
 		
 		</el-form>
@@ -135,12 +135,12 @@
 
 <script>
 	import mixin from "../../mixins/page.js";
-																							import diy_online_mall from "../../components/diy/diy_online_mall.vue";
+																												import diy_online_mall from "../../components/diy/diy_online_mall.vue";
 		
 	export default {
 		mixins: [mixin],
 		components:{
-																									diy_online_mall,
+																														diy_online_mall,
 				},
 		data() {
 			return {
@@ -175,7 +175,7 @@
 					source_id: 0
 				},
 
-																										"form_online_mall": {},
+																															"form_online_mall": {},
 		
 				list_goods_type: []
 

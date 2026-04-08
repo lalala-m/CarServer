@@ -47,7 +47,7 @@
         <view class="forget-section">
           <view @click="$navTo('/pagesB/account/forgot')">忘记密码?</view>
         </view>
-                                                      <view class="author-wrap" style="width: 100%; display: flex; justify-content: center">
+                                                                <view class="author-wrap" style="width: 100%; display: flex; justify-content: center">
           <!-- #ifdef MP-WEIXIN -->
           <view class="author">
             <button class="author-weixin" @click="getUserInfo"></button>
@@ -80,7 +80,7 @@
 			'管理员'
 				,"车主用户"
 					,"商家用户"
-																								],
+																													],
         form: {
           username: '',
           password: '',

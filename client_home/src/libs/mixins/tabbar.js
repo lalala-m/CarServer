@@ -16,7 +16,7 @@ export default {
           inactiveIcon: 'basket',
           pagePath: '/pages/cart/index',
         },
-                                                        {
+                                                                  {
           title: '车友社群',
           activeIcon: 'moments',
           inactiveIcon: 'moments',

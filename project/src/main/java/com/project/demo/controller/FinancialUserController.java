@@ -60,7 +60,7 @@ public class FinancialUserController extends BaseController<FinancialUser, Finan
                             financial_user.setContact_number(paramMap.get("contact_number")==null?null:String.valueOf(paramMap.get("contact_number")));
                             financial_user.setTwo_dimensional_code(paramMap.get("two_dimensional_code")==null?null:String.valueOf(paramMap.get("two_dimensional_code")));
                         financial_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                                                                                                                        financial_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                    financial_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(financial_user);
         System.out.println("财务用户新增成功");
         return success(1);
@@ -83,7 +83,7 @@ public class FinancialUserController extends BaseController<FinancialUser, Finan
                     financial_user.setContact_number(paramMap.get("contact_number")==null?null:String.valueOf(paramMap.get("contact_number")));
                     financial_user.setTwo_dimensional_code(paramMap.get("two_dimensional_code")==null?null:String.valueOf(paramMap.get("two_dimensional_code")));
                 financial_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                            this.setEntity(queryMap,configMap,financial_user);
+                                    this.setEntity(queryMap,configMap,financial_user);
         System.out.println("财务用户修改成功");
         return success(1);
     }

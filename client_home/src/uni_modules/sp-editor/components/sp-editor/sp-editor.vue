@@ -378,6 +378,7 @@ import ColorPicker from './color-picker.vue'
 import LinkEdit from './link-edit.vue'
 import FabTool from './fab-tool.vue'
 import { addLink, linkFlag } from '../../utils'
+import { $aiPost } from "@/api/aiApi.js";
 
 export default {
 	components: {
@@ -790,8 +791,7 @@ export default {
 								title: '处理中',
 							})
 							let prompt = this.promptList[actionRes.tapIndex]
-							this.$qwenPost({
-								model: 'qwen-turbo',
+							$aiPost({
 								messages: [
 									{
 										role: 'user',

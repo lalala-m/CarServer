@@ -61,7 +61,7 @@ public class EmployeePerformanceController extends BaseController<EmployeePerfor
                             employee_performance.setPerformance_level(paramMap.get("performance_level")==null?null:String.valueOf(paramMap.get("performance_level")));
                             employee_performance.setAssessment_results(paramMap.get("assessment_results")==null?null:String.valueOf(paramMap.get("assessment_results")));
                             employee_performance.setWork_suggestion(paramMap.get("work_suggestion")==null?null:String.valueOf(paramMap.get("work_suggestion")));
-                                                                                                                                        employee_performance.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                                    employee_performance.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(employee_performance);
         System.out.println("员工绩效新增成功");
         return success(1);
@@ -92,7 +92,7 @@ public class EmployeePerformanceController extends BaseController<EmployeePerfor
                     employee_performance.setPerformance_level(paramMap.get("performance_level")==null?null:String.valueOf(paramMap.get("performance_level")));
                     employee_performance.setAssessment_results(paramMap.get("assessment_results")==null?null:String.valueOf(paramMap.get("assessment_results")));
                     employee_performance.setWork_suggestion(paramMap.get("work_suggestion")==null?null:String.valueOf(paramMap.get("work_suggestion")));
-                                    this.setEntity(queryMap,configMap,employee_performance);
+                                            this.setEntity(queryMap,configMap,employee_performance);
         System.out.println("员工绩效修改成功");
         return success(1);
     }

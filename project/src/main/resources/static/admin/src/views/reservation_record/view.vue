@@ -204,7 +204,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/reservation_record/view','set') || $check_action('/reservation_record/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -235,6 +235,7 @@
 
 				query: {
 					"reservation_record_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -319,7 +320,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																																																																																																																																																										};
+																																																																																																																																																																																
+				};
 				return form;
 			},
 																						},
@@ -421,7 +423,7 @@
 			 */
 						async get_list_appointment_period() {
 			 	let param = {}
-			  			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/period_class_nameification/get_list?",param);
+			  			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/period_class_nameification/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -476,7 +478,7 @@
 						sqlwhere += ")";
 						param["sqlwhere"] = sqlwhere;
 					}
-											  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_information/get_list?",param);
+											  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_information/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -594,7 +596,7 @@
 																																																																																																											// 获取缓存数据附加
 					form = $.db.get("form");
 													$.push(this.form ,form);
-												
+																	
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -677,7 +679,7 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.reservation_record_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																																						  		  							  		  							  		  														let message_inform = {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																																							  		  							  		  							  		  							  		  																											  		  							  		  							  		  							  		  														let message_inform = {
 								title: '预约记录',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条预约记录数据',

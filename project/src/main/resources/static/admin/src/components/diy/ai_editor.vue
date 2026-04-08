@@ -16,6 +16,7 @@
 import { AiEditor } from "aieditor";
 import "aieditor/dist/style.css";
 import MarkdownIt from "markdown-it";
+import { $aiPost } from "@/api/aiApi";
 
 export default {
   props: {
@@ -82,6 +83,7 @@ export default {
     initEditor() {
       this.aiEditor = new AiEditor({
         element: this.$refs.divRef,
+        toolbarExcludeKeys: ["emoji"],
         placeholder: "点击输入内容...",
         content: this.content,
         ai: {
@@ -146,8 +148,7 @@ export default {
     aiHandle(prompt) {
       this.loading = true;
 
-      this.$qwenPost({
-        model: "qwen-turbo",
+      $aiPost({
         messages: [
           {
             role: "user",
@@ -162,42 +163,6 @@ export default {
           this.loading = false;
         }, 100);
       });
-    },
-    async $qwenPost(body, func) {
-      var token = "Bearer sk-afb6a8de44c247e7924b11bf240a759e";
-      if (func) {
-        // 如果回调函数存在, 则采用异步
-        this.$axios
-          .post(
-            "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-            body,
-            {
-              headers: {
-                Authorization: token,
-                "Content-Type": "application/json",
-              },
-            }
-          )
-          .then((res) => {
-            func(res.data);
-          })
-          .catch((res) => {
-            func(res);
-          });
-      } else {
-        // 否则采用同步
-        var res = await this.$axios.post(
-          "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-          body,
-          {
-            headers: {
-              Authorization: token,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        return res.data;
-      }
     },
   },
 };

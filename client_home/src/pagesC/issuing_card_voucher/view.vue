@@ -204,6 +204,7 @@ export default {
 											                                              query: {
         "issuing_card_voucher_id": 0,
       },
+      oldForm: {},
       form: {
           "card_code": this.$get_stamp(), // 卡券编码
             "manager_user": 0, // 经理用户
@@ -218,6 +219,7 @@ export default {
           "examine_state": "未审核",
         "examine_reply": "",
         "issuing_card_voucher_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "card_code_isDisabled": false,
@@ -300,8 +302,19 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.issuing_card_voucher_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+                  // 审核状态发生变更时，发送通知消息
+        if (this.form.examine_state && this.oldForm.examine_state !== this.form.examine_state) {
+          let message_inform = {
+            title: '审核结果',
+            type: '通知',
+            content: "你在发放卡券下提交的内容，审核结果为：" + this.form.examine_state,
+            state: 1,
+            user_id: this.form.create_by
+          }
+          this.$post("~/api/message_inform/add", message_inform)
+        }
+          						if(!this.form.issuing_card_voucher_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -369,6 +382,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -435,7 +449,9 @@ export default {
           if (this['number_of_uses'] !== null) this.form['number_of_uses'] = this['number_of_uses']
           if (this['issuing_time'] !== null) this.form['issuing_time'] = this['issuing_time']
           if (this['write_off_status'] !== null) this.form['write_off_status'] = this['write_off_status']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.issuing_card_voucher_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -651,7 +667,7 @@ export default {
                 sqlwhere += ")";
                 param["sqlwhere"] = sqlwhere;
               }
-                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/vehicle_information/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                var json = await this.$get("~/api/vehicle_information/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -705,7 +721,7 @@ export default {
      */
     async get_list_card_name() {
               let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                            var json = await this.$get("~/api/card_type/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/card_type/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -762,7 +778,7 @@ export default {
         children: [] 
       }));
       if(!this.form["issuing_card_voucher_id"]) {
-                  this.form["number_of_uses"] = this.list_number_of_uses[0].value;
+                  this.form["number_of_uses"] = this.list_number_of_uses[0].number_of_uses;
               }
             },
                     
@@ -776,7 +792,7 @@ export default {
         children: [] 
       }));
       if(!this.form["issuing_card_voucher_id"]) {
-                  this.form["write_off_status"] = this.list_write_off_status[0].value;
+                  this.form["write_off_status"] = this.list_write_off_status[0].write_off_status;
               }
             },
                     
@@ -926,7 +942,12 @@ export default {
                                                   if (json.result.obj.write_off_status) {
         this.filter_text.write_off_status = json.result.obj.write_off_status;
       }
-            },
+        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

@@ -135,6 +135,7 @@ export default {
 								                                  query: {
         "maintenance_id": 0,
       },
+      oldForm: {},
       form: {
           "project_bundle": null, // 项目套餐
             "project_picture":  '', // 项目图片
@@ -144,6 +145,7 @@ export default {
             "project_description":  '', // 项目说明
             "project_content":  '', // 项目内容
           "maintenance_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "project_bundle_isDisabled": false,
@@ -195,8 +197,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.maintenance_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.maintenance_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -264,6 +266,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -324,7 +327,9 @@ export default {
           if (this['financial_user'] !== null) this.form['financial_user'] = this['financial_user']
           if (this['project_description'] !== null) this.form['project_description'] = this['project_description']
           if (this['project_content'] !== null) this.form['project_content'] = this['project_content']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.maintenance_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -533,7 +538,12 @@ export default {
       if (json.result.obj.extra) {
         this.form.extra = JSON.parse(json.result.obj.extra);
       }
-                                                                                                                                                                            },
+                                                                                                                                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

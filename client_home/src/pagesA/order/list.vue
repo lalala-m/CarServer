@@ -243,6 +243,12 @@ export default {
       }
       this.list = []; // 先置空列表,显示加载进度
       this.getOrderList();
+      // #ifdef MP-WEIXIN
+      setTimeout(() => {
+        wx.pageScrollTo({ scrollTop: 1, duration: 0 });
+        wx.pageScrollTo({ scrollTop: 0, duration: 0 });
+      }, 200);
+      // #endif
     },
     // 删除订单
     del_order(order_number, i) {

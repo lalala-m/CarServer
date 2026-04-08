@@ -42,9 +42,13 @@ router.beforeEach((to, from, next) => {
           });
         });
     } else {
-      next({
-        path: '/pagesB/account/login',
-      });
+      if (to.path == '/choose-location') {
+        next();
+      } else {
+        next({
+          path: '/pagesB/account/login',
+        });
+      }
     }
   }
 });

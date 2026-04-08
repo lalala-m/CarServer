@@ -153,7 +153,14 @@ export default {
 	created() {
 		// 获取分类树形数据
 		this.get_type_tree();
-	}
+	},
+	watch: {
+		'form.father_id'(newVal) {
+			if (newVal === null || newVal === undefined) {
+				this.form.father_id = 0;
+			}
+		}
+	},
 }
 </script>
 

@@ -9,7 +9,7 @@
        {{ $store.state.user.nickname || $store.state.user.username }}
     </span>
 
-    <el-menu-item index="/">
+    <el-menu-item index="/" @click="handleButtonClick('后台首页')">
       <i class="el-icon-s-home"></i>
       <span slot="title">后台首页</span>
     </el-menu-item>
@@ -21,7 +21,7 @@
                                                                                                 ,'/financial_user/table'
                                                                                                 ,'/manager_user/table'
                                                                                                 ,'/sales_manager/table'
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ])">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ])">
       <template slot="title"><i class="el-icon-s-custom"></i><span ref="customTemplate8">系统用户</span></template>
       <el-menu-item index="/user/table" v-show="user_group == '管理员'" @click="handleButtonClick(8)"><span>管理员</span></el-menu-item>
                                   <el-menu-item index="/owner_user/table" v-show="$check_action('/owner_user/table')" @click="handleButtonClick(8)">
@@ -34,7 +34,7 @@
                 <span>经理用户</span></el-menu-item>
                                               <el-menu-item index="/sales_manager/table" v-show="$check_action('/sales_manager/table')" @click="handleButtonClick(8)">
                 <span>销售经理</span></el-menu-item>
-                                                                                                                                                                                                                                                                                                                                                                                                  <!-- <el-menu-item index="/user_group/table"><span>用户组</span></el-menu-item> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <!-- <el-menu-item index="/user_group/table"><span>用户组</span></el-menu-item> -->
     </el-submenu>
 
 	<el-submenu class="Cust" :index="i.id" v-for="i in auth" :key="i.id" v-show="$check_action(i.path)">
@@ -119,11 +119,11 @@
       
 
               <el-submenu index="mall" v-show="$check_group(['/goods/table','/order/table'
-                                                                                                                                                                                                                                                                                                                              ,'/online_mall/table'
+                                                                                                                                                                                                                                                                                                                                                                                                    ,'/online_mall/table'
                                             ,'/logistics_delivery/table'
       ])">
           <template slot="title"><i class="el-icon-shopping-cart-2"></i><span ref="customTemplate7">商城管理</span></template>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <el-menu-item v-show="$check_action('/online_mall/table')"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <el-menu-item v-show="$check_action('/online_mall/table')"
                                 index="/online_mall/table"
                                 class="bg-hover" @click="handleButtonClick(7)"><span>网上商城</span></el-menu-item>
                                                                   <!--<el-menu-item v-show="$check_action('/goods/table')" index="/goods/table"
@@ -214,14 +214,16 @@
                                                                                                                       site_list.push("maintenance_order")
                                                                                                                                                                       site_list.push("write_off_information")
                                                                                                                                                                                                                                                                       site_list.push("reservation_record")
+                                                                                                                                                                                                                      site_list.push("inbound_record")
+                                                                      site_list.push("outbound_record")
                                                                                                                                                         let list = ["exam", 'evaluation', "article", "article_type", "comment", "goods", "order", "logistics_delivery", "forum", "forum_type", "notice"];
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          list.push("online_mall");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        list.push("online_mall");
                                                                                   list.push("owner_user");
                                         list.push("business_user");
                                         list.push("financial_user");
                                         list.push("manager_user");
                                         list.push("sales_manager");
-                                                                                                                                                                                                                                                                                                                                                              for (var i = 0; i < tables.length; i++) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        for (var i = 0; i < tables.length; i++) {
           var o = tables[i];
           if (o.path.indexOf("/table") !== -1) {
             if (list.indexOf(o.table_name) === -1) {

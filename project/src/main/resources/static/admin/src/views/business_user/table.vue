@@ -5,12 +5,12 @@
 
 
 
-							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','business_name')">
 					<el-form-item label="商家姓名">
 									<el-input v-model="query.business_name"></el-input>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','mobile_phone_number')">
 					<el-form-item label="手机号码">
 									<el-input v-model="query.mobile_phone_number"></el-input>
 								</el-form-item>
@@ -156,7 +156,7 @@
 
 				// 字段ID
 				field: "business_user_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -272,7 +272,7 @@
 																						}
 					});
 				}
-			},
+							},
 
 
 								

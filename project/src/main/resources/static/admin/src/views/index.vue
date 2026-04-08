@@ -40,7 +40,7 @@
 								<el-button @click="sign_out_fun">退出</el-button>
 								</div>
 								<p class="logotime">
-								上次登录时间：{{
+								登录时间：{{
 									$toTime(user.login_time, "yyyy-MM-dd hh:mm:ss")
 								}}
 								</p>
@@ -126,7 +126,7 @@
 							<iframe ref="dynamicIframe" v-if="iframeSrc" :src="iframeSrc" frameborder="0" :style="{ width: '100%', border: 'none', height: 'auto' }" @load="adjustIframeHeight"></iframe>
 						</div>
 					</el-col>
-                                              				</el-row>
+                                                        				</el-row>
 	<el-row style="padding: 8px;">
 	  <schedule />
 	</el-row>
@@ -243,7 +243,7 @@
 				],
 				now_month: new Date().getMonth() + 1,
 				monthDateList: [],
-		  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  							};
+		  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  							};
 		},
 		created() {
 			this.getMonthDateList();
@@ -252,7 +252,7 @@
 			this.get_order_month_some_price(null, this.bar_obj_shop_num)
 			this.get_shop_type_statistics(null, this.circle_obj_shop_type);
 			this.initScreenIframe()
-																									},
+																														},
 		methods: {
 			initScreenIframe() {
 				let href = window.location.href;
@@ -472,7 +472,7 @@
 							};
 						} else if (obj.field === "freeze_user") {
 							data = {
-								state: 3,
+								state: 2,
 							};
 						} else {
 							data = {
@@ -511,6 +511,8 @@
 																												site_list.push("maintenance_order")
 																																					site_list.push("write_off_information")
 																																																							site_list.push("reservation_record")
+																																														site_list.push("inbound_record")
+																			site_list.push("outbound_record")
 																															
 				// 初始化表格列表并添加额外项
 				let list = [
@@ -524,13 +526,13 @@
 					"forum_type",
 											"notice",
 																];
-																																																																																																																																																																																																															list.push("online_mall");
+																																																																																																																																																																																																																																																												list.push("online_mall");
 																																	list.push("owner_user");
 																list.push("business_user");
 																list.push("financial_user");
 																list.push("manager_user");
 																list.push("sales_manager");
-																																																																																																																																									// 处理表格权限数据
+																																																																																																																																																																												// 处理表格权限数据
 				for (let i = 0; i < tables.length; i++) {
 					let o = tables[i];
 					if (o.path && o.path.indexOf("/table") !== -1) {
@@ -634,7 +636,7 @@
 					}
 				}
 			},
-															  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  				},
+															  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  		  				},
 		computed:{
 			recognitionHeight(){
 				return "830px"

@@ -187,6 +187,7 @@
 
 <script>
 import MarkdownIt from 'markdown-it';
+import { $aiPost } from "@/api/aiApi.js";
 export default {
   data() {
     return {
@@ -316,8 +317,7 @@ export default {
             title: '处理中',
           });
           let prompt = this.promptList[res.tapIndex];
-          this.$qwenPost({
-            model: 'qwen-turbo',
+          $aiPost({
             messages: [
               {
                 role: 'user',

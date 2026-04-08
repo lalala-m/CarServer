@@ -484,10 +484,16 @@ public class BaseService<E>{
 
 
     public String encryption(String plainText) {
-        String re_md5 = new String();
+        return encryption(plainText, "md5-salt");
+    }
+
+    public String encryption(String plainText, String salt) {
+        String re_md5 = "";
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(plainText.getBytes());
+            String safePlainText = plainText == null ? "" : plainText;
+            String safeSalt = salt == null ? "" : salt;
+            md.update((safePlainText + safeSalt).getBytes());
             byte b[] = md.digest();
 
             int i;

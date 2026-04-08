@@ -91,7 +91,7 @@
         "navigationBarTitleText": "通知公告"
       }
     },
-                                                  {
+                                                            {
       "path": "pages/user/index",
       "style": {
         "navigationBarTitleText": "我的"
@@ -325,7 +325,7 @@
 		    "noAuth": true
 		  }
 		},
-                                                      {
+                                                                {
           "name": "登录",
           "path": "account/login",
           "style": {
@@ -516,6 +516,41 @@
           "path": "reservation_record/list",
           "style": {
             "navigationBarTitleText": "预约记录列表"
+          }
+        },
+                      // 供应厂商列表路由
+        {
+          "path": "supplier/list",
+          "style": {
+            "navigationBarTitleText": "供应厂商列表"
+          }
+        },
+                      // 仓库信息列表路由
+        {
+          "path": "warehouse_information/list",
+          "style": {
+            "navigationBarTitleText": "仓库信息列表"
+          }
+        },
+                      // 库存信息列表路由
+        {
+          "path": "inventory_information/list",
+          "style": {
+            "navigationBarTitleText": "库存信息列表"
+          }
+        },
+                      // 入库记录列表路由
+        {
+          "path": "inbound_record/list",
+          "style": {
+            "navigationBarTitleText": "入库记录列表"
+          }
+        },
+                      // 出库记录列表路由
+        {
+          "path": "outbound_record/list",
+          "style": {
+            "navigationBarTitleText": "出库记录列表"
           }
         },
                       // 网上商城列表路由
@@ -826,6 +861,76 @@
               "navigationBarTitleText": "预约记录详情"
             }
         },
+                    // 供应厂商列表路由
+        {
+            "path": "supplier/table",
+            "style": {
+              "navigationBarTitleText": "供应厂商列表"
+            }
+        },
+        // 供应厂商编辑路由
+        {
+            "path": "supplier/view",
+            "style": {
+              "navigationBarTitleText": "供应厂商详情"
+            }
+        },
+                    // 仓库信息列表路由
+        {
+            "path": "warehouse_information/table",
+            "style": {
+              "navigationBarTitleText": "仓库信息列表"
+            }
+        },
+        // 仓库信息编辑路由
+        {
+            "path": "warehouse_information/view",
+            "style": {
+              "navigationBarTitleText": "仓库信息详情"
+            }
+        },
+                    // 库存信息列表路由
+        {
+            "path": "inventory_information/table",
+            "style": {
+              "navigationBarTitleText": "库存信息列表"
+            }
+        },
+        // 库存信息编辑路由
+        {
+            "path": "inventory_information/view",
+            "style": {
+              "navigationBarTitleText": "库存信息详情"
+            }
+        },
+                    // 入库记录列表路由
+        {
+            "path": "inbound_record/table",
+            "style": {
+              "navigationBarTitleText": "入库记录列表"
+            }
+        },
+        // 入库记录编辑路由
+        {
+            "path": "inbound_record/view",
+            "style": {
+              "navigationBarTitleText": "入库记录详情"
+            }
+        },
+                    // 出库记录列表路由
+        {
+            "path": "outbound_record/table",
+            "style": {
+              "navigationBarTitleText": "出库记录列表"
+            }
+        },
+        // 出库记录编辑路由
+        {
+            "path": "outbound_record/view",
+            "style": {
+              "navigationBarTitleText": "出库记录详情"
+            }
+        },
                       // 员工绩效列表路由
         {
           "path": "employee_performance/table",
@@ -865,7 +970,7 @@
         "pagePath": "pages/cart/index",
         "text": ""
       },
-                                                      {
+                                                                {
         "pagePath": "pages/forum/index",
         "text": ""
       },

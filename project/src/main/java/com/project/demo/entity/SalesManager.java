@@ -56,10 +56,13 @@ public class SalesManager implements Serializable {
 
 
 
-					
+							
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

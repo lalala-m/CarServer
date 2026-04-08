@@ -179,7 +179,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/online_mall/view','set') || $check_action('/online_mall/view','add')">
 					<el-button type="primary" @click="submitCheckNew">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -210,6 +210,7 @@
 
 				query: {
 					"online_mall_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -321,7 +322,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																										};
+																																
+				};
 				return form;
 			},
 						},
@@ -418,7 +420,7 @@
 			 */
 			get_obj_before(param) {
 				var form = "";
-																																																																																																																					
+																																																																																																																																																			
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -502,7 +504,7 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.online_mall_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  														let message_inform = {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  							  		  																											  		  							  		  							  		  							  		  														let message_inform = {
 								title: '网上商城',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条网上商城数据',
@@ -722,8 +724,8 @@
 							customize_field.push({"field_name":"商家用户","field_value":this.form.business_user,"type":"uid"});
 									customize_field.push({"field_name":"商品规格","field_value":this.form.commodity_specifications});
 							if (this.form.sku) {
-					customize_field.push({"field_name":"sku","field_value":this.form.sku,"type":"sku"});
-				}
+				 						customize_field.push({"field_name":"sku","field_value":this.form.sku,"type":"sku"});
+									}
                 this.goods_form = {
                     goods_id: 0,
                     title: this.form.cart_title,

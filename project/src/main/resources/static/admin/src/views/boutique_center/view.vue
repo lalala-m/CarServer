@@ -99,7 +99,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/boutique_center/view','set') || $check_action('/boutique_center/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -130,6 +130,7 @@
 
 				query: {
 					"boutique_center_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -172,7 +173,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																																																							};
+																																																																													
+				};
 				return form;
 			},
 											},
@@ -191,7 +193,7 @@
 			 */
 						async get_list_service_type() {
 			 	let param = {}
-			  			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/service_class_nameification/get_list?",param);
+			  			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/service_class_nameification/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -252,7 +254,7 @@
 			 */
 			get_obj_before(param) {
 				var form = "";
-																																																																																																																					
+																																																																																																																																																			
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -317,7 +319,7 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.boutique_center_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  														let message_inform = {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  							  		  																											  		  							  		  							  		  							  		  														let message_inform = {
 								title: '精品中心',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条精品中心数据',

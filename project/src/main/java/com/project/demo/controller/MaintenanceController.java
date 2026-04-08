@@ -61,7 +61,7 @@ public class MaintenanceController extends BaseController<Maintenance, Maintenan
         maintenance.setPraise_len(paramMap.get("praise_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("praise_len"))));
         maintenance.setComment_len(paramMap.get("comment_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("comment_len"))));
             maintenance.setMaintenance_order_limit_times(paramMap.get("maintenance_order_limit_times")==null?null:String.valueOf(paramMap.get("maintenance_order_limit_times")));
-                                                                                                                            maintenance.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                        maintenance.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(maintenance);
         System.out.println("维修养护新增成功");
         return success(1);
@@ -89,7 +89,7 @@ public class MaintenanceController extends BaseController<Maintenance, Maintenan
         maintenance.setPraise_len(paramMap.get("praise_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("praise_len"))));
         maintenance.setComment_len(paramMap.get("comment_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("comment_len"))));
             maintenance.setMaintenance_order_limit_times(paramMap.get("maintenance_order_limit_times")==null?null:String.valueOf(paramMap.get("maintenance_order_limit_times")));
-                                this.setEntity(queryMap,configMap,maintenance);
+                                        this.setEntity(queryMap,configMap,maintenance);
         System.out.println("维修养护修改成功");
         return success(1);
     }

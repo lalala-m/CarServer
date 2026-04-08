@@ -47,9 +47,11 @@ export default {
 		          query: {
         "service_class_nameification_id": 0,
       },
+      oldForm: {},
       form: {
           "service_type": null, // 服务类型
           "service_class_nameification_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "service_type_isDisabled": false,
@@ -90,8 +92,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.service_class_nameification_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.service_class_nameification_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -159,6 +161,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -207,7 +210,9 @@ export default {
     },
     submit_() {
         if (this['service_type'] !== null) this.form['service_type'] = this['service_type']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.service_class_nameification_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -330,7 +335,12 @@ export default {
       if (json.result.obj.extra) {
         this.form.extra = JSON.parse(json.result.obj.extra);
       }
-                            },
+                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

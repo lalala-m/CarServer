@@ -179,6 +179,7 @@ export default {
 												                                                  query: {
         "write_off_information_id": 0,
       },
+      oldForm: {},
       form: {
           "card_code":  '', // 卡券编码
             "manager_user": 0, // 经理用户
@@ -192,6 +193,7 @@ export default {
             "write_off_doc":  '', // 核销单
             "write_off_remarks":  '', // 核销备注
           "write_off_information_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "card_code_isDisabled": false,
@@ -248,13 +250,13 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.write_off_information_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        																					this.$post("~/api/issuing_card_voucher/set?card_code=" + this.form.card_code, { write_off_status: "已核销" }, (res) => {
-								
-							}).catch(() => {
-								console.log("修改状态1出错")
-							})
-																					                                        		        		        		        		        		        		        		        		                    							setTimeout(navigate, 800);
+    						if(!this.form.write_off_information_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        																								            this.$post("~/api/issuing_card_voucher/set?card_code=" + this.form.card_code, { write_off_status: "已核销" }, (res) => {
+              
+            }).catch(() => {
+              console.log("修改write_off_status出错")
+            })
+																                                                  		        		        		        		        		        		        		        		        		        		        		        		        		                    							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -325,6 +327,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -393,7 +396,9 @@ export default {
           if (this['write_off_time'] !== null) this.form['write_off_time'] = this['write_off_time']
           if (this['write_off_doc'] !== null) this.form['write_off_doc'] = this['write_off_doc']
           if (this['write_off_remarks'] !== null) this.form['write_off_remarks'] = this['write_off_remarks']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.write_off_information_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -582,7 +587,12 @@ export default {
                                   if (this.form["write_off_time"] && JSON.stringify(this.form["write_off_time"]).indexOf("-")===-1) {
         this.form["write_off_time"] = this.$toTime(parseInt(this.form["write_off_time"]), "yyyy-MM-dd hh:mm:ss")
       }
-                                                                            },
+                                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

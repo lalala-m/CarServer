@@ -220,6 +220,7 @@ export default {
 															                                                              query: {
         "purchase_order_id": 0,
       },
+      oldForm: {},
       form: {
           "purchase_order_number": this.$get_stamp(), // 购买单号
             "car_coding":  '', // 汽车编码
@@ -238,6 +239,7 @@ export default {
           "examine_state": "未审核",
         "examine_reply": "",
         "purchase_order_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "purchase_order_number_isDisabled": false,
@@ -310,8 +312,19 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.purchase_order_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        																		                                        		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+                  // 审核状态发生变更时，发送通知消息
+        if (this.form.examine_state && this.oldForm.examine_state !== this.form.examine_state) {
+          let message_inform = {
+            title: '审核结果',
+            type: '通知',
+            content: "你在购买订单下提交的内容，审核结果为：" + this.form.examine_state,
+            state: 1,
+            user_id: this.form.create_by
+          }
+          this.$post("~/api/message_inform/add", message_inform)
+        }
+          						if(!this.form.purchase_order_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  														                                                  		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -379,6 +392,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -453,7 +467,9 @@ export default {
           if (this['purchase_quantity'] !== null) this.form['purchase_quantity'] = this['purchase_quantity']
           if (this['total_amount'] !== null) this.form['total_amount'] = this['total_amount']
           if (this['purchase_notes'] !== null) this.form['purchase_notes'] = this['purchase_notes']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.purchase_order_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -674,7 +690,7 @@ export default {
         children: [] 
       }));
       if(!this.form["purchase_order_id"]) {
-                  this.form["number_of_purchases"] = this.list_number_of_purchases[0].value;
+                  this.form["number_of_purchases"] = this.list_number_of_purchases[0].number_of_purchases;
               }
             },
                     
@@ -813,7 +829,12 @@ export default {
                                                   if (json.result.obj.number_of_purchases) {
         this.filter_text.number_of_purchases = json.result.obj.number_of_purchases;
       }
-                                                                                    },
+                                                                                
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

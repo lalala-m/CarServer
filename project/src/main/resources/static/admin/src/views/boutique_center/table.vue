@@ -5,12 +5,12 @@
 
 
 
-										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','service_name')">
 					<el-form-item label="服务名称">
 									<el-input v-model="query.service_name"></el-input>
 								</el-form-item>
 				</el-col>
-									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','service_type')">
 					<el-form-item label="服务类型">
 									<el-cascader v-model="query.service_type" :options="list_service_type" :props="service_type_cascader"
 							:show-all-levels="false" clearable collapse-tags placeholder="请选择服务类型"
@@ -177,7 +177,7 @@
 
 				// 字段ID
 				field: "boutique_center_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -234,6 +234,7 @@
 			get_list_after: function get_list_after(res, func, url) {
 				let _this = this
 									
+				
 												_this.list.map((item) => {
 					let param = {
 						source_table: "boutique_center",
@@ -263,7 +264,7 @@
 			 */
 			async get_list_service_type() {
 				let param = {}
-			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/service_class_nameification/get_list?",param);
+			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/service_class_nameification/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -314,7 +315,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

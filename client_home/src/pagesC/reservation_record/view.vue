@@ -252,6 +252,7 @@ export default {
 																			                                                                              query: {
         "reservation_record_id": 0,
       },
+      oldForm: {},
       form: {
           "booking_code": this.$get_stamp(), // 预约编码
             "service_code":  '', // 服务编码
@@ -272,6 +273,7 @@ export default {
             "sales_manager": 0, // 销售经理
             "account_manager": 0, // 客户经理
           "reservation_record_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "booking_code_isDisabled": false,
@@ -357,8 +359,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.reservation_record_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        																					                                        		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.reservation_record_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        																	                                                  		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -445,6 +447,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -527,7 +530,9 @@ export default {
           if (this['appointment_remarks'] !== null) this.form['appointment_remarks'] = this['appointment_remarks']
           if (this['sales_manager'] !== null) this.form['sales_manager'] = this['sales_manager']
           if (this['account_manager'] !== null) this.form['account_manager'] = this['account_manager']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.reservation_record_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -736,7 +741,7 @@ export default {
      */
     async get_list_appointment_period() {
               let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                            var json = await this.$get("~/api/period_class_nameification/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/period_class_nameification/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -781,7 +786,7 @@ export default {
         children: [] 
       }));
       if(!this.form["reservation_record_id"]) {
-                  this.form["number_of_appointments"] = this.list_number_of_appointments[0].value;
+                  this.form["number_of_appointments"] = this.list_number_of_appointments[0].number_of_appointments;
               }
             },
                     
@@ -802,7 +807,7 @@ export default {
                 sqlwhere += ")";
                 param["sqlwhere"] = sqlwhere;
               }
-                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/vehicle_information/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                var json = await this.$get("~/api/vehicle_information/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -1021,7 +1026,12 @@ export default {
                                                                       if (json.result.obj.license_plate_number) {
         this.filter_text.license_plate_number = json.result.obj.license_plate_number;
       }
-                                                                                                                                    },
+                                                                                                                                
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

@@ -30,6 +30,8 @@
                                   site_list.push("maintenance_order")
                                             site_list.push("write_off_information")
                                                                 site_list.push("reservation_record")
+                                                      site_list.push("inbound_record")
+                        site_list.push("outbound_record")
                                           let list = [
           "exam",
           "article",
@@ -42,13 +44,13 @@
           "forum_type",
                       "notice",
                                 ];
-                                                                                                                                                                                                                                                                                                                                                                            list.push("online_mall");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            list.push("online_mall");
                                                       list.push("owner_user");
                         list.push("business_user");
                         list.push("financial_user");
                         list.push("manager_user");
                         list.push("sales_manager");
-                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                        
         for (let i = 0; i < tables.length; i++) {
           let o = tables[i];
           if (o.path && o.path.indexOf("/table") !== -1) {  // 添加path存在性检查

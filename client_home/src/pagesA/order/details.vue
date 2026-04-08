@@ -219,6 +219,7 @@ export default {
       },
       showState: '',
       list: [],
+      list_origin: [],
 	  // 支付方式
 	  payway: [
 	    { name: "微信", url: "/static/img/wx.png", id: 1 },
@@ -255,7 +256,9 @@ export default {
     getOrderList() {
       getOrderListApi(this.query)
         .then((res) => {
-          this.list = res.result.list;
+          const list = (res && res.result && res.result.list) ? res.result.list : [];
+          this.list_origin = JSON.parse(JSON.stringify(list));
+          this.list = JSON.parse(JSON.stringify(list));
           let {
             contact_name,
             contact_phone,

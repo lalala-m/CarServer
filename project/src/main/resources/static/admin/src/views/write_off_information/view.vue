@@ -137,7 +137,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/write_off_information/view','set') || $check_action('/write_off_information/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -170,6 +170,7 @@
 
 				query: {
 					"write_off_information_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -214,7 +215,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																																																																																											};
+																																																																																																																	
+				};
 				return form;
 			},
 															},
@@ -358,7 +360,7 @@
 																																																																																		// 获取缓存数据附加
 					form = $.db.get("form");
 													$.push(this.form ,form);
-																	
+																						
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -441,12 +443,12 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.write_off_information_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																					this.$post("~/api/issuing_card_voucher/set?card_code=" + this.form.card_code, { write_off_status: "已核销" }, (res) => {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																															this.$post("~/api/issuing_card_voucher/set?card_code=" + this.form.card_code, { write_off_status: "已核销" }, (res) => {
 								
 							}).catch(() => {
-								console.log("修改状态1出错")
+								console.log("修改write_off_status出错")
 							})
-																																						  				  				  				  				  				  				  				  											let message_inform = {
+																																						  				  				  				  				  				  				  				  				  				  				  				  				  											let message_inform = {
 								title: '核销信息',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条核销信息数据',

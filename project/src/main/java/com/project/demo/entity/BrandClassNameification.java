@@ -47,10 +47,13 @@ public class BrandClassNameification implements Serializable {
 
 
 
-					
+							
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

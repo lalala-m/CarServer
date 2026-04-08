@@ -53,17 +53,17 @@
 								</view>
 											<view class="price_ago"> ￥{{ item[vm.price_ago] | keepTwoNum }} </view>
 							</view>
-																																																																																		<view class="info">
+																																																																																																	<view class="info">
 								<view class="sales">销量<text>{{ item[vm.sales] }}</text></view>
 								<view class="inventory">库存<text>{{ item[vm.inventory] }}</text></view>
 							</view>
-																																																																																	</view>
+																																																																																																</view>
 					</view>
 				</view>
 			</view>
 			<view v-else>
 				<view class="guess-section">
-																																																																									<view
+																																																																																								<view
 				v-for="(item, index) in list"
 				:key="index"
 				class="guess-item"
@@ -81,7 +81,7 @@
 								</view>
 								<view class="price_ago"> ￥{{ item[vm.price_ago] | keepTwoNum }} </view>
 				</view>
-																																																																															<view class="info">
+																																																																																														<view class="info">
 					<view class="sales">销量<text>{{ item[vm.sales] }}</text></view>
 					<view class="inventory">库存<text>{{ item[vm.inventory] }}</text></view>
 				</view>
@@ -90,11 +90,11 @@
 						<image src="@/static/img/cart_b.png"></image>
 					</view>
 				</view>-->
-																																																																															</view>
+																																																																																														</view>
 			</view>
           
           </view>
-          <view class="medicine-title">
+																																																																																										          <view class="medicine-title">
             {{ no_data ? '没有更多数据了～' : '下拉加载更多' }}
           </view>
         </view>
@@ -152,9 +152,11 @@ export default {
 		inventory: 'inventory',
       },
       no_data: false,
-                                            	        };
+																															                                                      	        };
   },
-                                              watch: {
+	computed: {
+																																},
+                                                        watch: {
   	list: {
   		handler(val) {
 			  		},
@@ -162,7 +164,7 @@ export default {
   	},
   },
       methods: {
-                                            		        /**
+                                                      		        /**
      * 触底加载
      */
     lowerBottom() {
@@ -214,7 +216,7 @@ export default {
 			if (this.selected_sub > 0 && this.types_sub[this.selected_sub]) {
 				this.groupGoodsByThirdLevel();
 			}
-  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  				  				if (this.list.length >= res.result.count) {
+  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  				  				if (this.list.length >= res.result.count) {
 				this.no_data = true;
 			}
 		});
@@ -232,7 +234,7 @@ export default {
 
 		// 如果没有三级分类，直接显示
 		if (thirdLevelCategories.length === 0) {
-  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  				  			}
+  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  				  			}
 		// 按三级分类分组
 		const groupedGoods = {};
 		// 初始化分组
@@ -427,7 +429,7 @@ export default {
 	inputValue(val, key) {
 	  this.query[key] = val;
 	},
-  },
+																															  },
   // mounted() {
   //   this.get_goods_type();
   //   this.get_list();
@@ -435,7 +437,7 @@ export default {
 	onShow() {
 		this.get_goods_type({ father_id: 0 });
 		this.get_list();
-	},
+																																},
 };
 </script>
 
@@ -492,4 +494,4 @@ export default {
 		margin-right: 5px;
 	}
 }
-</style>
+																															</style>

@@ -67,10 +67,7 @@
 		    </view>
 		  </view>
 		  <button class="confirm-btn" @click="forgot">找回密码</button>
-		  <view class="register-section">
-		    还没有账号?<view @click="$navTo('/pagesB/account/register')" class="text">立即注册</view>
-		  </view>
-		</view>
+                                                        		</view>
 	</view>
   </view>
 </template>

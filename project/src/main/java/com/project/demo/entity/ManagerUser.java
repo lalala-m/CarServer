@@ -62,10 +62,13 @@ public class ManagerUser implements Serializable {
 
 
 
-					
+							
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

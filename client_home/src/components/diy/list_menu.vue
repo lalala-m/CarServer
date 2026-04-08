@@ -118,6 +118,9 @@ export default {
       if(url == "/article/list"){
         url = "/article/index"
       }
+      if(url == "/subject_exam/list"){
+        url = "/exam_subject/list"
+      }
       const isTabbarPage = this.tabbarList.some(item => item.pagePath.endsWith(url));
       if (isTabbarPage) {
         this.$navToTab(this.getFullPath(url,'/pages'))

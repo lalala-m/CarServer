@@ -51,7 +51,7 @@
 						<el-button type="text" @click="clearAll">清除</el-button>
 					</div>
 					<div style="height: 80vh;overflow: auto;padding: 10px">
-						<div v-for="item in messageInformList" :key="item.inform_id" @click="setState(item)" style="margin-bottom: 10px;">
+						<div v-for="item in messageInformList" :key="item.message_inform_id" @click="setState(item)" style="margin-bottom: 10px;">
 							<el-badge :is-dot="item.state==1?true : false" class="item">
 								<span style="font-size: 14px;font-weight: 700;color:#333">{{item.title}}</span>
 							</el-badge>
@@ -157,20 +157,20 @@
 
 			readAll() {
 				this.messageInformList.forEach(async item => {
-					await this.$post('~/api/message_inform/set?inform_id=' + item.inform_id,{state: 0})
+					await this.$post('~/api/message_inform/set?message_inform_id=' + item.message_inform_id,{state: 0})
 				})
 				this.getMessageInformList()
 			},
 
 			clearAll() {
 				this.messageInformList.forEach(async item => {
-					await this.$get('~/api/message_inform/del?inform_id=' + item.inform_id)
+					await this.$get('~/api/message_inform/del?message_inform_id=' + item.message_inform_id)
 				})
 				this.getMessageInformList()
 			},
 
 			async setState(item) {
-				await this.$post('~/api/message_inform/set?inform_id=' + item.inform_id,{state: 0})
+				await this.$post('~/api/message_inform/set?message_inform_id=' + item.message_inform_id,{state: 0})
 				this.getMessageInformList()
 			},
 			handleSelect(key, keyPath) {

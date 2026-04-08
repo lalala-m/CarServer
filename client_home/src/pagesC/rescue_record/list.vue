@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">救援记录列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.rescue_code" placeholder="搜索救援编码" @search="search_" @cancel="search_cancel('rescue_code')" @input="(val) => inputValue(val, 'rescue_code')" />
 	      	    	  	    	  	    	  	    	  	    	  	    	      	    	  	    	  	    	      	    	  	    	  	    	  	  	    	      	    	  	    	  	    	  	    	  	    	  	    	      		  	  <view class="drop_down">
 	        	<view class="filter-item" @click="showFilter('audit_status')">
@@ -27,7 +27,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -118,8 +118,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -133,7 +132,7 @@
 	  	      </view>
 	    </view>
 				    																	    		<!--分类选择器-->
-		<uni-popup ref="filterPopup" type="bottom" background-color="#fff">
+		<uni-popup ref="filterPopup" type="bottom" background-color="#fff" @change="onPopupChange">
 			<view class="filter-popup">
 				<view class="popup-header">
 					<text class="popup-title">{{ popupTitle }}</text>
@@ -229,7 +228,17 @@ export default {
       maintenance_time_date_text: '请选择维修时间',
 										 									 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																																																																																							if (item['scene_picture'] && item['scene_picture'] !== '') {
+							return true;
+						}
+																						return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -238,6 +247,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/rescue_record/details?rescue_record_id=' + o['rescue_record_id'])
@@ -347,6 +358,7 @@ export default {
     },
     // 显示筛选弹窗
     showFilter(type) {
+	  this.showTabbar = false;
       this.currentFilterType = type;
       switch (type) {
 	        	        	        	        	        	                case 'audit_status':
@@ -356,6 +368,11 @@ export default {
         	        	        	        	        	      }
       this.$refs.filterPopup.open();
     },
+	onPopupChange(e) {
+		if (!e.show) {
+			this.showTabbar = true;
+		}
+	},
 	initCascader(list) {
 		this.cascaderList = list;
 		const maxDepth = Math.max(1, this.getMaxDepth(list));

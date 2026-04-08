@@ -51,7 +51,7 @@ public class VehicleClassNameificationController extends BaseController<VehicleC
                 if (vehicle_class_nameification.getModel_name()== null || vehicle_class_nameification.getModel_name().trim().isEmpty()){
             throw new IllegalArgumentException("车型名称不能为空");
         }
-                                                                                                                                    vehicle_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                                vehicle_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(vehicle_class_nameification);
         System.out.println("车型分类新增成功");
         return success(1);
@@ -69,7 +69,7 @@ public class VehicleClassNameificationController extends BaseController<VehicleC
         });
         VehicleClassNameification vehicle_class_nameification = new VehicleClassNameification();
             vehicle_class_nameification.setModel_name(paramMap.get("model_name")==null?null:String.valueOf(paramMap.get("model_name")));
-                                    this.setEntity(queryMap,configMap,vehicle_class_nameification);
+                                            this.setEntity(queryMap,configMap,vehicle_class_nameification);
         System.out.println("车型分类修改成功");
         return success(1);
     }

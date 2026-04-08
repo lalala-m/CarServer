@@ -23,6 +23,7 @@
 <script>
 import MarkdownIt from 'markdown-it';
 import mixin from '@/libs/mixins/page.js';
+import { $aiPost } from "@/api/aiApi.js";
 export default {
   mixins: [mixin],
   data() {
@@ -42,8 +43,7 @@ export default {
       });
       this.roboticVal = '';
       this.showLoading = true;
-      this.$qwenPost({
-        model: 'qwen-turbo',
+      $aiPost({
         messages: [
           {
             role: 'user',

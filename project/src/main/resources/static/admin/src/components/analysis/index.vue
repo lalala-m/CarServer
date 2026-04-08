@@ -29,6 +29,7 @@
 </template>
 <script>
 import MarkdownIt from "markdown-it";
+import { $aiPost } from "@/api/aiApi";
 const md = new MarkdownIt();
 
 export default {
@@ -75,8 +76,7 @@ export default {
         this.showBtn = false;
       }
       this.loading = true;
-      let res = await this.$qwenPost({
-        model: "qwen-turbo",
+      let res = await $aiPost({
         messages: [
           {
             role: "user",
@@ -87,42 +87,6 @@ export default {
       this.answerMD = res.choices[0].message.content;
       this.loading = false;
       this.$emit("analysisEvent", this.answerMD);
-    },
-    async $qwenPost(body, func) {
-      var token = "Bearer sk-afb6a8de44c247e7924b11bf240a759e";
-      if (func) {
-        // 如果回调函数存在, 则采用异步
-        this.$axios
-          .post(
-            "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-            body,
-            {
-              headers: {
-                Authorization: token,
-                "Content-Type": "application/json",
-              },
-            }
-          )
-          .then((res) => {
-            func(res.data);
-          })
-          .catch((res) => {
-            func(res);
-          });
-      } else {
-        // 否则采用同步
-        var res = await this.$axios.post(
-          "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-          body,
-          {
-            headers: {
-              Authorization: token,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        return res.data;
-      }
     },
     renderMD(data) {
       return this.md.render(data);

@@ -5,34 +5,34 @@
 
 
 
-													<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+													<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','service_name')">
 					<el-form-item label="服务名称">
 									<el-input v-model="query.service_name"></el-input>
 								</el-form-item>
 				</el-col>
-															<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+															<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','owners_name')">
 					<el-form-item label="车主姓名">
 									<el-input v-model="query.owners_name"></el-input>
 								</el-form-item>
 				</el-col>
-									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','contact_number')">
 					<el-form-item label="联系号码">
 									<el-input v-model="query.contact_number"></el-input>
 								</el-form-item>
 				</el-col>
-									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','appointment_date')">
 					<el-form-item label="预约日期">
 									<el-date-picker v-model="query.appointment_date" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
 								</el-form-item>
 				</el-col>
-																					<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+																					<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','license_plate_number')">
 					<el-form-item label="车牌号码">
 									<el-cascader v-model="query.license_plate_number" :options="list_license_plate_number" :props="license_plate_number_cascader"
 							:show-all-levels="false" clearable collapse-tags placeholder="请选择车牌号码"
 							@change="handle_license_plate_number_change"></el-cascader>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','car_type')">
 					<el-form-item label="汽车类型">
 									<el-input v-model="query.car_type"></el-input>
 								</el-form-item>
@@ -318,7 +318,7 @@
 
 				// 字段ID
 				field: "reservation_record_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -450,7 +450,7 @@
 						sqlwhere += ")";
 						param["sqlwhere"] = sqlwhere;
 					}
-											  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_information/get_list?",param);
+											  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_information/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -632,7 +632,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

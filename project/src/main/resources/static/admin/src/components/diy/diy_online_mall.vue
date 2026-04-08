@@ -8,6 +8,13 @@
 					</el-form-item>
 		</el-col>
 	
+		<el-col :xs="24" :sm="12" :lg="8" class="el_form_item_warp">
+			<el-form-item label="点击数" prop="hits">
+				<el-input-number id="hits" v-model="form['hits']"
+					v-if="$check_field('set','hits')"></el-input-number>
+				<div v-else-if="$check_field('get','hits')">{{form["hits"]}}</div>
+			</el-form-item>
+		</el-col>
 
 
 		<el-col :xs="24" :sm="24" :lg="24" style="text-align: center;" class="el_form_btn_warp">
@@ -62,7 +69,8 @@
 				form: {
 						"business_user": 0,
 							"commodity_specifications":  '',
-					},
+						"hits": 0,
+				},
 
 		
 				rules: {

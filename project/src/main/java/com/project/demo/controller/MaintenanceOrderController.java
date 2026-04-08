@@ -69,7 +69,7 @@ public class MaintenanceOrderController extends BaseController<MaintenanceOrder,
         maintenance_order.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         maintenance_order.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         maintenance_order.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                                                                                                                        maintenance_order.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                    maintenance_order.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(maintenance_order);
         System.out.println("保养订单新增成功");
         return success(1);
@@ -107,7 +107,7 @@ public class MaintenanceOrderController extends BaseController<MaintenanceOrder,
             maintenance_order.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         maintenance_order.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         maintenance_order.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                            this.setEntity(queryMap,configMap,maintenance_order);
+                                    this.setEntity(queryMap,configMap,maintenance_order);
         System.out.println("保养订单修改成功");
         return success(1);
     }

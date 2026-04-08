@@ -158,7 +158,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/issuing_card_voucher/view','set') || $check_action('/issuing_card_voucher/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -191,6 +191,7 @@
 
 				query: {
 					"issuing_card_voucher_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -264,7 +265,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																																																																																		};
+																																																																																																								
+				};
 				return form;
 			},
 														},
@@ -409,7 +411,7 @@
 						sqlwhere += ")";
 						param["sqlwhere"] = sqlwhere;
 					}
-											  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_information/get_list?",param);
+											  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_information/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -474,7 +476,7 @@
 			 */
 						async get_list_card_name() {
 			 	let param = {}
-			  			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/card_type/get_list?",param);
+			  			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/card_type/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -538,7 +540,7 @@
 			 */
 			get_obj_before(param) {
 				var form = "";
-																																																																																																																					
+																																																																																																																																																			
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -612,7 +614,7 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.issuing_card_voucher_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  														let message_inform = {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																											  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  							  		  																											  		  							  		  							  		  							  		  														let message_inform = {
 								title: '发放卡券',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条发放卡券数据',

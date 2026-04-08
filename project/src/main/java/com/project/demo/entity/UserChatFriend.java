@@ -45,6 +45,12 @@ public class UserChatFriend implements Serializable {
     private String friend_user_name;
 
     /**
+     * 好友状态
+     */
+    @TableField(value = "friend_status")
+    private String friend_status;
+
+    /**
      * 创建时间：
      */
     @TableField(value = "create_time")

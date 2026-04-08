@@ -51,7 +51,7 @@ public class ServiceClassNameificationController extends BaseController<ServiceC
                 if (service_class_nameification.getService_type()== null || service_class_nameification.getService_type().trim().isEmpty()){
             throw new IllegalArgumentException("服务类型不能为空");
         }
-                                                                                                                                    service_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                                service_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(service_class_nameification);
         System.out.println("服务分类新增成功");
         return success(1);
@@ -69,7 +69,7 @@ public class ServiceClassNameificationController extends BaseController<ServiceC
         });
         ServiceClassNameification service_class_nameification = new ServiceClassNameification();
             service_class_nameification.setService_type(paramMap.get("service_type")==null?null:String.valueOf(paramMap.get("service_type")));
-                                    this.setEntity(queryMap,configMap,service_class_nameification);
+                                            this.setEntity(queryMap,configMap,service_class_nameification);
         System.out.println("服务分类修改成功");
         return success(1);
     }

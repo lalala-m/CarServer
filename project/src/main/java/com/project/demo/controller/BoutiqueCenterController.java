@@ -59,7 +59,7 @@ public class BoutiqueCenterController extends BaseController<BoutiqueCenter, Bou
         boutique_center.setCollect_len(paramMap.get("collect_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("collect_len"))));
         boutique_center.setComment_len(paramMap.get("comment_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("comment_len"))));
             boutique_center.setReservation_record_limit_times(paramMap.get("reservation_record_limit_times")==null?null:String.valueOf(paramMap.get("reservation_record_limit_times")));
-                                                                                                                            boutique_center.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                        boutique_center.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(boutique_center);
         System.out.println("精品中心新增成功");
         return success(1);
@@ -88,7 +88,7 @@ public class BoutiqueCenterController extends BaseController<BoutiqueCenter, Bou
         boutique_center.setCollect_len(paramMap.get("collect_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("collect_len"))));
         boutique_center.setComment_len(paramMap.get("comment_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("comment_len"))));
             boutique_center.setReservation_record_limit_times(paramMap.get("reservation_record_limit_times")==null?null:String.valueOf(paramMap.get("reservation_record_limit_times")));
-                                this.setEntity(queryMap,configMap,boutique_center);
+                                        this.setEntity(queryMap,configMap,boutique_center);
         System.out.println("精品中心修改成功");
         return success(1);
     }

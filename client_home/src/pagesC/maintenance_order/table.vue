@@ -210,7 +210,7 @@
             </view>
           </view>
         </uni-popup>
-                                </view>
+                                    </view>
 </template>
 <script>
 import mixin from '@/libs/mixins/page.js';
@@ -218,7 +218,7 @@ import dateRangePicker from '@/components/date-range-picker/date-range-picker.vu
 import DateSelector from '@/components/dengrq-datetime-picker/dateSelector/index.vue';
 import Analysis from '@/pagesC/components/analysis/index.vue';
 
-																							
+																												
 export default {
   mixins: [mixin],
   components: {
@@ -355,7 +355,7 @@ export default {
       let _this = this;
       let type = this.list[v];
 			let res
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              uni.showModal({
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      uni.showModal({
         title: '删除',
         content: '此操作将永久删除该文件, 是否继续?',
         success: function (res) {
@@ -370,7 +370,7 @@ export default {
     },
 	get_list_after(param){
 	      let _this = this;
-		},
+	  	},
                           /**
      * 获取经理用户用户列表
      */
@@ -767,7 +767,6 @@ export default {
 	color: #fff;
 	border: none;
 	border-radius: 8px;
-	padding: 12px;
 	font-size: 16px;
 }
 </style>

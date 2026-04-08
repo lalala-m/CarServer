@@ -286,7 +286,7 @@ export default {
         `~/api/schedule/add?`,
         { ...this.form_add, user_id: this.userInfo.user_id },
         (res) => {
-          if (res.result === 1) {
+          if (res.result) {
             this.$toast('添加成功');
             this.get_list_schedule();
           } else {
@@ -311,7 +311,7 @@ export default {
         `~/api/schedule/set?schedule_id=${this.form_set.schedule_id}`,
         { ...this.form_set },
         (res) => {
-          if (res.result === 1) {
+          if (res.result) {
             this.$toast('编辑成功');
             this.get_list_schedule();
           } else {
@@ -339,7 +339,7 @@ export default {
             if (this.loading_submit) return;
             this.loading_submit = true;
             this.$get(`~/api/schedule/del`, { schedule_id: this.form_set.schedule_id }, (res) => {
-              if (res.result === 1) {
+              if (res.result) {
                 this.$toast('删除成功');
                 this.get_list_schedule();
               } else {

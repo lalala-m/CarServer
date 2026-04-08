@@ -27,6 +27,12 @@
 				</el-form-item>
 			</el-col>
 
+			<el-col v-if="user_group === '管理员' && query.user_id" :xs="24" :sm="12" :lg="8" class="el_form_item_warp">
+				<el-form-item label="密码重置">
+					<el-button type="warning" @click="resetPassword()">重置密码</el-button>
+				</el-form-item>
+			</el-col>
+
 			<el-col :xs="24" :sm="12" :lg="8" class="el_form_item_warp">
 				<el-form-item label="昵称" prop="nickname">
 					<el-input v-model="form.nickname" placeholder="请输入昵称"></el-input>
@@ -101,7 +107,7 @@
 			
 
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/business_user/view','set') || $check_action('/business_user/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -210,7 +216,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																												};
+																																																		
+				};
 				return form;
 			},
 								},
@@ -240,7 +247,7 @@
 			 */
 			get_obj_before(param) {
 				var form = "";
-																																																																																																																					
+																																																																																																																																																			
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -298,6 +305,29 @@
 			delImg(img, key = "img"){
 				var _this = this;
 				_this.form_sub[key].splice(img, 1);
+			},
+			resetPassword() {
+				if (this.user_group !== '管理员') {
+					return;
+				}
+				const user_id = this.form.user_id || this.query.user_id;
+				if (!user_id) {
+					return;
+				}
+				this.$confirm('确认将该用户密码重置为 asd123 吗？', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$post(this.url_set + "user_id=" + user_id, { password: "asd123" }, (res) => {
+						if (res.result) {
+							this.form.password = "asd123";
+							this.$toast("密码已重置为 asd123", "success");
+						} else if (res.error) {
+							this.$toast(res.error.message, "error");
+						}
+					});
+				}).catch(() => { });
 			},
 			async submit(param, func){
 								if (!param) {
@@ -482,7 +512,7 @@
 					type: "warning",
 				});
 			},
-															},
+																							},
 		created() {
 								if(!this.query.business_user_id){
 			this.form_sub["business_gender"] = this.list_business_gender[0];

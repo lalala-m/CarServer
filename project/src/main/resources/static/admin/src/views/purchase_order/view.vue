@@ -182,7 +182,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/purchase_order/view','set') || $check_action('/purchase_order/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -213,6 +213,7 @@
 
 				query: {
 					"purchase_order_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -267,7 +268,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																																																																																																																						};
+																																																																																																																																												
+				};
 				return form;
 			},
 																		},
@@ -398,8 +400,8 @@
 					
 	
 										set_total_amount(){
-				this.form.total_amount = parseFloat(this.form.car_price) * parseFloat(this.form.purchase_quantity)
-			},
+							this.form.total_amount = parseFloat(this.form.car_price) * parseFloat(this.form.purchase_quantity)
+						},
 									
 	
 					// 自动计算精度处理
@@ -426,7 +428,7 @@
 						}
 										}
 													$.push(this.form ,form);
-																							
+																												
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -500,7 +502,7 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.purchase_order_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																																													  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  														let message_inform = {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																																														  		  							  		  							  		  																				  		  							  		  							  		  																				  		  							  		  							  		  							  		  							  		  																				  		  							  		  							  		  							  		  																											  		  							  		  							  		  							  		  														let message_inform = {
 								title: '购买订单',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条购买订单数据',

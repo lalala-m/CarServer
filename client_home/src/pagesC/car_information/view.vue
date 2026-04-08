@@ -201,6 +201,7 @@ export default {
         query: {
         "car_information_id": 0,
       },
+      oldForm: {},
       form: {
           "car_coding":  '', // 汽车编码
             "car_name":  '', // 汽车名称
@@ -215,6 +216,7 @@ export default {
             "car_configuration":  '', // 汽车配置
             "car_specificss":  '', // 汽车详情
           "car_information_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "car_coding_isDisabled": false,
@@ -292,8 +294,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.car_information_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.car_information_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -358,6 +360,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -428,7 +431,9 @@ export default {
           if (this['store_location'] !== null) this.form['store_location'] = this['store_location']
           if (this['car_configuration'] !== null) this.form['car_configuration'] = this['car_configuration']
           if (this['car_specificss'] !== null) this.form['car_specificss'] = this['car_specificss']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.car_information_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -560,7 +565,7 @@ export default {
      */
     async get_list_car_models() {
               let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                            var json = await this.$get("~/api/vehicle_class_nameification/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/vehicle_class_nameification/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -601,7 +606,7 @@ export default {
      */
     async get_list_car_brand() {
               let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                            var json = await this.$get("~/api/brand_class_nameification/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/brand_class_nameification/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -646,7 +651,7 @@ export default {
         children: [] 
       }));
       if(!this.form["car_information_id"]) {
-                  this.form["new_and_old_car"] = this.list_new_and_old_car[0].value;
+                  this.form["new_and_old_car"] = this.list_new_and_old_car[0].new_and_old_car;
               }
             },
                     
@@ -660,7 +665,7 @@ export default {
         children: [] 
       }));
       if(!this.form["car_information_id"]) {
-                  this.form["car_status"] = this.list_car_status[0].value;
+                  this.form["car_status"] = this.list_car_status[0].car_status;
               }
             },
                     
@@ -873,7 +878,12 @@ export default {
                                                           if (json.result.obj.car_status) {
         this.filter_text.car_status = json.result.obj.car_status;
       }
-                                                                                                            },
+                                                                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

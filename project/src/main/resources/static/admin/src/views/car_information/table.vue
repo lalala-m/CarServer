@@ -5,19 +5,19 @@
 
 
 
-										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','car_name')">
 					<el-form-item label="汽车名称">
 									<el-input v-model="query.car_name"></el-input>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','car_models')">
 					<el-form-item label="汽车车型">
 									<el-cascader v-model="query.car_models" :options="list_car_models" :props="car_models_cascader"
 							:show-all-levels="false" clearable collapse-tags placeholder="请选择汽车车型"
 							@change="handle_car_models_change"></el-cascader>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','new_and_old_car')">
 					<el-form-item label="汽车新旧">
 									<el-select v-model="query.new_and_old_car">
 				                            <el-option v-for="o in list_new_and_old_car" :key="o" :label="o"
@@ -215,7 +215,7 @@
 
 				// 字段ID
 				field: "car_information_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -278,7 +278,7 @@
 				let _this = this
 													_this.list.map((item) => {
 					_this.$set(item, 'test_drive_record_status_limit', false);
-										_this.$get("~/api/car_information/get_list?car_coding=" + item.car_coding + "&orderby=create_time desc", {}, (res1) => {
+																				_this.$get("~/api/car_information/get_list?car_coding=" + item.car_coding + "&orderby=create_time desc", {}, (res1) => {
 						if(res1.result && res1.result.list && res1.result.list.length > 0) {
 							const latestRecord = res1.result.list[0];
 							if(latestRecord.car_status != '空闲中') {
@@ -287,6 +287,7 @@
 						}
 					})
 									})
+				
 				
 												_this.list.map((item) => {
 					let param = {
@@ -353,7 +354,7 @@
 			 */
 			async get_list_car_models() {
 				let param = {}
-			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_class_nameification/get_list?",param);
+			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_class_nameification/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -431,7 +432,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

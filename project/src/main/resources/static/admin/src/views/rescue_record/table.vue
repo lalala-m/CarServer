@@ -5,12 +5,12 @@
 
 
 
-							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','rescue_code')">
 					<el-form-item label="救援编码">
 									<el-input v-model="query.rescue_code"></el-input>
 								</el-form-item>
 				</el-col>
-																					<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+																					<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','audit_status')">
 					<el-form-item label="审核状态">
 									<el-select v-model="query.audit_status">
 				                            <el-option v-for="o in list_audit_status" :key="o" :label="o"
@@ -19,7 +19,7 @@
 										</el-select>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','maintenance_time')">
 					<el-form-item label="维修时间">
 									<el-date-picker v-model="query.maintenance_time" type="datetimerange" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间"></el-date-picker>
 								</el-form-item>
@@ -193,7 +193,7 @@
 
 				// 字段ID
 				field: "rescue_record_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -345,7 +345,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

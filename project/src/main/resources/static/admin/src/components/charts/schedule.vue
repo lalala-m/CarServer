@@ -107,6 +107,7 @@ export default {
       url_get_list: "~/api/schedule/get_list",
       // 查询
       query: {
+        like: 0,
         size: 9999,
         page: 1,
         orderby: "create_time desc",

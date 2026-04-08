@@ -132,6 +132,7 @@ export default {
 						                          query: {
         "vehicle_information_id": 0,
       },
+      oldForm: {},
       form: {
           "owner_user": 0, // 车主用户
             "license_plate_number":  '', // 车牌号码
@@ -141,6 +142,7 @@ export default {
           "examine_state": "未审核",
         "examine_reply": "",
         "vehicle_information_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "owner_user_isDisabled": false,
@@ -204,8 +206,19 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.vehicle_information_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+                  // 审核状态发生变更时，发送通知消息
+        if (this.form.examine_state && this.oldForm.examine_state !== this.form.examine_state) {
+          let message_inform = {
+            title: '审核结果',
+            type: '通知',
+            content: "你在车辆信息下提交的内容，审核结果为：" + this.form.examine_state,
+            state: 1,
+            user_id: this.form.create_by
+          }
+          this.$post("~/api/message_inform/add", message_inform)
+        }
+          						if(!this.form.vehicle_information_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -270,6 +283,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -326,7 +340,9 @@ export default {
           if (this['car_type'] !== null) this.form['car_type'] = this['car_type']
           if (this['frame_number'] !== null) this.form['frame_number'] = this['frame_number']
           if (this['vehicle_remarks'] !== null) this.form['vehicle_remarks'] = this['vehicle_remarks']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.vehicle_information_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -512,7 +528,7 @@ export default {
      */
     async get_list_car_type() {
               let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                            var json = await this.$get("~/api/vehicle_class_nameification/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/vehicle_class_nameification/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -672,7 +688,12 @@ export default {
                                                                           if (json.result.obj.car_type) {
         this.filter_text.car_type = json.result.obj.car_type;
       }
-                                                            },
+                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

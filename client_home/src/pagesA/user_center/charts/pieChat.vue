@@ -1,6 +1,6 @@
 <template>
   <view class="charts-box">
-    <qiun-data-charts :canvas2d="true" type="ring" :chartData="chartData" :opts="opts" />
+    <qiun-data-charts type="ring" :chartData="chartData" :opts="opts" />
     <view class="legend-pager" v-if="legendItems.length">
       <view class="legend-list">
         <view class="legend-item" v-for="(it, i) in pagedLegend" :key="i" :class="{ 'is-hidden': it.hidden }" @click="toggleLegend(it)">

@@ -38,7 +38,7 @@
 		/>
 
         <view class="split-line-10"></view>
-        <view class="filter-wrapper">
+        <view :class="['filter-wrapper', isBack ? 'no-has-tabbar' : 'has-tabbar']">
           <scroll-view class="scroll-wrapper" scroll-x="true">
             <view class="scroll-wrapper-item" v-for="(item, index) in filter_list" :key="index">
               <view

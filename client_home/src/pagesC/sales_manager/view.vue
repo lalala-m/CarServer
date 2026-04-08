@@ -165,12 +165,14 @@ export default {
 				                  query: {
         "sales_manager_id": 0,
       },
+      oldForm: {},
       form: {
           "manager_name":  '', // 经理姓名
             "gender_of_manager":  '', // 经理性别
             "contact_number":  '', // 联系号码
           "user_id": 0,
         "sales_manager_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "manager_name_isDisabled": false,
@@ -227,8 +229,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.sales_manager_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.sales_manager_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -297,6 +299,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -349,7 +352,9 @@ export default {
         if (this['manager_name'] !== null) this.form['manager_name'] = this['manager_name']
           if (this['gender_of_manager'] !== null) this.form['gender_of_manager'] = this['gender_of_manager']
           if (this['contact_number'] !== null) this.form['contact_number'] = this['contact_number']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.sales_manager_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -474,7 +479,7 @@ export default {
         children: [] 
       }));
       if(!this.form["sales_manager_id"]) {
-                  this.form_sub["gender_of_manager"] = this.list_gender_of_manager[0].value;
+                  this.form_sub["gender_of_manager"] = this.list_gender_of_manager[0].gender_of_manager;
               }
             },
                     
@@ -616,7 +621,12 @@ export default {
                                                   if (json.result.obj.gender_of_manager) {
         this.filter_text.gender_of_manager = json.result.obj.gender_of_manager;
       }
-                                    },
+                                
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
     /**
      * 修改头像
      * @param {Object} param文件参数

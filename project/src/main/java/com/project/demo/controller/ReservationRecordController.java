@@ -77,11 +77,11 @@ public class ReservationRecordController extends BaseController<ReservationRecor
                             reservation_record.setAccount_manager(paramMap.get("account_manager")==null?null:Integer.valueOf(String.valueOf(paramMap.get("account_manager"))));
                         reservation_record.setPay_state(paramMap.get("pay_state")==null?null:String.valueOf(paramMap.get("pay_state")));
         reservation_record.setPay_type(paramMap.get("pay_type")==null?null:String.valueOf(paramMap.get("pay_type")));
-                            reservation_record.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
+                                reservation_record.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
         reservation_record.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         reservation_record.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         reservation_record.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                                                                                                        reservation_record.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                reservation_record.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(reservation_record);
         System.out.println("预约记录新增成功");
         return success(1);
@@ -128,10 +128,10 @@ public class ReservationRecordController extends BaseController<ReservationRecor
                     reservation_record.setAccount_manager(paramMap.get("account_manager")==null?null:Integer.valueOf(String.valueOf(paramMap.get("account_manager"))));
                 reservation_record.setPay_state(paramMap.get("pay_state")==null?null:String.valueOf(paramMap.get("pay_state")));
         reservation_record.setPay_type(paramMap.get("pay_type")==null?null:String.valueOf(paramMap.get("pay_type")));
-                            reservation_record.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
+                                reservation_record.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         reservation_record.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         reservation_record.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-            this.setEntity(queryMap,configMap,reservation_record);
+                this.setEntity(queryMap,configMap,reservation_record);
         System.out.println("预约记录修改成功");
         return success(1);
     }

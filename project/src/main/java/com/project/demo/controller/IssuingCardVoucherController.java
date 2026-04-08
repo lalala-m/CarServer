@@ -65,7 +65,7 @@ public class IssuingCardVoucherController extends BaseController<IssuingCardVouc
                         issuing_card_voucher.setExamine_state(paramMap.get("examine_state")==null?null:String.valueOf(paramMap.get("examine_state")));
         issuing_card_voucher.setExamine_reply(paramMap.get("examine_reply")==null?null:String.valueOf(paramMap.get("examine_reply")));
             issuing_card_voucher.setWrite_off_information_limit_times(paramMap.get("write_off_information_limit_times")==null?null:String.valueOf(paramMap.get("write_off_information_limit_times")));
-                                                                                                                            issuing_card_voucher.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                        issuing_card_voucher.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(issuing_card_voucher);
         System.out.println("发放卡券新增成功");
         return success(1);
@@ -100,7 +100,7 @@ public class IssuingCardVoucherController extends BaseController<IssuingCardVouc
                 issuing_card_voucher.setExamine_state(paramMap.get("examine_state")==null?null:String.valueOf(paramMap.get("examine_state")));
         issuing_card_voucher.setExamine_reply(paramMap.get("examine_reply")==null?null:String.valueOf(paramMap.get("examine_reply")));
             issuing_card_voucher.setWrite_off_information_limit_times(paramMap.get("write_off_information_limit_times")==null?null:String.valueOf(paramMap.get("write_off_information_limit_times")));
-                                this.setEntity(queryMap,configMap,issuing_card_voucher);
+                                        this.setEntity(queryMap,configMap,issuing_card_voucher);
         System.out.println("发放卡券修改成功");
         return success(1);
     }

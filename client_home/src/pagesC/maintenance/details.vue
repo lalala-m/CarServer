@@ -6,7 +6,7 @@
         <image class="diy_img diy-image" :src="$fullImgUrl(obj['project_picture'])"/>
       </view>
             
-																							      <view class="warp info-wrapper">
+																												      <view class="warp info-wrapper">
         <view class="container-fluid">
           <view class="row">
               <view v-if="$check_field('get', 'project_bundle')" class="info-item  field_text ">
@@ -320,6 +320,7 @@
           source_id: obj['maintenance_id'],
           orderby: 'create_time desc',
           reply_to_id: '0',
+          like: 0,
         };
         this.$get('/comment/get_list', query, (json) => {
           if (json.result) {
@@ -348,6 +349,7 @@
                   source_id: obj['maintenance_id'],
                   orderby: 'create_time desc',
                   reply_to_id: obj.comment_id,
+                  like: 0,
                 },
                 (res) => {
                   if (res.result) {
@@ -478,7 +480,7 @@
 		this.obj.source_user_id = param.source_user_id;
 	  },
 	  get_obj_status_limit(json, func) {
-			},
+		  	},
 	    },
     created() {
                       this.get_list_user_manager_user();

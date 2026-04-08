@@ -3,7 +3,7 @@
     <tn-nav-bar>网上商城</tn-nav-bar>
     <view class="page_diy page_online_mall" id="online_mall_details">
     
-																							      <view class="warp info-wrapper">
+																												      <view class="warp info-wrapper">
         <view class="container-fluid">
           <view class="row">
               <view v-if="$check_field('get', 'business_user')" class="info-item  field_text ">
@@ -25,6 +25,14 @@
                 </view>
             </view>
         </view>
+        <view class="row count">
+  
+  
+              <view class="hits view">
+              <span>点击数</span>
+              <span>{{ obj["hits"] }}</span>
+            </view>
+          </view>
       </view>
 
 	<view class="kb-row">
@@ -64,7 +72,8 @@
           online_mall_id: 0,
               business_user: 0,
                   commodity_specifications: "",
-          create_by: 0, // 创建用户ID
+              hits: 0,
+      create_by: 0, // 创建用户ID
         },
           // 用户列表
         list_user_business_user: [],
@@ -94,6 +103,35 @@
         });
       },
       /**
+       * 添加访问量
+       */
+      add_hits(obj) {
+        obj['hits'] = obj['hits'] + 1;
+        var hits = obj['hits'];
+        this.$post(
+            '~/api/online_mall/set?online_mall_id=' + obj['online_mall_id'],
+            {
+              hits,
+            },
+            (res) => {
+              if (res.result) {
+                console.log('添加访问量状态：', res.result);
+                var body = {
+                  source_table: 'online_mall',
+                  source_field: 'online_mall_id',
+                  source_id: this.obj.online_mall_id,
+                  user_id: this.userInfo.user_id,
+                };
+                this.$post('~/api/hits/add?', body, (res) => {
+                  console.log(res);
+                });
+              } else if (res.error) {
+                console.error(res.error);
+              }
+            }
+        );
+      },
+      /**
        * 获取对象之后
        * @param {Object} json 结果对象
        */
@@ -101,6 +139,8 @@
         // 判断是否获取到数据
         if (this.obj) {
           var obj = this.obj;
+          // 增加点击数
+          this.add_hits(obj);
                 }
       },
           /**

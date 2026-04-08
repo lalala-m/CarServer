@@ -189,6 +189,7 @@ export default {
 											                                              query: {
         "rescue_record_id": 0,
       },
+      oldForm: {},
       form: {
           "rescue_code":  '', // 救援编码
             "business_user": 0, // 商家用户
@@ -204,6 +205,7 @@ export default {
         "location_address": "", // 定位地址
         "location_lng": "", // 定位地址经度
         "location_lat": "", // 定位地址纬度
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "rescue_code_isDisabled": false,
@@ -277,8 +279,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.rescue_record_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.rescue_record_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -346,6 +348,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -412,7 +415,9 @@ export default {
           if (this['maintenance_time'] !== null) this.form['maintenance_time'] = this['maintenance_time']
           if (this['scene_picture'] !== null) this.form['scene_picture'] = this['scene_picture']
           if (this['maintenance'] !== null) this.form['maintenance'] = this['maintenance']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.rescue_record_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -618,7 +623,7 @@ export default {
      */
     async get_list_owners_name() {
               let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                            var json = await this.$get("~/api/owner_user/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var json = await this.$get("~/api/owner_user/get_list",param);
       if(json.result && json.result.list){
         if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
           json.result.list = json.result.list.filter(item => item.type == 1);
@@ -675,7 +680,7 @@ export default {
         children: [] 
       }));
       if(!this.form["rescue_record_id"]) {
-                  this.form["audit_status"] = this.list_audit_status[0].value;
+                  this.form["audit_status"] = this.list_audit_status[0].audit_status;
               }
             },
                     
@@ -815,7 +820,12 @@ export default {
                                           if (this.form["maintenance_time"] && JSON.stringify(this.form["maintenance_time"]).indexOf("-")===-1) {
         this.form["maintenance_time"] = this.$toTime(parseInt(this.form["maintenance_time"]), "yyyy-MM-dd hh:mm:ss")
       }
-                                                                            },
+                                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';
@@ -860,7 +870,7 @@ export default {
             let lat = res.latitude; //当前位置的纬度
             let lng = res.longitude; //当前位置精度
             let location = lng + ',' + lat;
-            let url ='http://restapi.amap.com/v3/geocode/regeo?key=b6eb2819a6ba4c5119591614272fe7ca&location=' + location;
+            let url ='http://restapi.amap.com/v3/geocode/regeo?key=bcafb11917e1c0c24268fa0e3c69aa5b&location=' + location;
             uni.request({
               url,
               method: 'GET',

@@ -28,7 +28,7 @@
             </view>
     </view>
     <!-- 用户栏模块(结束) -->
-    <view class="menu-group my-order">
+    <view class="menu-group my-order" v-if="my_home_page_auth">
       <view class="menu-row user-statistics" @click="$navTo('/pagesA/user/my_home_page?follower_id=' + userInfo.user_id)">
         <view class="menu-item">
           <view class="user-sum">{{token ? dynamicList.length : '0'}}</view>
@@ -51,6 +51,9 @@
       </view>
       <view class="menu-scroll">
         <scroll-view class="scroll-view" scroll-x="true">
+          <!-- #ifdef MP-WEIXIN -->
+          <view class="uni-scroll-view-content">
+          <!-- #endif -->
 								  <view class="menu-item coupon">
 		    <view class="left">
 		      <image class="menu-img" :src="'/static/img/default.png'"></image>
@@ -60,7 +63,10 @@
 		      <view class="info"><text>{{ userInfo.integral==undefined?0:userInfo.integral}}</text>积分可用</view>
 		    </view>
 		  </view>
-		        </scroll-view>
+		          <!-- #ifdef MP-WEIXIN -->
+          </view>
+          <!-- #endif -->
+        </scroll-view>
       </view>
     </view>
     <view class="split"></view>
@@ -289,6 +295,36 @@
             url: '/pagesC/reservation_record/table',
             icon: 'icon-yonghu',
           },
+                    {
+            title: this.$page_title("/supplier/table") || '供应厂商',
+            auth: '/supplier/table',
+            url: '/pagesC/supplier/table',
+            icon: 'icon-yonghu',
+          },
+                    {
+            title: this.$page_title("/warehouse_information/table") || '仓库信息',
+            auth: '/warehouse_information/table',
+            url: '/pagesC/warehouse_information/table',
+            icon: 'icon-yonghu',
+          },
+                    {
+            title: this.$page_title("/inventory_information/table") || '库存信息',
+            auth: '/inventory_information/table',
+            url: '/pagesC/inventory_information/table',
+            icon: 'icon-yonghu',
+          },
+                    {
+            title: this.$page_title("/inbound_record/table") || '入库记录',
+            auth: '/inbound_record/table',
+            url: '/pagesC/inbound_record/table',
+            icon: 'icon-yonghu',
+          },
+                    {
+            title: this.$page_title("/outbound_record/table") || '出库记录',
+            auth: '/outbound_record/table',
+            url: '/pagesC/outbound_record/table',
+            icon: 'icon-yonghu',
+          },
                           {
             title: this.$page_title("/employee_performance/table") || '员工绩效',
             auth: '/employee_performance/table',
@@ -315,7 +351,17 @@
         msgSum: 0,
         msgList: [],
         messageInformListAll: [],
+        my_home_page_auth_list: [
+          "forum",
+                                                                                                                                                                                                                                                                                                                                                                                                                      ],
       };
+    },
+    computed: {
+      my_home_page_auth() {
+        return this.my_home_page_auth_list.some(item =>
+          this.$check_action('/' + item + '/list', 'get')
+        );
+      }
     },
     onLoad() {
           if (this.$check_option("/car_information/table","figure")){
@@ -345,6 +391,9 @@
     },
     methods: {
       async getMessageInformList() {
+        if(!this.userInfo.user_id) {
+          return
+        }
         if(this.userInfo.user_group == '管理员') {
           let list = await this.$get("~/api/message_inform/get_list",{type: '消息'})
           this.msgList = list.result.list
@@ -382,10 +431,10 @@
           ...item,
           type: 'forum'
         }));
-																							
+																												
         this.dynamicList = [
         ...forumList,
-																							        ];
+																												        ];
       },
       sign_out() {
         this.$store.dispatch('auth/logOut').then((res) => {

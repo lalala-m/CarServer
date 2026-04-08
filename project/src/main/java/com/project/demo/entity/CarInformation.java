@@ -98,10 +98,13 @@ public class CarInformation implements Serializable {
 	@TableField(value = "purchase_order_limit_times")
 	private String purchase_order_limit_times;
 	
-					
+							
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

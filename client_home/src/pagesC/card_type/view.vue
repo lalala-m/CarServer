@@ -71,12 +71,14 @@ export default {
 					                      query: {
         "card_type_id": 0,
       },
+      oldForm: {},
       form: {
           "card_name": null, // 卡券名称
             "effective_period": this.$toTime(new Date().getTime(), "yyyy-MM-dd"),
             "card_content":  '', // 卡券内容
             "applicable_items":  '', // 适用项目
           "card_type_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "card_name_isDisabled": false,
@@ -120,8 +122,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.card_type_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.card_type_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -192,6 +194,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -246,7 +249,9 @@ export default {
           if (this['effective_period'] !== null) this.form['effective_period'] = this['effective_period']
           if (this['card_content'] !== null) this.form['card_content'] = this['card_content']
           if (this['applicable_items'] !== null) this.form['applicable_items'] = this['applicable_items']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.card_type_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -380,7 +385,12 @@ export default {
                                       if (this.form["effective_period"] && JSON.stringify(this.form["effective_period"]).indexOf("-")===-1) {
         this.form["effective_period"] = this.$toTime(parseInt(this.form["effective_period"]),"yyyy-MM-dd")
       }
-                                                                        },
+                                                                    
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

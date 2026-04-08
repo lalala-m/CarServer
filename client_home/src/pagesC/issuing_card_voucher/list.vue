@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">发放卡券列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.card_code" placeholder="搜索卡券编码" @search="search_" @cancel="search_cancel('card_code')" @input="(val) => inputValue(val, 'card_code')" />
 	      	    	  	    	  	    	  	    	      	    	  	    	  	    	      	    	  	    	  	    	  	    	  	    	      	    	  	  	    	      	    	  	    	  	    	  	    	      		  	  <view class="drop_down">
 	        	<view class="filter-item" @click="showFilter('license_plate_number')">
@@ -33,7 +33,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -125,8 +125,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -140,7 +139,7 @@
 	  	      </view>
 	    </view>
 				    											    		<!--分类选择器-->
-		<uni-popup ref="filterPopup" type="bottom" background-color="#fff">
+		<uni-popup ref="filterPopup" type="bottom" background-color="#fff" @change="onPopupChange">
 			<view class="filter-popup">
 				<view class="popup-header">
 					<text class="popup-title">{{ popupTitle }}</text>
@@ -248,7 +247,14 @@ export default {
       issuing_time_date_text: '请选择发放时间',
 										 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																																																																																																		return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -257,6 +263,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/issuing_card_voucher/details?issuing_card_voucher_id=' + o['issuing_card_voucher_id'])
@@ -476,6 +484,7 @@ export default {
     },
     // 显示筛选弹窗
     showFilter(type) {
+	  this.showTabbar = false;
       this.currentFilterType = type;
       switch (type) {
 	        	        	        	                case 'license_plate_number':
@@ -493,6 +502,11 @@ export default {
         	      }
       this.$refs.filterPopup.open();
     },
+	onPopupChange(e) {
+		if (!e.show) {
+			this.showTabbar = true;
+		}
+	},
 	initCascader(list) {
 		this.cascaderList = list;
 		const maxDepth = Math.max(1, this.getMaxDepth(list));

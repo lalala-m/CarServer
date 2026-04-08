@@ -71,7 +71,7 @@ public class CarInformationController extends BaseController<CarInformation, Car
         car_information.setComment_len(paramMap.get("comment_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("comment_len"))));
             car_information.setTest_drive_record_limit_times(paramMap.get("test_drive_record_limit_times")==null?null:String.valueOf(paramMap.get("test_drive_record_limit_times")));
             car_information.setPurchase_order_limit_times(paramMap.get("purchase_order_limit_times")==null?null:String.valueOf(paramMap.get("purchase_order_limit_times")));
-                                                                                                                            car_information.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                        car_information.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(car_information);
         System.out.println("汽车信息新增成功");
         return success(1);
@@ -106,7 +106,7 @@ public class CarInformationController extends BaseController<CarInformation, Car
         car_information.setComment_len(paramMap.get("comment_len")==null?null:Integer.valueOf(String.valueOf(paramMap.get("comment_len"))));
             car_information.setTest_drive_record_limit_times(paramMap.get("test_drive_record_limit_times")==null?null:String.valueOf(paramMap.get("test_drive_record_limit_times")));
             car_information.setPurchase_order_limit_times(paramMap.get("purchase_order_limit_times")==null?null:String.valueOf(paramMap.get("purchase_order_limit_times")));
-                                this.setEntity(queryMap,configMap,car_information);
+                                        this.setEntity(queryMap,configMap,car_information);
         System.out.println("汽车信息修改成功");
         return success(1);
     }

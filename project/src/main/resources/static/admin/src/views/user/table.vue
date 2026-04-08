@@ -93,7 +93,7 @@
 			</el-table-column>
 
 			<!-- 操作 -->
-			<el-table-column fixed="right" label="操作" width="80">
+			<el-table-column fixed="right" label="操作" width="120">
 				<template slot-scope="scope">
 					<router-link class="el-button el-button--small is-plain el-button--primary"
 						:to="'./view?' + field + '=' + scope.row[field]" size="small">

@@ -62,7 +62,7 @@ public class BusinessUserController extends BaseController<BusinessUser, Busines
         }
                     business_user.setStore_location(paramMap.get("store_location")==null?null:String.valueOf(paramMap.get("store_location")));
                         business_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                                                                                                                        business_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                    business_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(business_user);
         System.out.println("商家用户新增成功");
         return success(1);
@@ -84,7 +84,7 @@ public class BusinessUserController extends BaseController<BusinessUser, Busines
                     business_user.setMobile_phone_number(paramMap.get("mobile_phone_number")==null?null:String.valueOf(paramMap.get("mobile_phone_number")));
                     business_user.setStore_location(paramMap.get("store_location")==null?null:String.valueOf(paramMap.get("store_location")));
                 business_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                            this.setEntity(queryMap,configMap,business_user);
+                                    this.setEntity(queryMap,configMap,business_user);
         System.out.println("商家用户修改成功");
         return success(1);
     }

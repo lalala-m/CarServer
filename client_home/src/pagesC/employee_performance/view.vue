@@ -141,6 +141,7 @@ export default {
 										                                          query: {
         "employee_performance_id": 0,
       },
+      oldForm: {},
       form: {
           "performance_title":  '', // 绩效标题
             "employee_name":  '', // 员工姓名
@@ -152,6 +153,7 @@ export default {
             "assessment_results":  '', // 评估结果
             "work_suggestion":  '', // 工作建议
           "employee_performance_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "performance_title_isDisabled": false,
@@ -219,8 +221,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.employee_performance_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.employee_performance_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -288,6 +290,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -352,7 +355,9 @@ export default {
           if (this['performance_level'] !== null) this.form['performance_level'] = this['performance_level']
           if (this['assessment_results'] !== null) this.form['assessment_results'] = this['assessment_results']
           if (this['work_suggestion'] !== null) this.form['work_suggestion'] = this['work_suggestion']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.employee_performance_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -488,7 +493,7 @@ export default {
         children: [] 
       }));
       if(!this.form["employee_performance_id"]) {
-                  this.form["quality_of_service"] = this.list_quality_of_service[0].value;
+                  this.form["quality_of_service"] = this.list_quality_of_service[0].quality_of_service;
               }
             },
                     
@@ -501,7 +506,7 @@ export default {
         children: [] 
       }));
       if(!this.form["employee_performance_id"]) {
-                  this.form["working_attitude"] = this.list_working_attitude[0].value;
+                  this.form["working_attitude"] = this.list_working_attitude[0].working_attitude;
               }
             },
                     
@@ -514,7 +519,7 @@ export default {
         children: [] 
       }));
       if(!this.form["employee_performance_id"]) {
-                  this.form["performance_level"] = this.list_performance_level[0].value;
+                  this.form["performance_level"] = this.list_performance_level[0].performance_level;
               }
             },
                     
@@ -659,7 +664,12 @@ export default {
                                   if (json.result.obj.performance_level) {
         this.filter_text.performance_level = json.result.obj.performance_level;
       }
-                                                            },
+                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">网上商城列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	  	    	      	          <Search v-model="query.commodity_specifications" placeholder="搜索商品规格" @search="search_" @cancel="search_cancel('commodity_specifications')" @input="(val) => inputValue(val, 'commodity_specifications')" />
 	      	    	  	  	    	  	    	      	    	  	  			          <MeDropdown
 	            :menuList.sync="menuList"
@@ -18,7 +18,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -42,10 +42,11 @@
 	    	              </view>
 	  	  			            </view>
 	  
+	  	            <view class="customized-item-footer">
+	    	    	    	            </view>
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -88,6 +89,12 @@ export default {
       count: 50,
       menuList: [
             {
+            title: '点击数',
+            type: 'sort',
+            command: '`hits`',
+            value: 0,
+        },
+        {
             title: '发布时间',
             type: 'sort',
             command: '`create_time`',
@@ -96,7 +103,14 @@ export default {
       ],
 						 									 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																										return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -105,6 +119,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/online_mall/details?online_mall_id=' + o['online_mall_id'])

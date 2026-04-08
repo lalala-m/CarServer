@@ -51,7 +51,7 @@ public class PeriodClassNameificationController extends BaseController<PeriodCla
                 if (period_class_nameification.getTime_period()== null || period_class_nameification.getTime_period().trim().isEmpty()){
             throw new IllegalArgumentException("时间时段不能为空");
         }
-                                                                                                                                    period_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                                period_class_nameification.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(period_class_nameification);
         System.out.println("时段分类新增成功");
         return success(1);
@@ -69,7 +69,7 @@ public class PeriodClassNameificationController extends BaseController<PeriodCla
         });
         PeriodClassNameification period_class_nameification = new PeriodClassNameification();
             period_class_nameification.setTime_period(paramMap.get("time_period")==null?null:String.valueOf(paramMap.get("time_period")));
-                                    this.setEntity(queryMap,configMap,period_class_nameification);
+                                            this.setEntity(queryMap,configMap,period_class_nameification);
         System.out.println("时段分类修改成功");
         return success(1);
     }

@@ -97,7 +97,11 @@ export const getHomeNoticeListApi = (params) => {
  */
 export const getHomeGoodsListApi = (params) => {
   let url = "/goods/get_list";
-      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	    params = Object.assign(getListParams(), params);
+      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	      	    params.size = 50
+	if (!params.type){
+	  url = "/online_mall/get_hits_list"
+	}
+	      	    params = Object.assign(getListParams(), params);
   return http.request({
     url: url,
     method: 'GET',
@@ -232,7 +236,7 @@ export const getHomeGoodsSearchListApi = (params) => {
             params: param,
           });
         };
-                                                    			                        /**
+                                                    								                        /**
         * 获取网上商城列表
         */
         export const get_online_mall_commodity_specifications_ListApi = (params) => {
@@ -253,7 +257,7 @@ export const getHomeGoodsSearchListApi = (params) => {
             	
 
 
-                                              
+                                                        
 /**
  * 获取首页分类列表
  */

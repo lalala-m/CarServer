@@ -63,7 +63,7 @@
 	        </view>
 	      </uni-forms-item>
 	
-	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	
+	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	    	  	
 	      <view class="btn_register" @click="submit()">立即注册</view>
 	      <view class="btn_all">
 			<view class="login-section">
@@ -79,11 +79,11 @@
 
 <script>
 import mixin from '@/libs/mixins/page.js';
-                                              
+                                                        
 import { uploadFilePathApi, uploadFileApi } from '@/api/common.js';
 export default {
   components: {
-                                                },
+                                                          },
   mixins: [mixin],
   data() {
     return {
@@ -281,7 +281,7 @@ export default {
      */
     submit_before(param) {
       var user_group = param.user_group;
-                                                  },
+                                                            },
 
     /**
      * 提交前校验
@@ -332,7 +332,7 @@ export default {
       }
       console.log(user_group);
       if (!ret && user_group) {
-                                                    }
+                                                              }
 
       var p = { username: param.username };
 
@@ -423,7 +423,7 @@ export default {
 					delete form[index];
 				}
       }
-                                      	  }
+                                                	  }
     form.create_by = form.user_id;
 	  setTimeout(() => {
 	  	this.$post('~/api/' + table + '/add?', form, (res) => {

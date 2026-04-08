@@ -8,7 +8,6 @@ function getPieOption(data, labels) {
             formatter: '{a} <br/>{b} : {c}个',
             textStyle: {
                 color: pieColors.tooltip.color,
-                fontSize: 16
             }
         },
         legend: {
@@ -17,7 +16,6 @@ function getPieOption(data, labels) {
             left: 'left',
             textStyle: {
                 color: pieColors.text,
-                fontSize: 16
             },
             pageTextStyle: { color: pieColors.text }
         },
@@ -36,7 +34,6 @@ function getPieOption(data, labels) {
                 label: {
                     show: true,
                     color: pieColors.text,
-                    fontSize: 16,
                     formatter: '{b}: {c}个'
                 },
                 labelLine: {

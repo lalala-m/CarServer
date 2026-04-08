@@ -132,6 +132,7 @@ export default {
         const query = {
           page: 1,
           size: 9999,
+          like: 0,
           reply_to_id: o.comment_id,
         };
         // 查询是否有回复

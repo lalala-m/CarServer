@@ -34,9 +34,27 @@ export default {
       }
     },
     quit(state) {
-      state.token = null;
-      state.username = null;
-	  state.auth = null;
+      state.user_id = 0;
+      state.token = "";
+      state.username = "";
+      state.referee_id = 0;
+      state.vip = 0;
+      state.gm = 0;
+      state.mc = 0;
+      state.phone = "";
+      state.phone_state = 0;
+      state.email = "";
+      state.email_state = 0;
+      state.login_ip = "";
+      state.login_time = "";
+      state.user_group = "";
+      state.user_admin = "";
+      state.signature = "";
+      state.nickname = "";
+      state.avatar = "/img/avatar.png";
+      state.invite_code = "";
+      state.friends = "";
+      state.state = 0;
       $.db.del("token");
     }
   }

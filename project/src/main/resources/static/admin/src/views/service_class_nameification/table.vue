@@ -5,7 +5,7 @@
 
 
 
-							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','service_type')">
 					<el-form-item label="服务类型">
 									<el-input v-model="query.service_type"></el-input>
 								</el-form-item>
@@ -124,7 +124,7 @@
 
 				// 字段ID
 				field: "service_class_nameification_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -206,7 +206,7 @@
 					});
 					return;
 				}
-																																																																																																													}
+																																																																																																																																																																																																									}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

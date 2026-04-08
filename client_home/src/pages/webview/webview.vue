@@ -1,7 +1,7 @@
 <template>
   <view class="page_webview" :style="{ paddingTop: vuex_custom_bar_height + 'px' }">
     <!-- #ifndef MP -->
-    <tn-nav-bar>{{ title ? title : '智能客服聊天'}}</tn-nav-bar>
+    <tn-nav-bar>{{ title ? title : ''}}</tn-nav-bar>
     <view class="webview-container">
       <web-view :src="url"></web-view>
     </view>

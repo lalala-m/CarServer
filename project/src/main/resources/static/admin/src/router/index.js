@@ -35,7 +35,7 @@ const routes = [
             title: "文件预览",
         },
     },
-                                                                                            
+                                                                                                                
     
 	    
     // 忘记密码
@@ -655,6 +655,101 @@ const routes = [
             meta: {
                 index: 0,
                 title: '预约记录详情'
+            }
+        },
+		                				            // 供应厂商路由
+        {
+            path: '/supplier/table',
+            name: 'supplier_table',
+            component: () => import('../views/supplier/table.vue'),
+            meta: {
+                index: 0,
+                title: '供应厂商列表'
+            }
+        },
+        {
+            path: '/supplier/view',
+            name: 'supplier_view',
+            component: () => import('../views/supplier/view.vue'),
+            meta: {
+                index: 0,
+                title: '供应厂商详情'
+            }
+        },
+		                				            // 仓库信息路由
+        {
+            path: '/warehouse_information/table',
+            name: 'warehouse_information_table',
+            component: () => import('../views/warehouse_information/table.vue'),
+            meta: {
+                index: 0,
+                title: '仓库信息列表'
+            }
+        },
+        {
+            path: '/warehouse_information/view',
+            name: 'warehouse_information_view',
+            component: () => import('../views/warehouse_information/view.vue'),
+            meta: {
+                index: 0,
+                title: '仓库信息详情'
+            }
+        },
+		                				            // 库存信息路由
+        {
+            path: '/inventory_information/table',
+            name: 'inventory_information_table',
+            component: () => import('../views/inventory_information/table.vue'),
+            meta: {
+                index: 0,
+                title: '库存信息列表'
+            }
+        },
+        {
+            path: '/inventory_information/view',
+            name: 'inventory_information_view',
+            component: () => import('../views/inventory_information/view.vue'),
+            meta: {
+                index: 0,
+                title: '库存信息详情'
+            }
+        },
+		                				            // 入库记录路由
+        {
+            path: '/inbound_record/table',
+            name: 'inbound_record_table',
+            component: () => import('../views/inbound_record/table.vue'),
+            meta: {
+                index: 0,
+                title: '入库记录列表'
+            }
+        },
+        {
+            path: '/inbound_record/view',
+            name: 'inbound_record_view',
+            component: () => import('../views/inbound_record/view.vue'),
+            meta: {
+                index: 0,
+                title: '入库记录详情'
+            }
+        },
+		                				            // 出库记录路由
+        {
+            path: '/outbound_record/table',
+            name: 'outbound_record_table',
+            component: () => import('../views/outbound_record/table.vue'),
+            meta: {
+                index: 0,
+                title: '出库记录列表'
+            }
+        },
+        {
+            path: '/outbound_record/view',
+            name: 'outbound_record_view',
+            component: () => import('../views/outbound_record/view.vue'),
+            meta: {
+                index: 0,
+                title: '出库记录详情'
             }
         },
 		                				            // 网上商城路由

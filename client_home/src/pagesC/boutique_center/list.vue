@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">精品中心列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	  	    	      	          <Search v-model="query.service_name" placeholder="搜索服务名称" @search="search_" @cancel="search_cancel('service_name')" @input="(val) => inputValue(val, 'service_name')" />
 	      	    	  	    	      	    	  	    	  	    	  	    	  	    	  	  	    	  	    	      	    	  	    	      		  	  <view class="drop_down">
 	        	<view class="filter-item" @click="showFilter('service_type')">
@@ -23,7 +23,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -102,8 +102,7 @@
 	    	            </view>
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -117,7 +116,7 @@
 	  	      </view>
 	    </view>
 							    					    		<!--分类选择器-->
-		<uni-popup ref="filterPopup" type="bottom" background-color="#fff">
+		<uni-popup ref="filterPopup" type="bottom" background-color="#fff" @change="onPopupChange">
 			<view class="filter-popup">
 				<view class="popup-header">
 					<text class="popup-title">{{ popupTitle }}</text>
@@ -208,7 +207,17 @@ export default {
 						 									 									 									 			service_price_input_timer: null,
 													 									 									 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																																																			if (item['service_cover'] && item['service_cover'] !== '') {
+							return true;
+						}
+																															return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -217,6 +226,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/boutique_center/details?boutique_center_id=' + o['boutique_center_id'])
@@ -329,6 +340,7 @@ export default {
     },
     // 显示筛选弹窗
     showFilter(type) {
+	  this.showTabbar = false;
       this.currentFilterType = type;
       switch (type) {
 	        	        	                case 'service_type':
@@ -338,6 +350,11 @@ export default {
         	        	        	        	        	      }
       this.$refs.filterPopup.open();
     },
+	onPopupChange(e) {
+		if (!e.show) {
+			this.showTabbar = true;
+		}
+	},
 	initCascader(list) {
 		this.cascaderList = list;
 		const maxDepth = Math.max(1, this.getMaxDepth(list));

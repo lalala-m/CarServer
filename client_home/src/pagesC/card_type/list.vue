@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">卡券类型列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.card_name" placeholder="搜索卡券名称" @search="search_" @cancel="search_cancel('card_name')" @input="(val) => inputValue(val, 'card_name')" />
 	      	    	  	    	      	    	  	    	  	    	  	  	    	      	    	  	    	      					<view class="date_select" @click="effective_period_date_range_picker_show = true">{{effective_period_date_text}}
             <icon class="date_select_clear" type="clear" size="14" @click.stop="effective_period_date_select_clear"/>
@@ -22,7 +22,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -63,8 +63,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -126,7 +125,14 @@ export default {
       effective_period_date_text: '请选择有效期限',
 										 									 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																																												return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -135,6 +141,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/card_type/details?card_type_id=' + o['card_type_id'])

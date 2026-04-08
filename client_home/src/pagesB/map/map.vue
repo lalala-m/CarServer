@@ -74,10 +74,10 @@ export default {
      };
    },
   onLoad(options) {
-      this.startAddress = options.start;
-      this.endAddress = options.end;
-      this.movieName = options.name;
-      this.currentAddress = options.location_address;
+      this.startAddress = decodeURIComponent(options.start);
+      this.endAddress = decodeURIComponent(options.end);
+      this.movieName = decodeURIComponent(options.name);
+      this.currentAddress = decodeURIComponent(options.location_address);
       this.initMap();
   },
   methods: {

@@ -229,14 +229,14 @@
             />
           </view>
         </view>
-                                                                                                                            </view>
+                                                                                                                                </view>
 </template>
 <script>
 import mixin from '@/libs/mixins/page.js';
 import dateRangePicker from '@/components/date-range-picker/date-range-picker.vue';
 import DateSelector from '@/components/dengrq-datetime-picker/dateSelector/index.vue';
 
-																							
+																												
 export default {
   mixins: [mixin],
   components: {
@@ -372,7 +372,7 @@ export default {
       let _this = this;
       let type = this.list[v];
 			let res
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              uni.showModal({
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      uni.showModal({
         title: '删除',
         content: '此操作将永久删除该文件, 是否继续?',
         success: function (res) {
@@ -387,7 +387,7 @@ export default {
     },
 	get_list_after(param){
 	      let _this = this;
-		},
+	  	},
                                                                   /**
      * 获取商家用户用户列表
      */

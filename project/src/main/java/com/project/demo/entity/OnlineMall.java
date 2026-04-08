@@ -31,6 +31,9 @@ public class OnlineMall implements Serializable {
     @TableField(value = "`commodity_specifications`")
     private String commodity_specifications;
 
+    // 点击数
+    @TableField(value = "hits")
+    private Integer hits;
 
 
 
@@ -141,10 +144,13 @@ public class OnlineMall implements Serializable {
 
 
 
-					
+							
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

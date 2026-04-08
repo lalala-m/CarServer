@@ -70,11 +70,11 @@ public class PurchaseOrderController extends BaseController<PurchaseOrder, Purch
         purchase_order.setExamine_reply(paramMap.get("examine_reply")==null?null:String.valueOf(paramMap.get("examine_reply")));
         purchase_order.setPay_state(paramMap.get("pay_state")==null?null:String.valueOf(paramMap.get("pay_state")));
         purchase_order.setPay_type(paramMap.get("pay_type")==null?null:String.valueOf(paramMap.get("pay_type")));
-                purchase_order.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
+                    purchase_order.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
         purchase_order.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         purchase_order.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         purchase_order.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                                                                                                                    purchase_order.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                            purchase_order.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(purchase_order);
         System.out.println("购买订单新增成功");
         return success(1);
@@ -114,10 +114,10 @@ public class PurchaseOrderController extends BaseController<PurchaseOrder, Purch
         purchase_order.setExamine_reply(paramMap.get("examine_reply")==null?null:String.valueOf(paramMap.get("examine_reply")));
         purchase_order.setPay_state(paramMap.get("pay_state")==null?null:String.valueOf(paramMap.get("pay_state")));
         purchase_order.setPay_type(paramMap.get("pay_type")==null?null:String.valueOf(paramMap.get("pay_type")));
-                purchase_order.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
+                    purchase_order.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         purchase_order.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         purchase_order.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                        this.setEntity(queryMap,configMap,purchase_order);
+                            this.setEntity(queryMap,configMap,purchase_order);
         System.out.println("购买订单修改成功");
         return success(1);
     }

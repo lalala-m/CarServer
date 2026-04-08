@@ -5,7 +5,7 @@
 
 
 
-							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','project_bundle')">
 					<el-form-item label="项目套餐">
 									<el-input v-model="query.project_bundle"></el-input>
 								</el-form-item>
@@ -168,7 +168,7 @@
 
 				// 字段ID
 				field: "maintenance_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -226,6 +226,7 @@
 			get_list_after: function get_list_after(res, func, url) {
 				let _this = this
 									
+				
 												_this.list.map((item) => {
 					let param = {
 						source_table: "maintenance",
@@ -338,7 +339,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

@@ -5,12 +5,12 @@
 
 
 
-										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','license_plate_number')">
 					<el-form-item label="车牌号码">
 									<el-input v-model="query.license_plate_number"></el-input>
 								</el-form-item>
 				</el-col>
-									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+									<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','car_type')">
 					<el-form-item label="汽车类型">
 									<el-cascader v-model="query.car_type" :options="list_car_type" :props="car_type_cascader"
 							:show-all-levels="false" clearable collapse-tags placeholder="请选择汽车类型"
@@ -141,7 +141,7 @@
 		<!-- /分页器 -->
 		<el-dialog title="审核" :visible.sync="dialogVisible" width="30%" :show-close="true">
 			<el-form ref="verifyForm" :rules="rules" :model="verifyItem">
-				<el-form-item label="审核状态" prop="radio">
+				<el-form-item label="审核状态" prop="examine_state">
 					<el-radio-group v-model="verifyItem.examine_state">
 						<el-radio label="已通过" value="已通过"></el-radio>
 						<el-radio label="未通过" value="未通过"></el-radio>
@@ -207,7 +207,7 @@
 				    { required: true, message: '请选择审核状态', trigger: 'change' },
 				  ],
 				},
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -267,14 +267,15 @@
 			  let beforeQuery=JSON.parse(JSON.stringify(query));
 			  this.verifyIdx = index;
 			  this.verifyItem = beforeQuery;
+				this.verifyItem.examine_state = "";
 			  this.batchAllState = false;
 			  this.batchAllList = [];
 			  this.dialogVisible = true;
 			},
 			batchAll(list) {
 				this.batchAllState = true;
-				this.batchAllList = list.filter(item => item.examine_state === "未审核");
-				this.dialogVisible = true;
+					this.batchAllList = list.filter(item => item.examine_state === "未审核");
+					this.dialogVisible = true;
 			},
 			assureVerify() {
 				//审核
@@ -284,6 +285,10 @@
 					if (valid) {
 						let apiState = true;
 						if (this.batchAllState) {
+							if(this.batchAllList.length == 0){
+								_this.$toast("请选择要操作的数据", "danger");
+								return;
+							}
 							for (var i = 0; i < this.batchAllList.length; i++) {
 								let url = "~/api/vehicle_information/set?vehicle_information_id=" +  this.batchAllList[i]["vehicle_information_id"];
 									let json = await _this.$post(url,{
@@ -296,7 +301,15 @@
 									_this.$toast(json.error.message, "danger");
 									break;
 								}
-							}
+									let message_inform = {
+									title: '审核结果',
+									type: '通知',
+									content: '你在车辆信息下提交的内容，审核结果为：' + _this.verifyItem.examine_state,
+									state: 1,
+									user_id: _this.batchAllList[i].create_by
+								}
+								_this.$post("~/api/message_inform/add", message_inform)
+								}
 							if (apiState) {
 							  _this.$toast("审核成功！", "success");
 							  _this.dialogVisible = false;
@@ -358,7 +371,7 @@
 			 */
 			async get_list_car_type() {
 				let param = {}
-			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_class_nameification/get_list?",param);
+			  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  			  				  				var json = await this.$get("~/api/vehicle_class_nameification/get_list?",param);
 				if(json.result && json.result.list){
 					if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
 						json.result.list = json.result.list.filter(item => item.type == 1);
@@ -456,7 +469,7 @@
 					});
 					return;
 				}
-																																																									}
+																																																																																																																																																					}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

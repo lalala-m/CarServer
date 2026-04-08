@@ -5,12 +5,12 @@
 
 
 
-							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+							<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','manager_name')">
 					<el-form-item label="经理姓名">
 									<el-input v-model="query.manager_name"></el-input>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','contact_number')">
 					<el-form-item label="联系号码">
 									<el-input v-model="query.contact_number"></el-input>
 								</el-form-item>
@@ -151,7 +151,7 @@
 
 				// 字段ID
 				field: "sales_manager_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -267,7 +267,7 @@
 																			}
 					});
 				}
-			},
+							},
 
 
 						

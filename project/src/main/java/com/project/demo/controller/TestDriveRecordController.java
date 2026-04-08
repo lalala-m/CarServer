@@ -60,11 +60,11 @@ public class TestDriveRecordController extends BaseController<TestDriveRecord, T
             test_drive_record.setTest_drive_time(null);
         }
                             test_drive_record.setTest_drive_remarks(paramMap.get("test_drive_remarks")==null?null:String.valueOf(paramMap.get("test_drive_remarks")));
-                                        test_drive_record.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
+                                            test_drive_record.setExtra(paramMap.get("extra")==null?null:String.valueOf(paramMap.get("extra")));
         test_drive_record.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         test_drive_record.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         test_drive_record.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                                                                                                            test_drive_record.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                    test_drive_record.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(test_drive_record);
         System.out.println("试驾记录新增成功");
         return success(1);
@@ -94,10 +94,10 @@ public class TestDriveRecordController extends BaseController<TestDriveRecord, T
             test_drive_record.setTest_drive_time(null);
         }
                     test_drive_record.setTest_drive_remarks(paramMap.get("test_drive_remarks")==null?null:String.valueOf(paramMap.get("test_drive_remarks")));
-                                test_drive_record.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
+                                    test_drive_record.setSource_table(paramMap.get("source_table")==null?null:String.valueOf(paramMap.get("source_table")));
         test_drive_record.setSource_id(paramMap.get("source_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_id"))));
         test_drive_record.setSource_user_id(paramMap.get("source_user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("source_user_id"))));
-                this.setEntity(queryMap,configMap,test_drive_record);
+                    this.setEntity(queryMap,configMap,test_drive_record);
         System.out.println("试驾记录修改成功");
         return success(1);
     }

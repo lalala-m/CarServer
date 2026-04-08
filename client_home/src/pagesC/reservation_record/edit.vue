@@ -328,7 +328,7 @@
             </view>
             <view class="pay-btn-wrap">
               <button class="me-btn me-btn-plain" @click="pay_step = 1">其他支付方式</button>
-              <button class="me-btn" type="primary" @click="submit('pay')">确认支付</button>
+              <button class="me-btn" type="primary" @click="submitForm('pay')">确认支付</button>
             </view>
           </view>
         </view>
@@ -548,7 +548,7 @@ import mixin from '@/libs/mixins/page.js';
               uni.navigateBack({ delta: 1 });
             };
 						if(!this.form.reservation_record_id){
-  			    					    					    					    					    					    					    					    					    									  						      					    					    					    									      					    					    					    									      					    					    					    					    					    																					        		      					    					    					    			                              this.$toast('提交成功');
+  			    					    					    					    					    					    					    					    					    									  						      					    					    					    									      					    					    					    									      					    					    					    					    					    							                                      		      					    					    					    					    									  						      					    					    					    					    			                              this.$toast('提交成功');
 							setTimeout(goBack, 1000);
 						}else{
 							goBack();
@@ -621,7 +621,6 @@ import mixin from '@/libs/mixins/page.js';
       this.pay_obj.account = "";
       this.pay_obj.password = "";
       },
-
     async submit(payTyep) {
       if (this.extra_info && Object.keys(this.extra_info).length > 0) {
         this.form.extra = JSON.stringify(this.extra_info);
@@ -631,15 +630,7 @@ import mixin from '@/libs/mixins/page.js';
       if (!param) {
         param = JSON.parse(JSON.stringify(this.form));
       }
-      param.create_by = this.userInfo.user_id;
-              let name = this.pay_obj.payActiveName;
-        let payType = name.endsWith("支付") ? name.slice(0, -2) : name;
-        if (payTyep == "pay") {
-          param.pay_state = '已支付';
-          param.pay_type = payType;
-                                                                                                                                                                                                                                                                                                                                                              delete param.amount_paid;
-                }
-            var pm = this.events("submit_before", Object.assign({}, param)) || param;
+      var pm = this.events("submit_before", Object.assign({}, param)) || param;
       var msg = await this.events("submit_check", pm);
       var ret;
       if (msg) {
@@ -653,7 +644,15 @@ import mixin from '@/libs/mixins/page.js';
             pm["customization_requirements"]
           );
         }
-                                                                                                                                                                                                ret = this.events("submit_main", pm, func);
+        pm.create_by = this.userInfo.user_id;
+              let name = this.pay_obj.payActiveName;
+        let payType = name.endsWith("支付") ? name.slice(0, -2) : name;
+        if (payTyep == "pay") {
+          pm.pay_state = '已支付';
+          pm.pay_type = payType;
+                                                                                                                                                                                                                                                                                                                                                              delete pm.amount_paid;
+                }
+              ret = this.events("submit_main", pm, func);
       }
       return ret;
     },
@@ -715,7 +714,7 @@ import mixin from '@/libs/mixins/page.js';
     */
     async get_list_appointment_period() {
                     let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                              var json = await this.$get("~/api/period_class_nameification/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        var json = await this.$get("~/api/period_class_nameification/get_list",param);
         if(json.result && json.result.list){
           if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
             json.result.list = json.result.list.filter(item => item.type == 1);
@@ -774,7 +773,7 @@ import mixin from '@/libs/mixins/page.js';
                 sqlwhere += ")";
                 param["sqlwhere"] = sqlwhere;
               }
-                                                                                                                                                                                                                                                                                                                                                        var json = await this.$get("~/api/vehicle_information/get_list",param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  var json = await this.$get("~/api/vehicle_information/get_list",param);
         if(json.result && json.result.list){
           if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
             json.result.list = json.result.list.filter(item => item.type == 1);
@@ -843,7 +842,57 @@ import mixin from '@/libs/mixins/page.js';
           console.error(json.error);
         }
     },
-                    // 自动计算精度处理
+                    uploadFile_(type, fileType) {
+      if (fileType === 'video') {
+        uni.chooseVideo({
+          sourceType: ['album', 'camera'],
+          success: (res) => {
+            this.successChoose(res.tempFilePath, type);
+          },
+          fail: (err) => {
+            console.error('选择视频失败:', err);
+            uni.showToast({
+              title: '选择视频失败',
+              icon: 'none'
+            });
+          }
+        });
+        return;
+      }
+      if (fileType === 'audio') {
+        // #ifdef H5
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'audio/*';
+        input.onchange = (e) => {
+          if (e.target.files[0]) {
+            const url = URL.createObjectURL(e.target.files[0]);
+            this.successChoose(url, type);
+            input.remove();
+          }
+        };
+        document.body.appendChild(input);
+        input.click();
+        return;
+        // #endif
+        // #ifdef APP-PLUS
+        plus.gallery.pick((e) => {
+          this.successChoose(e.files[0], type);
+        }, null, { filter: 'none', multiple: false });
+        return;
+        // #endif
+        // #ifdef MP-WEIXIN
+        wx.chooseMessageFile({
+          count: 1,
+          success: (res) => {
+            this.successChoose(res.tempFiles[0].path, type);
+          }
+        });
+        return;
+        // #endif
+      }
+    },
+    // 自动计算精度处理
 		toFixed: function(num){
 			if (!isNaN(num)) {
 				return ((num + '').indexOf('.') == -1) ? num : num.toFixed(2);
@@ -1093,7 +1142,7 @@ import mixin from '@/libs/mixins/page.js';
                                                                             },
     submitForm(payTyep) {
     this.payTyep = payTyep
-                                                                              if (this.extra_info && Object.keys(this.extra_info).length > 0) {
+                                                                                                                                                      if (this.extra_info && Object.keys(this.extra_info).length > 0) {
         this.form.extra = JSON.stringify(this.extra_info);
       }
       setTimeout(() => {
@@ -1117,6 +1166,14 @@ import mixin from '@/libs/mixins/page.js';
 </script>
 
 <style lang="scss" scoped>
+  .detailed_address {
+    width: 100%;
+    background-color: #f7f6f6;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    padding: 8px;
+    min-height: 35px;
+  }
   .face-content {
     height: 460rpx !important;
     width: 500rpx;

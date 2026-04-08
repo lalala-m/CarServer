@@ -129,6 +129,7 @@ export default {
 									                                      query: {
         "test_drive_record_id": 0,
       },
+      oldForm: {},
       form: {
           "test_drive_code": this.$get_stamp(), // 试驾编码
             "car_coding":  '', // 汽车编码
@@ -139,6 +140,7 @@ export default {
             "test_drive_time": this.$toTime(new Date().getTime(), "yyyy-MM-dd hh:mm:ss"),
             "test_drive_remarks":  '', // 试驾备注
           "test_drive_record_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "test_drive_code_isDisabled": false,
@@ -192,13 +194,13 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.test_drive_record_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        																					this.$post("~/api/car_information/set?car_coding=" + this.form.car_coding, { car_status: "试驾中" }, (res) => {
-								
-							}).catch(() => {
-								console.log("修改状态1出错")
-							})
-																					                  				                              		        		        		        		        		        		        		        		        		        		        		        		        		        		                    							setTimeout(navigate, 800);
+    						if(!this.form.test_drive_record_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        																								            this.$post("~/api/car_information/set?car_coding=" + this.form.car_coding, { car_status: "试驾中" }, (res) => {
+              
+            }).catch(() => {
+              console.log("修改car_status出错")
+            })
+																                            				                                        		        		        		        		        		        		        		        		        		        		        		        		        		        		        		        		        		        		        		                    							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -266,6 +268,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -328,7 +331,9 @@ export default {
           if (this['owner_user'] !== null) this.form['owner_user'] = this['owner_user']
           if (this['test_drive_time'] !== null) this.form['test_drive_time'] = this['test_drive_time']
           if (this['test_drive_remarks'] !== null) this.form['test_drive_remarks'] = this['test_drive_remarks']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.test_drive_record_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -544,7 +549,12 @@ export default {
                                                                                                                                                           if (this.form["test_drive_time"] && JSON.stringify(this.form["test_drive_time"]).indexOf("-")===-1) {
         this.form["test_drive_time"] = this.$toTime(parseInt(this.form["test_drive_time"]), "yyyy-MM-dd hh:mm:ss")
       }
-                                                    },
+                                                
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
 
     is_view() {
       var bl = this.user_group == '管理员';

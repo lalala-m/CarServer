@@ -26,7 +26,7 @@
 					</el-form-item>
 				</el-col>
 
-										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','commodity_specifications')">
 					<el-form-item label="商品规格">
 									<el-input v-model="query.commodity_specifications"></el-input>
 								</el-form-item>
@@ -77,8 +77,8 @@
 
 			<el-table-column prop="cart_price" label="规格" min-width="550">
 				<template slot-scope="scope">
-					<div class="sku-title">{{scope.row.sku ? '多规格' : '单规格'}}</div>
-					<div v-if="scope.row.sku">
+					<div class="sku-title">{{scope.row.sku && scope.row.sku != 'None' ? '多规格' : '单规格'}}</div>
+					<div v-if="scope.row.sku && scope.row.sku != 'None'">
 						<div v-for="(o, i) in JSON.parse(scope.row.sku)" :key="i">
 							<span class="sku-item sku-name">{{ o.sku_title }}</span>
 							<span class="sku-item"><span>卖价：</span>{{ o.sku_price }}</span>
@@ -208,7 +208,7 @@
 
 				// 字段ID
 				field: "online_mall_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -479,7 +479,7 @@
 				for (let i = 0; i < list.length; i++) {
 					let type = list[i];
 					let res
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						}
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		}
 				this.$confirm('删除后数据将无法恢复，请确认是否删除？', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',

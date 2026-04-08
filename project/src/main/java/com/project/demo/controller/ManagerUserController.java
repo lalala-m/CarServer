@@ -60,7 +60,7 @@ public class ManagerUserController extends BaseController<ManagerUser, ManagerUs
                             manager_user.setContact_number(paramMap.get("contact_number")==null?null:String.valueOf(paramMap.get("contact_number")));
                             manager_user.setTwo_dimensional_code(paramMap.get("two_dimensional_code")==null?null:String.valueOf(paramMap.get("two_dimensional_code")));
                         manager_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                                                                                                                        manager_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                    manager_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(manager_user);
         System.out.println("经理用户新增成功");
         return success(1);
@@ -83,7 +83,7 @@ public class ManagerUserController extends BaseController<ManagerUser, ManagerUs
                     manager_user.setContact_number(paramMap.get("contact_number")==null?null:String.valueOf(paramMap.get("contact_number")));
                     manager_user.setTwo_dimensional_code(paramMap.get("two_dimensional_code")==null?null:String.valueOf(paramMap.get("two_dimensional_code")));
                 manager_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                            this.setEntity(queryMap,configMap,manager_user);
+                                    this.setEntity(queryMap,configMap,manager_user);
         System.out.println("经理用户修改成功");
         return success(1);
     }

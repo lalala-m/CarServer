@@ -6,8 +6,8 @@
           <el-form :model="form" ref="form" label-width="80px" class="form" :style="loginFormPos">
             <h1>忘记密码</h1>
 
-            <el-form-item label="用户名" prop="username">
-              <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+            <el-form-item label="账号" prop="username">
+              <el-input v-model="form.username" placeholder="请输入账号"></el-input>
             </el-form-item>
 
             <el-form-item label="邮箱" prop="email">

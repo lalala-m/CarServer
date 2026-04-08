@@ -132,6 +132,7 @@ export default {
         source_id: options.article_id,
         orderby: 'create_time desc',
         reply_to_id: '0',
+        like: 0,
       };
 
       getCommentListApi(query).then((res) => {
@@ -161,6 +162,7 @@ export default {
             source_id: obj.article_id,
             orderby: 'create_time desc',
             reply_to_id: obj.comment_id,
+            like: 0,
           };
           getCommentListApi(params).then((res) => {
             if (res.result) {

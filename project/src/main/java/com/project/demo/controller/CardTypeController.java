@@ -59,7 +59,7 @@ public class CardTypeController extends BaseController<CardType, CardTypeService
         }
                             card_type.setCard_content(paramMap.get("card_content")==null?null:String.valueOf(paramMap.get("card_content")));
                             card_type.setApplicable_items(paramMap.get("applicable_items")==null?null:String.valueOf(paramMap.get("applicable_items")));
-                                                                                                                                        card_type.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                                    card_type.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(card_type);
         System.out.println("卡券类型新增成功");
         return success(1);
@@ -85,7 +85,7 @@ public class CardTypeController extends BaseController<CardType, CardTypeService
         }
                     card_type.setCard_content(paramMap.get("card_content")==null?null:String.valueOf(paramMap.get("card_content")));
                     card_type.setApplicable_items(paramMap.get("applicable_items")==null?null:String.valueOf(paramMap.get("applicable_items")));
-                                    this.setEntity(queryMap,configMap,card_type);
+                                            this.setEntity(queryMap,configMap,card_type);
         System.out.println("卡券类型修改成功");
         return success(1);
     }

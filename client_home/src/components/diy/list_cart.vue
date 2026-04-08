@@ -275,7 +275,6 @@ export default {
         postal_code,
         user_id,
         merchant_id: obj.merchant_id,
-        vip_discount: this.vip_discount,
       };
       // 发送添加订单请求
       await new Promise((resolve, reject) => {

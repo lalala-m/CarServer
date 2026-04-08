@@ -45,13 +45,13 @@ export default {
       let title_t = sessionStorage.getItem('title-text');
       this.clickedButtonId = title_t
       // sessionStorage.removeItem('title-text')
-      this.tos()
+      // this.tos()
     }
     
   },
   created() {
     this.updateCrumbs();
-    
+    this.clickedButtonId = sessionStorage.getItem('title-text');
   },
   methods: {
    

@@ -41,7 +41,7 @@
 							</el-select>
 						</el-form-item>
 
-																							
+																												
 						<el-button class="float-right  rs_register" type="primary" @click="submit()" >注册</el-button>
 				
 						<el-button  class="float-right  rs_back" @click="$router.push('./login')">返回</el-button>
@@ -54,7 +54,7 @@
 
 <script>
 	import mixin from "@/mixins/page.js";
-																							
+																												
 	export default {
 		mixins: [mixin],
 		data: function() {
@@ -143,7 +143,7 @@
 			 */
 			submit_before(param){
 				var user_group = param.user_group;
-																										},
+																															},
 
 			/**
 			 * 提交前校验
@@ -185,18 +185,18 @@
 					ret = "确认密码与密码不一致！";
 				}
 				else if(!user_group){
-					ret = "请选择用户组!";
+					ret = "请选择用户身份!";
 				}
 
 				if(!ret && user_group){
-																											}
+																																}
 
 				var p = {"username": param.username};
 
 				var res = await this.$get("~/api/user/count?" ,p);
 
 				if (res.result) {
-					ret = "用户已存在!";
+					ret = "该账号已存在!";
 				}
 
 				return ret;
@@ -279,7 +279,7 @@
 								delete form_sub[key];
 							}
 						}
-																																																																																																																																																																																	
+																																																																																																																																																																																																																														
 					}
 					catch(err){
 						console.log(key ,"转日期错误：" ,err ,"收到请无视!");
@@ -301,9 +301,10 @@
 		},
 		created() {
 			this.get_user_group();
+			this.$get_auth();
 		},
 		components:{
-																									}
+																														}
 	}
 </script>
 

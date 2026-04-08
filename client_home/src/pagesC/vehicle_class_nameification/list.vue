@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">车型分类列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.model_name" placeholder="搜索车型名称" @search="search_" @cancel="search_cancel('model_name')" @input="(val) => inputValue(val, 'model_name')" />
 	      	    	  	  	    	      	    	  	  			          <MeDropdown
 	            :menuList.sync="menuList"
@@ -18,7 +18,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -35,8 +35,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -85,7 +84,14 @@ export default {
       ],
 						 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																	return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -94,6 +100,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/vehicle_class_nameification/details?vehicle_class_nameification_id=' + o['vehicle_class_nameification_id'])

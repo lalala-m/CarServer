@@ -5,12 +5,12 @@
 
 
 
-										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+										<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','employee_name')">
 					<el-form-item label="员工姓名">
 									<el-input v-model="query.employee_name"></el-input>
 								</el-form-item>
 				</el-col>
-												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap">
+												<el-col :xs="24" :sm="24" :lg="8" class="el_form_search_wrap" v-if="$check_field('get','contact_number')">
 					<el-form-item label="联系号码">
 									<el-input v-model="query.contact_number"></el-input>
 								</el-form-item>
@@ -166,7 +166,7 @@
 
 				// 字段ID
 				field: "financial_user_id",
-																											// 查询
+																																// 查询
 				query: {
 					"size":  7,
 					"page": 1,
@@ -282,7 +282,7 @@
 																									}
 					});
 				}
-			},
+							},
 
 
 										

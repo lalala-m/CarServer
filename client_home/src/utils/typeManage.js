@@ -23,4 +23,4 @@ export const type_names = [
     name: "精品中心",
     value: "boutique_center",
   },
-                                                  ]
+                                                                                                                                  ]

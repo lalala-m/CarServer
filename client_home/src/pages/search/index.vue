@@ -217,7 +217,7 @@ export default {
                                                                                                 maintenance_project_bundle: HomeApi.get_maintenance_project_bundle_ListApi(params),
                                                                                                                     boutique_center_service_name: HomeApi.get_boutique_center_service_name_ListApi(params),
                         boutique_center_service_type: HomeApi.get_boutique_center_service_type_ListApi(params),
-                                                                                    online_mall_commodity_specifications: HomeApi.get_online_mall_commodity_specifications_ListApi(params),
+                                                                                              online_mall_commodity_specifications: HomeApi.get_online_mall_commodity_specifications_ListApi(params),
                     };
       // 使用Promise.allSettled获取所有结果，包括失败的
       Promise.allSettled(Object.values(apiPromises)).then((results) => {
@@ -344,7 +344,7 @@ export default {
                   });
                 }
                 break;
-                                                    		                                  case 'online_mall_commodity_specifications':
+                                                    							                                  case 'online_mall_commodity_specifications':
                 if(data.result && data.result.list) {
                   data.result.list.forEach((item) => {
                     list.push({
@@ -397,7 +397,7 @@ export default {
                         if (o.search_type == 'service_type') {
           this.$navTo('/pagesC/boutique_center/details?boutique_center_id' + '=' + o.boutique_center_id);
         }
-                                                                                    if (o.search_type == 'commodity_specifications') {
+                                                                                              if (o.search_type == 'commodity_specifications') {
           this.$navTo('/pagesC/online_mall/details?online_mall_id' + '=' + o.online_mall_id);
         }
                   },

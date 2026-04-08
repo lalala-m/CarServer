@@ -173,6 +173,7 @@ export default {
 					                      query: {
         "business_user_id": 0,
       },
+      oldForm: {},
       form: {
           "business_name": null, // 商家姓名
             "business_gender":  '', // 商家性别
@@ -180,6 +181,7 @@ export default {
             "store_location":  '', // 门店位置
           "user_id": 0,
         "business_user_id": 0, // ID
+        "create_by": 0, // 创建人
       },
       disabledObj:{
           "business_name_isDisabled": false,
@@ -237,8 +239,8 @@ export default {
 				      });
 				      // #endif
 				    }
-						if(!this.form.business_user_id){
-    				                      		                      		                      		                      		                      		                      		                      		                      		        							        				                              		                      		                      		        							                              		                      		                      		        							                              		                      		                      		                      		                      		        							                              		                      		                      		                                  							setTimeout(navigate, 800);
+    						if(!this.form.business_user_id){
+    				                      		                      		                      		                      		                      		                      		                      		                      		        							                  				                                        		                      		                      		        							                                        		                      		                      		        							                                        		                      		                      		                      		                      		        							                                        		                      		                      		                      		        							                  				                                        		                      		                      		                      		                                  							setTimeout(navigate, 800);
 						}else{
 							navigate();
 						}
@@ -310,6 +312,7 @@ export default {
         // #ifdef H5
         const input = document.createElement('input');
         input.type = 'file';
+        input.style.display = 'none';
         input.accept = 'audio/*';
         input.onchange = (e) => {
           if (e.target.files[0]) {
@@ -364,7 +367,9 @@ export default {
           if (this['business_gender'] !== null) this.form['business_gender'] = this['business_gender']
           if (this['mobile_phone_number'] !== null) this.form['mobile_phone_number'] = this['mobile_phone_number']
           if (this['store_location'] !== null) this.form['store_location'] = this['store_location']
-        console.log(this.form)
+        if(this.form.extra !== null) this.form.extra = JSON.stringify(this.form.extra)
+
+      console.log(this.form)
       if(!this.form.business_user_id){
 				this.form.create_by = this.user.user_id;
 			}
@@ -490,7 +495,7 @@ export default {
         children: [] 
       }));
       if(!this.form["business_user_id"]) {
-                  this.form_sub["business_gender"] = this.list_business_gender[0].value;
+                  this.form_sub["business_gender"] = this.list_business_gender[0].business_gender;
               }
             },
                     
@@ -633,7 +638,12 @@ export default {
                                                   if (json.result.obj.business_gender) {
         this.filter_text.business_gender = json.result.obj.business_gender;
       }
-                                                            },
+                                                        
+      if (json.result.obj.create_by) {
+        this.form.create_by = json.result.obj.create_by;
+            }
+      this.oldForm = JSON.parse(JSON.stringify(this.form));
+    },
     /**
      * 修改头像
      * @param {Object} param文件参数

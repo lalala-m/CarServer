@@ -1,6 +1,6 @@
 <template>
   <view class="charts-box">
-    <qiun-data-charts :canvas2d="true" type="column" :chartData="chartData" :opts="opts" :ontouch="true" />
+    <qiun-data-charts type="column" :chartData="chartData" :opts="opts" :ontouch="true" />
   </view>
 </template>
 <script>
@@ -23,7 +23,7 @@ export default {
         color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
         padding: [15,15,0,5],
         touchMoveLimit: 24,
-        enableScroll: true,
+        // enableScroll: true,
         legend: {},
         xAxis: {
           disableGrid: true,

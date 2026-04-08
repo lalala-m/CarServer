@@ -5,7 +5,7 @@
       <!-- 聊天列表 -->
       <view class="list-content" v-if="currentView === 'list'">
         <view class="list-box">
-          <view class="list-header">聊天列表</view>
+          <!-- <view class="list-header">聊天列表</view> -->
           <view v-for="item in chatGroupList" :key="item.customer_chat_group_id"
             :class="currentChat === item.customer_chat_group_id ? 'current-chat' : ''" @click="enterChat(item)"
             class="chat-item">
@@ -763,9 +763,22 @@ export default {
   color: white;
   font-size: 48rpx;
   font-weight: bold;
+  position: absolute;
+  top: 2px;
 }
 
 .support_content {
   padding-bottom: 130px !important;
 }
+/* ifndef H5 */
+.support_module .chat-content{
+	padding-top: 88px !important;
+}
+.support_module + .back-btn{
+	top: 100px !important;
+}
+.support_module .list-content{
+	padding-top: 90px !important;
+}
+/*endif*/
 </style>

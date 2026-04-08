@@ -61,7 +61,7 @@ public class OwnerUserController extends BaseController<OwnerUser, OwnerUserServ
                             owner_user.setMember_level(paramMap.get("member_level")==null?null:String.valueOf(paramMap.get("member_level")));
                             owner_user.setAccumulate_points(paramMap.get("accumulate_points")==null?null:Double.valueOf(String.valueOf(paramMap.get("accumulate_points"))));
                         owner_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                                                                                                                        owner_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
+                                                                                                                                                    owner_user.setCreate_by(paramMap.get("create_by")==null?null:Integer.valueOf(String.valueOf(paramMap.get("create_by"))));
         this.addEntity(owner_user);
         System.out.println("车主用户新增成功");
         return success(1);
@@ -85,7 +85,7 @@ public class OwnerUserController extends BaseController<OwnerUser, OwnerUserServ
                     owner_user.setMember_level(paramMap.get("member_level")==null?null:String.valueOf(paramMap.get("member_level")));
                     owner_user.setAccumulate_points(paramMap.get("accumulate_points")==null?null:Double.valueOf(String.valueOf(paramMap.get("accumulate_points"))));
                 owner_user.setUserId(paramMap.get("user_id")==null?null:Integer.valueOf(String.valueOf(paramMap.get("user_id"))));
-                            this.setEntity(queryMap,configMap,owner_user);
+                                    this.setEntity(queryMap,configMap,owner_user);
         System.out.println("车主用户修改成功");
         return success(1);
     }

@@ -6,7 +6,7 @@
         <image class="diy_img diy-image" :src="$fullImgUrl(obj['car_condition_picture'])"/>
       </view>
                     
-																							      <view class="warp info-wrapper">
+																												      <view class="warp info-wrapper">
         <view class="container-fluid">
           <view class="row">
               <view v-if="$check_field('get', 'car_coding')" class="info-item  field_text ">
@@ -474,6 +474,7 @@
           source_id: obj['car_information_id'],
           orderby: 'create_time desc',
           reply_to_id: '0',
+          like: 0,
         };
         this.$get('/comment/get_list', query, (json) => {
           if (json.result) {
@@ -502,6 +503,7 @@
                   source_id: obj['car_information_id'],
                   orderby: 'create_time desc',
                   reply_to_id: obj.comment_id,
+                  like: 0,
                 },
                 (res) => {
                   if (res.result) {
@@ -638,7 +640,7 @@
 		this.obj.source_user_id = param.source_user_id;
 	  },
 	  get_obj_status_limit(json, func) {
-	    this.$get("~/api/car_information/get_list?car_coding=" + this.obj.car_coding + "&orderby=create_time desc", {}, (res1) => {
+	            this.$get("~/api/car_information/get_list?car_coding=" + this.obj.car_coding + "&orderby=create_time desc", {}, (res1) => {
       if(res1.result && res1.result.list && res1.result.list.length > 0) {
         const latestRecord = res1.result.list[0];
         if(latestRecord.car_status != '空闲中') {
@@ -646,7 +648,7 @@
         }
       }
     })
-			},
+		  	},
 	    },
     created() {
                                           this.get_list_user_business_user();

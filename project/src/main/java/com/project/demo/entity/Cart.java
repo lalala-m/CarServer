@@ -108,5 +108,11 @@ public class Cart implements Serializable {
     @TableField(value = "description")
     private String description;
 
+    /**
+     * 规格
+     */
+    @TableField(value = "norms")
+    private String norms;
+
 }
 

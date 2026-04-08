@@ -12,8 +12,15 @@
                         </el-form-item>
  
                         <el-form-item label="密码" prop="password">
-                            <el-input type="password" v-model="form.password" placeholder="请输入密码"
+                            <!-- <el-input type="password" v-model="form.password" placeholder="请输入密码"
                                 autocomplete="off" show-password>
+                            </el-input> -->
+                            <el-input :type="passwordType" v-model="form.password" placeholder="请输入密码"
+                                autocomplete="off">
+								<i slot="suffix" class="el-icon-password" @click="showPwd">
+									<svg v-if="passwordType === 'password'" t="1620373409646" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3656" width="16" height="16"><path d="M512 366.545455c80.290909 0 145.454545 65.163636 145.454545 145.454545s-65.163636 145.454545-145.454545 145.454545-145.454545-65.163636-145.454545-145.454545 65.163636-145.454545 145.454545-145.454545m0-72.727273c-120.436364 0-218.181818 97.745455-218.181818 218.181818s97.745455 218.181818 218.181818 218.181818 218.181818-97.745455 218.181818-218.181818-97.745455-218.181818-218.181818-218.181818z" p-id="3657" fill="#8a8a8a"></path><path d="M512 145.454545c186.181818 0 346.181818 101.818182 436.363636 256-90.181818 154.181818-250.181818 256-436.363636 256S165.818182 555.636364 75.636364 401.454545c90.181818-154.181818 250.181818-256 436.363636-256m0-72.727272C288 72.727273 98.909091 212.363636 0 401.454545c98.909091 189.090909 288 328.727273 512 328.727273s413.090909-139.636364 512-328.727273c-98.909091-189.090909-288-328.727273-512-328.727273z" p-id="3658" fill="#8a8a8a"></path><path d="M167.272727 129.454545l698.181818 698.181819-50.90909 50.90909L116.363636 180.363636z" p-id="3659" fill="#8a8a8a"></path></svg>
+									<svg v-else t="1620373409647" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3660" width="16" height="16"><path d="M512 366.545455c80.290909 0 145.454545 65.163636 145.454545 145.454545s-65.163636 145.454545-145.454545 145.454545-145.454545-65.163636-145.454545-145.454545 65.163636-145.454545 145.454545-145.454545m0-72.727273c-120.436364 0-218.181818 97.745455-218.181818 218.181818s97.745455 218.181818 218.181818 218.181818 218.181818-97.745455 218.181818-218.181818-97.745455-218.181818-218.181818-218.181818z" p-id="3661" fill="#8a8a8a"></path><path d="M512 145.454545c186.181818 0 346.181818 101.818182 436.363636 256-90.181818 154.181818-250.181818 256-436.363636 256S165.818182 555.636364 75.636364 401.454545c90.181818-154.181818 250.181818-256 436.363636-256m0-72.727272C288 72.727273 98.909091 212.363636 0 401.454545c98.909091 189.090909 288 328.727273 512 328.727273s413.090909-139.636364 512-328.727273c-98.909091-189.090909-288-328.727273-512-328.727273z" p-id="3662" fill="#8a8a8a"></path></svg>
+								</i>
                             </el-input>
                         </el-form-item>
                         <!-- 数字验证开始 -->
@@ -43,6 +50,7 @@
     export default {
         data: function() {
             return {
+                passwordType: 'password',
                 loginFormPos: "",
                 oauth: {
                     signIn: false
@@ -53,7 +61,7 @@
 							,"财务用户"
 							,"经理用户"
 							,"销售经理"
-																							],
+																												],
                 web: this.$store.state.web,
 				loading: false,
                 form: {
@@ -90,6 +98,13 @@
             }
         },
         methods: {
+            showPwd() {
+				if (this.passwordType === 'password') {
+					this.passwordType = 'text'
+				} else {
+					this.passwordType = 'password'
+				}
+			},
             sign_in() {
                 var f = this.form;
                 var form = {
@@ -255,5 +270,17 @@
  	content: '*';
  	color: #ff3131;
  	margin-right: 4px;
+ }
+ .el-icon-password {
+ 	cursor: pointer;
+ 	font-size: 16px;
+ 	display: flex;
+ 	align-items: center;
+ 	justify-content: center;
+ 	height: 100%;
+ }
+ .el-icon-password svg {
+ 	width: 16px;
+ 	height: 16px;
  }
 </style>

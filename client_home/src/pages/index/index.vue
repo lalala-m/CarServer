@@ -11,7 +11,7 @@
             <view class="name">推荐</view>
             <view class="active-flag" v-if="tabIndex === 0"> </view>
           </view>
-                                                      </view>
+                                                                </view>
       </view>
     </tn-nav-bar>
 
@@ -103,7 +103,7 @@
       <view class="split-line"></view>
       <!-- 商品模块(结束) -->
 	  <view class="home_recommend">
-                                              	  </view>
+                                                        	  </view>
       <Card
         v-if="$check_action('/notice/list', 'get')"
         class="notice_list list_diy"
@@ -138,7 +138,7 @@
       <!-- 版权模块(结束) -->
     </view>
 
-                                              
+                                                        
 
     <image v-if="emergencyUser.includes(userInfo.user_group)" src="/static/emergency.svg" class="emergency_icon" @tap="openEmergencyModal" />
     <!-- 紧急联系弹窗 -->
@@ -188,7 +188,7 @@
       :safeAreaInsetBottom="true"
     ></tn-tabbar>
     <view class="communicate_index" v-if="user.user_id">
-      <text @click="openSupportModal">✉</text>
+      <text @click="openOnlineCommunication">✉</text>
     </view>
 	  <view class="back_top" v-if="show_back_top" @click="scroll_top">
       <text>↑</text>
@@ -198,7 +198,7 @@
 
 <script>
 import Search from '@/components/businessCp/search.vue';
-                                              import Card from '@/components/common/card.vue';
+                                                        import Card from '@/components/common/card.vue';
 import list_menu from '@/components/diy/list_menu.vue';
 import list_goods from '@/components/diy/list_goods.vue';
 import list_article from '@/components/diy/list_article.vue';
@@ -214,7 +214,7 @@ export default {
   components: {
     Search,
     Card,
-                                                  list_menu,
+                                                            list_menu,
     list_goods,
     list_article,
     Slide,
@@ -228,7 +228,7 @@ export default {
         whiteSpace: 'nowrap',
       },
       tabbarIndex: 0,
-                                                    list_goods: [],
+                                                              list_goods: [],
       goodsTypes: [],
       list_slide: [],
       list_article: [],
@@ -249,14 +249,14 @@ export default {
       emergencyUser: [
         "管理员"
                           ,"车主用户"
-                                                                                                                                                                                                                                                                                                                                                                                                                                    ],
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ],
       emergencyUserTable: [
                                                                                                               {table: 'owner_user', field: 'contact_number' },
                                                                                                                                       {table: 'business_user', field: 'mobile_phone_number' },
                                                                                                                                                                 {table: 'financial_user', field: 'contact_number' },
                                                                                                                                                                 {table: 'manager_user', field: 'contact_number' },
                                                                                                                                       {table: 'sales_manager', field: 'contact_number' },
-                                                                                                                                                                                                                                                                                                                                                                          ],
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ],
     };
   },
   created() {
@@ -370,7 +370,10 @@ export default {
         size: 100,
         list_status: 1,
       };
-                                                                                                                                                  HomeApi.getHomeGoodsListApi(params).then((res) => {
+                                                                                                                                                                        if (this.userInfo.user_group != '管理员' && this.activeGoods == '全部') {
+        params.user_id = this.userInfo.user_id;
+      }
+                  HomeApi.getHomeGoodsListApi(params).then((res) => {
         if (res.result && res.result.list) {
           let goodsList = res.result.list.filter((item) => { return item.list_status === 1; });
           if (this.activeGoods && this.activeGoods != '全部') {
@@ -490,7 +493,7 @@ export default {
     onClickTab(val) {
       this.tabIndex = val;
     },
-                                                                                            
+                                                                                                                
     /**
      *  获取轮播图
      */
@@ -536,7 +539,7 @@ export default {
           this.list_notice.map((o) => {
             o['praise_len'];
           });
-          this.get_praise(this.list_notice, 'notice', 'notice_id');
+          // this.get_praise(this.list_notice, 'notice', 'notice_id');
         }
       });
     },
@@ -577,6 +580,9 @@ export default {
     if(url == "/article/list"){
       url = "/article/index"
     }
+    if(url == "/subject_exam/list"){
+      url = "/exam_subject/list"
+    }
     const isTabbarPage = this.tabbarList.some(item => item.pagePath.endsWith(url));
     if (isTabbarPage) {
       this.$navToTab(this.getFullPath(url,'/pages'))
@@ -584,7 +590,7 @@ export default {
       this.$navTo(this.getFullPath(url))
     }
 	},
-  openSupportModal() {
+  openOnlineCommunication() {
     uni.navigateTo({
       url: `/pagesA/support/index?viewType=list`,
     });
@@ -594,7 +600,7 @@ export default {
     this.get_slides();
     this.get_menu();
     this.get_notice();
-                                                  this.get_article_type();
+                                                            this.get_article_type();
     this.get_article();
     this.get_goods_type();
     this.get_goods();

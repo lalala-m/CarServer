@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">核销信息列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.card_code" placeholder="搜索卡券编码" @search="search_" @cancel="search_cancel('card_code')" @input="(val) => inputValue(val, 'card_code')" />
 	      	    	  	    	  	    	  	    	  	    	      	          <Search v-model="query.card_name" placeholder="搜索卡券名称" @search="search_" @cancel="search_cancel('card_name')" @input="(val) => inputValue(val, 'card_name')" />
 	      	    	  	    	  	    	  	    	  	    	  	    	  	    	  	  	    	      	    	  	    	  	    	  	    	  	    	      	    	  	    	  	    	  	    	  	    	  	    	  	    	  	  			          <MeDropdown
@@ -19,7 +19,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -119,8 +119,7 @@
 	  
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -210,7 +209,17 @@ export default {
       write_off_time_date_text: '请选择核销时间',
 										 									 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																																																																																																if (item['write_off_doc'] && item['write_off_doc'] !== '') {
+							return true;
+						}
+																						return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -219,6 +228,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/write_off_information/details?write_off_information_id=' + o['write_off_information_id'])

@@ -80,10 +80,13 @@ public class BoutiqueCenter implements Serializable {
 	@TableField(value = "reservation_record_limit_times")
 	private String reservation_record_limit_times;
 	
-					
+							
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

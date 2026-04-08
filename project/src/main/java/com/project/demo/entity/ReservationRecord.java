@@ -105,7 +105,7 @@ public class ReservationRecord implements Serializable {
 
 
 
-					    // 额外信息
+						    // 额外信息
     @TableField(value = "extra")
     private String extra;
 	// 来源表
@@ -119,10 +119,13 @@ public class ReservationRecord implements Serializable {
 	// 来源用户ID
 	@TableField(value = "source_user_id")
 	private Integer source_user_id;
-	
+		
 
 
-                                                                                            
+                                                                                                                
+
+
+
 
 
     // 创建用户

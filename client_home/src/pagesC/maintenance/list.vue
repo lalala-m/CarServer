@@ -4,7 +4,7 @@
 	  <tn-nav-bar :isBack="isBack">维修养护列表</tn-nav-bar>
 	  <view class="page-list" id="page_diy_list">
 	        <!-- 筛选模块(开始) -->
-																								        <view class="search-wrap">
+																													        <view class="search-wrap">
 	  	    	      	          <Search v-model="query.project_bundle" placeholder="搜索项目套餐" @search="search_" @cancel="search_cancel('project_bundle')" @input="(val) => inputValue(val, 'project_bundle')" />
 	      	    	  	    	  	    	  	    	  	    	  	    	  	    	  	  	    	      	    	  	    	  	    	  	    	  	    	  	    	  	    	  	  			          <MeDropdown
 	            :menuList.sync="menuList"
@@ -18,7 +18,7 @@
 	  
 	        <!-- 筛选模块(结束) -->
 	  <!-- 列表 -->
-	        <view class="customized-list">
+	        <view class="customized-list" :class="{'has-image': hasImageItems}">
 	  	          <view v-for="(o, i) in showList" :key="i" class="customized-item">
 	  	  	            <view
 	              class="customized-item-body"
@@ -95,8 +95,7 @@
 	    	            </view>
 	  	  	          </view>
 	        </view>
-	  
-	        <!-- /列表 -->
+			        <!-- /列表 -->
 	        <!-- 分页器 -->
 	        <uni-pagination
 	          class="pager"
@@ -162,7 +161,17 @@ export default {
 						 									 									 			project_price_input_timer: null,
 													 									 									 									 						    };
   },
-
+	computed: {
+		// 判断列表中是否有图片项
+		hasImageItems() {
+			return this.showList.some(item => {
+																								if (item['project_picture'] && item['project_picture'] !== '') {
+							return true;
+						}
+																																																										return false;
+			});
+		},
+	},
   watch: {
   	list: {
   		handler(val) {
@@ -171,6 +180,8 @@ export default {
   		deep: true
   	},
   },
+	onLoad() {
+	},
   methods: {
 	toDetails(o) {
 						this.$navTo('/pagesC/maintenance/details?maintenance_id=' + o['maintenance_id'])

@@ -193,7 +193,7 @@
             />
           </view>
         </view>
-                                                          </view>
+                                                              </view>
 </template>
 <script>
 import mixin from '@/libs/mixins/page.js';
@@ -201,7 +201,7 @@ import dateRangePicker from '@/components/date-range-picker/date-range-picker.vu
 import DateSelector from '@/components/dengrq-datetime-picker/dateSelector/index.vue';
 import Analysis from '@/pagesC/components/analysis/index.vue';
 
-																							
+																												
 export default {
   mixins: [mixin],
   components: {
@@ -323,7 +323,7 @@ export default {
       let _this = this;
       let type = this.list[v];
 			let res
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              uni.showModal({
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      uni.showModal({
         title: '删除',
         content: '此操作将永久删除该文件, 是否继续?',
         success: function (res) {
@@ -338,21 +338,21 @@ export default {
     },
 	get_list_after(param){
 	      let _this = this;
-		      			_this.list.map((item) => {
+		        			_this.list.map((item) => {
 				_this.$set(item, 'write_off_information_status_limit', false);
-								_this.list.map((item) => {
-					_this.$set(item, 'write_off_information_status_limit', false);
-										_this.$get("~/api/issuing_card_voucher/get_list?card_code=" + item.card_code + "&orderby=create_time desc", {}, (res1) => {
-						if(res1.result && res1.result.list && res1.result.list.length > 0) {
-							const latestRecord = res1.result.list[0];
-							if(latestRecord.write_off_status != '待核销') {
-								_this.$set(item, 'write_off_information_status_limit', true);
-							}
-						}
-					})
-									})
+				                              _this.$get("~/api/issuing_card_voucher/get_list?card_code=" + item.card_code + "&orderby=create_time desc", {}, (res1) => {
+            if(res1.result && res1.result.list && res1.result.list.length > 0) {
+              const latestRecord = res1.result.list[0];
+              if(latestRecord.write_off_status != '待核销') {
+                _this.$set(item, 'write_off_information_status_limit', true);
+              }
+            }
+          })
 							})
-								  _this.list.map((item) => {
+							_this.list.map((item) => {
+				_this.$set(item, '_status_limit', false);
+							})
+		    				  _this.list.map((item) => {
 			let param = {
 			  source_table: "issuing_card_voucher",
 			  source_id: item.issuing_card_voucher_id,
@@ -373,7 +373,7 @@ export default {
 			}
 			Object.assign(item, param)
 		  })
-			  		},
+			  	  	},
                   /**
      * 获取经理用户用户列表
      */
@@ -435,7 +435,7 @@ export default {
                 sqlwhere += ")";
                 param["sqlwhere"] = sqlwhere;
               }
-                                                                                                                                                                                                                                                                                                                                                        var json = await this.$get("~/api/vehicle_information/get_list", param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  var json = await this.$get("~/api/vehicle_information/get_list", param);
         if(json.result && json.result.list){
           if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
             json.result.list = json.result.list.filter(item => item.type == 1);
@@ -492,7 +492,7 @@ export default {
      */
     async get_list_card_name() {
                     let param = {}
-                                                                                                                                                                                                                                                                                                                                                                                                                                              var json = await this.$get("~/api/card_type/get_list", param);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        var json = await this.$get("~/api/card_type/get_list", param);
         if(json.result && json.result.list){
           if (json.result.list.length > 0 && 'type' in json.result.list[0]) {
             json.result.list = json.result.list.filter(item => item.type == 1);
@@ -805,7 +805,6 @@ export default {
 	color: #fff;
 	border: none;
 	border-radius: 8px;
-	padding: 12px;
 	font-size: 16px;
 }
 </style>

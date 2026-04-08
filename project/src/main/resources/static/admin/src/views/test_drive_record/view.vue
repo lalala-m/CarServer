@@ -106,7 +106,7 @@
 		
 		
 		</el-row>
-						<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
+					<el-col :xs="24" :sm="12" :lg="8" class="el_form_btn_warp">
 				<el-form-item v-if="$check_action('/test_drive_record/view','set') || $check_action('/test_drive_record/view','add')">
 					<el-button type="primary" @click="submit()">提交</el-button>
 					<el-button @click="cancel()">取消</el-button>
@@ -137,6 +137,7 @@
 
 				query: {
 					"test_drive_record_id": 0,
+					like: 0,
 				},
 
 				form: {
@@ -175,7 +176,8 @@
 		computed: {
 			aiForm() {
 				let form = {
-																																																																																};
+																																																																																						
+				};
 				return form;
 			},
 												},
@@ -311,7 +313,7 @@
 																																											// 获取缓存数据附加
 					form = $.db.get("form");
 													$.push(this.form ,form);
-																							
+																												
 				if(this.form && form){
 					Object.keys(this.form).forEach(key => {
 						Object.keys(form).forEach(dbKey => {
@@ -385,12 +387,12 @@
 						let path = this.$route.fullPath
 						let skip_Path  = path.replace('/view','/table')
 								if(!this.form.test_drive_record_id){
-						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																					this.$post("~/api/car_information/set?car_coding=" + this.form.car_coding, { car_status: "试驾中" }, (res) => {
+						  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  							  		  																															this.$post("~/api/car_information/set?car_coding=" + this.form.car_coding, { car_status: "试驾中" }, (res) => {
 								
 							}).catch(() => {
-								console.log("修改状态1出错")
+								console.log("修改car_status出错")
 							})
-																																													  				  				  				  				  				  				  				  				  				  				  				  				  				  											let message_inform = {
+																																													  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  				  											let message_inform = {
 								title: '试驾记录',
 								type: '消息',
 								content: this.$store.state.user.username + '-' + this.$store.state.user.nickname + '提交了一条试驾记录数据',
