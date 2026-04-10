@@ -836,6 +836,115 @@ const routes = [
             index: 0,
             title: '用户组详情'
         }
+    },
+
+    // ========== 组织管理模块 ==========
+    // 4S店管理员路由
+    {
+        path: '/store_admin/table',
+        name: 'store_admin_table',
+        component: () => import('../views/store_admin/table.vue'),
+        meta: {
+            index: 0,
+            title: '4S店管理员列表'
+        }
+    },
+    {
+        path: '/store_admin/view',
+        name: 'store_admin_view',
+        component: () => import('../views/store_admin/view.vue'),
+        meta: {
+            index: 0,
+            title: '4S店管理员详情'
+        }
+    },
+    // 信息员路由
+    {
+        path: '/info_user/table',
+        name: 'info_user_table',
+        component: () => import('../views/info_user/table.vue'),
+        meta: {
+            index: 0,
+            title: '信息员列表'
+        }
+    },
+    {
+        path: '/info_user/view',
+        name: 'info_user_view',
+        component: () => import('../views/info_user/view.vue'),
+        meta: {
+            index: 0,
+            title: '信息员详情'
+        }
+    },
+    // 业务顾问路由
+    {
+        path: '/business_consultant/table',
+        name: 'business_consultant_table',
+        component: () => import('../views/business_consultant/table.vue'),
+        meta: {
+            index: 0,
+            title: '业务顾问列表'
+        }
+    },
+    {
+        path: '/business_consultant/view',
+        name: 'business_consultant_view',
+        component: () => import('../views/business_consultant/view.vue'),
+        meta: {
+            index: 0,
+            title: '业务顾问详情'
+        }
+    },
+    // 二维码管理路由
+    {
+        path: '/qr_code_register/table',
+        name: 'qr_code_register_table',
+        component: () => import('../views/qr_code_register/table.vue'),
+        meta: {
+            index: 0,
+            title: '二维码管理'
+        }
+    },
+    // ========== 批量导入与审核模块 ==========
+    // 批量导入路由
+    {
+        path: '/import_excel/import',
+        name: 'import_excel_import',
+        component: () => import('../views/import_excel/import.vue'),
+        meta: {
+            index: 0,
+            title: '批量导入'
+        }
+    },
+    // 批量审核路由
+    {
+        path: '/batch_review/table',
+        name: 'batch_review_table',
+        component: () => import('../views/batch_review/table.vue'),
+        meta: {
+            index: 0,
+            title: '批量审核'
+        }
+    },
+    // ========== 店面管理模块 ==========
+    {
+        path: '/store/table',
+        name: 'store_table',
+        component: () => import('../views/store/table.vue'),
+        meta: {
+            index: 0,
+            title: '4S店管理列表'
+        }
+    },
+    {
+        path: '/store/view',
+        name: 'store_view',
+        component: () => import('../views/store/view.vue'),
+        meta: {
+            index: 0,
+            title: '4S店管理详情'
+        }
     }
 ]
 

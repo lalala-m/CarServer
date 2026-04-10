@@ -43,3 +43,8 @@ client_home/.env
 
 # 编译后的 class 文件
 project/src/main/resources/static/admin/dist/
+
+# =======================
+# 计划/临时文件（不推送）
+# =======================
+plan/

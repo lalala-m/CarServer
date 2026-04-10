@@ -944,6 +944,17 @@
           "style": {
             "navigationBarTitleText": "员工绩效详情"
           }
+        },
+        // 扫码注册路由
+        {
+          "path": "scan_register/index",
+          "style": {
+            "navigationBarTitleText": "扫码注册",
+            "navigationBarBackgroundColor": "#667eea"
+          },
+          "meta": {
+            "noAuth": true
+          }
         }
             ]
     }

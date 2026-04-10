@@ -30,7 +30,7 @@
 						
 
 														<el-button v-if="$check_action('/owner_user/table','del') || $check_action('/owner_user/view','del')" class="search_btn_del" type="danger" @click="delInfo()">删除</el-button>
-										<download-excel v-if="$check_option('/owner_user/table','import_db')" class="export-excel-wrapper" :data="DetailsForm" :fields="json_fields" name="数据导入表格.xls" >
+<download-excel v-if="$check_option('/owner_user/table','import_db')" class="export-excel-wrapper" :data="DownloadForm" :fields="json_fields" name="数据导入表格.xls" >
 							<el-button type="success">下载导入文档</el-button>
 						</download-excel>
 						<el-upload v-if="$check_option('/owner_user/table','import_db')" action accept = ".xlsx, .xls" :auto-upload="false" :show-file-list="false" :on-change="handle_import">
@@ -204,19 +204,19 @@
 						"会员等级":'member_level',
 						"积攒积分":'accumulate_points',
 					},
-				DetailsForm: [
+DownloadForm: [
 					{
-							"username":"填写账号",
-						"password":"填写密码",
-						"nickname":"填写昵称",
-						// "phone":"填写手机号码",
-						"email":"填写邮箱",
-								owners_name:"文本类型",
-							owners_gender:"下拉类型",
-							contact_number:"手机类型",
-							driving_license:"图片类型",
-							member_level:"下拉类型",
-							accumulate_points:"数字类型",
+							"username":"",
+						"password":"",
+						"nickname":"",
+						// "phone":"",
+						"email":"",
+								owners_name:"",
+							owners_gender:"",
+							contact_number:"",
+							driving_license:"",
+							member_level:"",
+							accumulate_points:"",
 						},
 				],
 																						message: '',

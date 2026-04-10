@@ -111,7 +111,7 @@ public class UserController extends BaseController<User, UserService> {
      */
     @PostMapping("login")
     public Map<String, Object> login(@RequestBody Map<String, String> data, HttpServletRequest httpServletRequest) {
-        log.info("[执行登录接口]");
+        log.info("[执行登录接口] data={}", data);
 
         String username = data.get("username");
         String email = data.get("email");
@@ -120,8 +120,10 @@ public class UserController extends BaseController<User, UserService> {
 
         try {
             password = RsaUtils.decryptByPrivateKey(password);
+            log.info("[解密后密码] {}", password);
         }catch (Exception e){
-            return error(30000,"解密失败");
+            log.error("[解密失败]", e);
+            return error(30000,"解密失败: " + e.getMessage());
         }
 
         List resultList = null;

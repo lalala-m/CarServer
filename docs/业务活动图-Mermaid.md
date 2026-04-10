@@ -25,11 +25,9 @@ flowchart TB
   B1 -->|在库| A1
   B1 -->|库中无| B2
   B2 --> A1
-  A1 --> B3
   B3 -->|在库| A2
   B3 -->|库中无| B4
   B4 --> A2
-  A2 --> B5
   B5 --> A3
 ```
 
@@ -56,6 +54,7 @@ flowchart TB
 
   C0 --> M1
   M1 --> M2
+  M1 --> M3
   M2 --> M3
   M3 --> F1
   C1 --> F1
@@ -63,7 +62,6 @@ flowchart TB
 
 **注：** 修改个人信息步骤旁的业务规则为——手机更换须新旧手机号分别验证。
 
-Mermaid 对「侧边注释」支持有限，上式用虚线示意；正式文档可在图旁保留文字说明。
 
 ---
 
@@ -81,6 +79,19 @@ flowchart TB
     ADM --> INF3
   end
 
+subgraph T3["4S店 N"]
+    IA2["4S店 信息管理员"]
+    subgraph INNER2["店内流程（同店1）"]
+      FA2["4S店 财务审核员"]
+      BC2["4S店 业务顾问"]
+      FA2 --> BC2
+      MEM2[会员]
+      VEH2[车辆]
+      BC2 --> MEM2
+      MEM2 --> VEH2
+    end
+  end
+
   subgraph T2["4S店 1"]
     IA1["4S店 信息管理员"]
     subgraph INNER1["店内流程"]
@@ -90,24 +101,15 @@ flowchart TB
       BC1b["..."]
       FA1 --> BC1
       FA1b --> BC1b
+      MEM1[会员1]
+      VEH1[车辆1]
+      MEMn[会员n]
+      VEHn[车辆n]
+      BC1 --> MEM1
+      BC1 --> MEMn
+      MEM1 --> VEH1
+      MEMn --> VEHn
     end
-    MEM1[会员]
-    VEH1[车辆]
-    BC1 --> MEM1
-    MEM1 --> VEH1
-  end
-
-  subgraph T3["4S店 N"]
-    IA2["4S店 信息管理员"]
-    subgraph INNER2["店内流程（同店1）"]
-      FA2["4S店 财务审核员"]
-      BC2["4S店 业务顾问"]
-      FA2 --> BC2
-    end
-    MEM2[会员]
-    VEH2[车辆]
-    BC2 --> MEM2
-    MEM2 --> VEH2
   end
 
   ADM -.->|纵向管控各店信息管理员| IA1
