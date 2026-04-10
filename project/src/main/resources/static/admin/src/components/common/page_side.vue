@@ -32,9 +32,16 @@
                 <span>财务用户</span></el-menu-item>
                                               <el-menu-item index="/manager_user/table" v-show="$check_action('/manager_user/table')" @click="handleButtonClick(8)">
                 <span>经理用户</span></el-menu-item>
-                                              <el-menu-item index="/sales_manager/table" v-show="$check_action('/sales_manager/table')" @click="handleButtonClick(8)">
+      <el-menu-item index="/sales_manager/table" v-show="$check_action('/sales_manager/table')" @click="handleButtonClick(8)">
                 <span>销售经理</span></el-menu-item>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <!-- <el-menu-item index="/user_group/table"><span>用户组</span></el-menu-item> -->
+      <el-menu-item index="/store_admin/table" v-show="$check_action('/store_admin/table')" @click="handleButtonClick(8)">
+                <span>4S店管理员</span></el-menu-item>
+      <el-menu-item index="/info_user/table" v-show="$check_action('/info_user/table')" @click="handleButtonClick(8)">
+                <span>信息员</span></el-menu-item>
+      <el-menu-item index="/business_consultant/table" v-show="$check_action('/business_consultant/table')" @click="handleButtonClick(8)">
+                <span>业务顾问</span></el-menu-item>
+      <el-menu-item index="/store/table" v-show="$check_action('/store/table')" @click="handleButtonClick(8)">
+                <span>4S店管理</span></el-menu-item>
     </el-submenu>
 
 	<el-submenu class="Cust" :index="i.id" v-for="i in auth" :key="i.id" v-show="$check_action(i.path)">
@@ -80,6 +87,7 @@
       
 
     
+
               <el-submenu index="notic"
                     v-show="$check_group(['/notice/table'])">
           <template slot="title"><i class="el-icon-warning-outline"></i><span ref="customTemplate2">通知公告管理</span>
@@ -139,7 +147,9 @@
       
 
 
+
       
+
 	  
     
 
@@ -217,13 +227,17 @@
                                                                                                                                                                                                                       site_list.push("inbound_record")
                                                                       site_list.push("outbound_record")
                                                                                                                                                         let list = ["exam", 'evaluation', "article", "article_type", "comment", "goods", "order", "logistics_delivery", "forum", "forum_type", "notice"];
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        list.push("online_mall");
-                                                                                  list.push("owner_user");
-                                        list.push("business_user");
-                                        list.push("financial_user");
-                                        list.push("manager_user");
-                                        list.push("sales_manager");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        for (var i = 0; i < tables.length; i++) {
+        list.push("online_mall");
+        list.push("owner_user");
+        list.push("business_user");
+        list.push("financial_user");
+        list.push("manager_user");
+        list.push("sales_manager");
+        list.push("store_admin");
+        list.push("info_user");
+        list.push("business_consultant");
+        list.push("store");
+                                                                                                                                                                                                                                                                                                                                                              for (var i = 0; i < tables.length; i++) {
           var o = tables[i];
           if (o.path.indexOf("/table") !== -1) {
             if (list.indexOf(o.table_name) === -1) {
